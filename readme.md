@@ -1,12 +1,6 @@
-# JS All The Things
+# Ωmen Cross
 
-* Serve static content via [FeathersJS](http://docs.feathersjs.com/)
-* Database of static JSON files via [NeDB](https://github.com/louischatriot/nedb)
-* Frontend package management via [JSPM](http://jspm.io/)
-* Frontend module loading via [SystemJS](https://github.com/systemjs/systemjs)
-* Realtime event system via [SocketIO](http://socket.io/)
-* Task runner, Sass compiler via [Gulp](http://gulpjs.com/)
-* Desktop application wrapper via [Electron](http://electron.atom.io/)
+A hardware audio router (requires dedicated hardware).
 
 ## Installation
 
@@ -39,12 +33,12 @@ This will execute the server and launch an Electron desktop app.
 An icon will appear in your OS tray, with a couple menu options.
 
 ```
-$> electron .
+npm run desktop
 ```
 
 ## Database
 
-Database files are saved to the local filesystem ```./database/items.db```
+Database files are saved to the local filesystem ```./database```
 
 ## Gulp Tasks
 

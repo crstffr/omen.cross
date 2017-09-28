@@ -9,6 +9,7 @@
   "scripts": {
     "postinstall": "jspm install",
     "server": "node ./server/index.js",
+    "desktop": "electron ./desktop/main.js",
     "public": "gulp server"
   },
   "main": "server/index.js",

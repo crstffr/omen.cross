@@ -20,12 +20,14 @@ app.on('ready', function () {
 
     appIcon = new Tray(icon);
 
-    appIcon.setToolTip('JS App!');
+    appIcon.setToolTip('ΩMEN CROSS');
 
     appIcon.setContextMenu(Menu.buildFromTemplate([
         {label: 'Show', click: _show},
         {label: 'Exit', click: app.quit}
     ]));
+
+    _show();
 });
 
 function _show() {
@@ -45,7 +47,7 @@ function _show() {
         icon: icon
     });
 
-    mainWindow.toggleDevTools();
+    // mainWindow.toggleDevTools();
     // mainWindow.setMenu(null);
 
     mainWindow.loadURL('http://' + settings.server.ip + ':' + settings.server.port);

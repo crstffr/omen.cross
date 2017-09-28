@@ -15,8 +15,9 @@ html body {
     padding-top: 0;
   }
 
+  .admin-panel,
   .hero.is-fullheight {
-    min-height: 101vh;
+    min-height: calc(101vh - 5.5rem);
   }
 
   table {
@@ -90,7 +91,6 @@ html body {
 }
 .admin-panel {
   padding-bottom: 0;
-  min-height: 101vh;
 }
 .content {
   display: block;
