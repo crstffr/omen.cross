@@ -1,10 +1,10 @@
 
 import template from './index.route.html!text';
-import {IndexRouteCtrl} from './index.route.ctrl';
+import controller from './index.route.ctrl';
 
-export let IndexRoute = {
-    url: '',
-    name: 'index',
+export default {
+    $url: '',
+    $name: 'index',
     template: template,
-    controller: IndexRouteCtrl
+    controller: controller
 };

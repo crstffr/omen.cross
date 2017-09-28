@@ -13,19 +13,19 @@
             <div>
                 <div class="main">
                     <div class="title">ΩMEN CROSS</div>
-                    <a class="item" ui-sref="patch" ui-sref-active="active">
+                    <a class="item" ui-sref="patch" ui-sref-active="is-active">
                         <span class="icon"><i class="fa fa-sitemap"></i></span>
                         <span class="name">Patch</span>
                     </a>
-                    <a class="item" ui-sref="setup" ui-sref-active="active">
+                    <a class="item" ui-sref="setup" ui-sref-active="is-active">
                         <span class="icon"><i class="fa fa-cog"></i></span>
                         <span class="name">Setup</span>
                     </a>
-                    <a class="item" ui-sref="library" ui-sref-active="active">
+                    <a class="item" ui-sref="library" ui-sref-active="is-active">
                         <span class="icon"><i class="fa fa-book"></i></span>
                         <span class="name">Library</span>
                     </a>
-                    <a class="item" ui-sref="control" ui-sref-active="active">
+                    <a class="item" ui-sref="control" ui-sref-active="is-active">
                         <span class="icon"><i class="fa fa-bug"></i></span>
                         <span class="name">Control</span>
                     </a>
@@ -33,6 +33,9 @@
             </div>
         </aside>
         <div class="column is-10 admin-panel">
+
+            <div class="admin-panel is-fullheight">
+
             <nav class="nav has-shadow is-hidden-tablet" id="top">
                 <div class="container">
                     <div class="nav-left">
@@ -46,25 +49,29 @@
                         <span></span>
                     </span>
                     <div class="nav-right nav-menu is-hidden-tablet">
-                        <a class="nav-item is-active">
-                            Dashboard
+                        <a class="nav-item" ui-sref="patch" ui-sref-active="is-active" ng-click="">
+                            <span class="icon"><i class="fa fa-sitemap"></i></span>
+                            <span class="name">Patch</span>
                         </a>
-                        <a class="nav-item">
-                            Activity
+                        <a class="nav-item" ui-sref="setup" ui-sref-active="is-active">
+                            <span class="icon"><i class="fa fa-cog"></i></span>
+                            <span class="name">Setup</span>
                         </a>
-                        <a class="nav-item">
-                            Timeline
+                        <a class="nav-item" ui-sref="library" ui-sref-active="is-active">
+                            <span class="icon"><i class="fa fa-book"></i></span>
+                            <span class="name">Library</span>
                         </a>
-                        <a class="nav-item">
-                            Folders
+                        <a class="nav-item" ui-sref="control" ui-sref-active="is-active">
+                            <span class="icon"><i class="fa fa-bug"></i></span>
+                            <span class="name">Control</span>
                         </a>
                     </div>
                 </div>
             </nav>
 
-                <div class="section">
-                    <ui-view class="content"></ui-view>
-                </div>
+            <div class="section">
+                <ui-view class="content"></ui-view>
+            </div>
 
 
                 <!--
@@ -94,17 +101,22 @@
                 </div>
                 -->
 
-        </div>
-    </div>
-    <footer class="footer footer-shorter">
-        <div class="container">
-            <div class="has-text-centered">
-                <p>
-                    <strong>Ωmen Cross</strong> is an experiment by
-                    <a href="http://crstffr.com">crstffr</a>, 2017.
-                </p>
             </div>
+
+            <footer class="footer footer-shorter">
+                <div class="has-text-centered">
+                    <p class="is-size-7">
+                        <strong>Ωmen Cross</strong> is an experiment by
+                        <a href="http://crstffr.com" target="_blank">crstffr</a>, 2017.
+                    </p>
+                </div>
+            </footer>
+
         </div>
-    </footer>
+
+
+
+    </div>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
 
-export class PatchRouteCtrl {
+export default class {
 
 }

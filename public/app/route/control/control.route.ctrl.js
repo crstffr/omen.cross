@@ -1,4 +1,4 @@
 
-export class ControlRouteCtrl {
+export default class {
 
 }

@@ -1,4 +1,4 @@
 
-System.import('app/app.module').then(function (app) {
-    angular.bootstrap(document, [app.name]);
+System.import('app/app.module').then(function () {
+    angular.bootstrap(document, ['app']);
 });

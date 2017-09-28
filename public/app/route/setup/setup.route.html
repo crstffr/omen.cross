@@ -1,300 +1,291 @@
-<div class="field is-grouped">
-    <div class="control is-expanded">
-        <h2>Setup</h2>
-    </div>
-    <div class="control align-with-h2">
-        <button class="button is-small is-outlined is-primary">Add a Group</button>
-    </div>
-</div>
-
-<article class="message is-warning">
-    <div class="message-header">
-        Notice
-    </div>
-    <div class="message-body">
-        You do not have any groups setup yet.  You will need to add at least one group to continue.
-    </div>
-</article>
-
-<section class="box">
-    <h3>Add a Group</h3>
-    <p class="help">Groups are used for organizing your devices.</p>
-    <hr>
-    <label class="label">Group Name</label>
+<div ng-if="!$ctrl.addingGroup">
     <div class="field is-grouped">
         <div class="control is-expanded">
-            <input class="input" type="text" placeholder="e.g Instruments">
+            <h1>Device Setup</h1>
         </div>
-        <div class="control">
-            <button class="button is-primary">Save</button>
+        <div class="control align-with-h2">
+            <button class="button is-small is-outlined is-primary" ng-click="$ctrl.addGroupFormShow()">Add a Device Group</button>
         </div>
     </div>
-</section>
-
-<section class="box">
-    <h3>Add a Device</h3>
-    <p class="help">Devices have inputs and/or outputs and are patched together to make noise.</p>
     <hr>
-    <label class="label">Device Name</label>
-    <div class="field is-grouped">
-        <div class="control is-expanded">
-            <input class="input" type="text" placeholder="e.g Roland TR-808">
+</div>
+
+<div ng-if="$ctrl.ready">
+
+    <article class="message is-warning" ng-if="!$ctrl.groups.length">
+        <div class="message-header">
+            Notice
         </div>
-        <div class="control">
-            <div class="select">
-                <select>
-                    <option selected>No Input</option>
-                    <option>Input 1</option>
-                    <option>Input 2</option>
-                </select>
+        <div class="message-body">
+            You do not have any groups setup yet.  You will need to add at least one group to continue.
+        </div>
+    </article>
+
+    <section ng-if="$ctrl.addingGroup">
+        <h1>Add a Device Group</h1>
+        <p class="help">Device groups are used for organizing your devices while patching.</p>
+        <hr>
+        <form ng-submit="$ctrl.addGroupFormSubmit()">
+            <label class="label">Group Name</label>
+            <div class="field is-grouped">
+                <div class="control is-expanded">
+                    <input class="input" type="text" placeholder="e.g Instruments" ng-model="$ctrl.groupName" required>
+                </div>
+                <div class="control">
+                    <button class="button is-primary">Save</button>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button" ng-click="$ctrl.addGroupFormCancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="box" ng-if="false">
+        <h3>Add a Device</h3>
+        <p class="help">Devices have inputs and/or outputs and are patched together to make noise.</p>
+        <hr>
+        <label class="label">Device Name</label>
+        <div class="field is-grouped">
+            <div class="control is-expanded">
+                <input class="input" type="text" placeholder="e.g Roland TR-808">
+            </div>
+            <div class="control">
+                <div class="select">
+                    <select>
+                        <option selected>No Input</option>
+                        <option>Input 1</option>
+                        <option>Input 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <div class="select">
+                    <select>
+                        <option selected>No Output</option>
+                        <option>Output 1</option>
+                        <option>Output 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <button class="button is-primary">Save</button>
+            </div>
+            <div class="control">
+                <button class="button">Cancel</button>
             </div>
         </div>
-        <div class="control">
-            <div class="select">
-                <select>
-                    <option selected>No Output</option>
-                    <option>Output 1</option>
-                    <option>Output 2</option>
-                </select>
+    </section>
+
+    <div class="device-groups" ng-if="!$ctrl.addingGroup">
+        <div class="device-group">
+            <h2>Instruments</h2>
+            <div class="card">
+                <div class="card-content is-paddingless">
+                    <table class="table is-striped is-fullwidth has-text-centered is-marginless">
+                        <tbody>
+                            <tr>
+                                <td class="has-text-left">microbrute</td>
+                                <td>Input 1</td>
+                                <td>No Output</td>
+                                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                            </tr>
+                            <tr>
+                                <td class="has-text-left">drumbrute</td>
+                                <td>Input 2</td>
+                                <td>No Output</td>
+                                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                            </tr>
+                            <tr>
+                                <td class="has-text-left">ju-06</td>
+                                <td>Input 3</td>
+                                <td>No Output</td>
+                                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                            </tr>
+                            <tr>
+                                <td class="has-text-left">micromonsta</td>
+                                <td>Input 4</td>
+                                <td>No Output</td>
+                                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                            </tr>
+                            <tr>
+                                <td class="has-text-left">tomcat</td>
+                                <td>Input 5</td>
+                                <td>No Output</td>
+                                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                            </tr>
+                            <tr>
+                                <td class="has-text-left">microphone</td>
+                                <td>Input 6</td>
+                                <td>No Output</td>
+                                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item">Add a Device to Instruments</a>
+                </footer>
             </div>
         </div>
-        <div class="control">
-            <button class="button is-primary">Save</button>
+
+        <div class="device-group">
+            <h2>Effects</h2>
+            <table class="table is-striped is-fullwidth has-text-centered">
+                <thead>
+                    <tr>
+                        <th class="has-text-left">Name</th>
+                        <th>Input</th>
+                        <th>Output</th>
+                        <th>Modify</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="has-text-left">hall of fame reverb</td>
+                        <td>7</td>
+                        <td>7</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">flashback delay</td>
+                        <td>8</td>
+                        <td>8</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">compressor</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">bitcrusher 1</td>
+                        <td>10</td>
+                        <td>10</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">bitcrusher 2</td>
+                        <td>11</td>
+                        <td>11</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">scooper 1</td>
+                        <td>12</td>
+                        <td>12</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">scooper 2</td>
+                        <td>13</td>
+                        <td>13</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">yellow fall</td>
+                        <td>14</td>
+                        <td>14</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">vt-3</td>
+                        <td>15</td>
+                        <td>15</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                    <tr>
+                        <td class="has-text-left">bass eq</td>
+                        <td>16</td>
+                        <td>16</td>
+                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="button is-outlined is-fullwidth is-squished">
+                <span>Add a Device to Effects</span>
+            </a>
         </div>
+
+        <div class="device-group">
+            <h2>Mixer</h2>
+            <table class="table is-striped is-fullwidth has-text-centered">
+                <thead>
+                <tr>
+                    <th class="has-text-left">Name</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>Modify</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="has-text-left">channel 1</td>
+                    <td>-</td>
+                    <td>1</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                <tr>
+                    <td class="has-text-left">channel 2</td>
+                    <td>-</td>
+                    <td>2</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                <tr>
+                    <td class="has-text-left">channel 3</td>
+                    <td>-</td>
+                    <td>3</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                <tr>
+                    <td class="has-text-left">channel 4</td>
+                    <td>-</td>
+                    <td>4</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                <tr>
+                    <td class="has-text-left">channel 7/8</td>
+                    <td>-</td>
+                    <td>5</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                <tr>
+                    <td class="has-text-left">channel 11/12</td>
+                    <td>-</td>
+                    <td>6</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="button is-outlined is-fullwidth is-squished">
+                <span>Add a Device to Mixer</span>
+            </a>
+        </div>
+
     </div>
-</section>
-
-<div>
-    <h2>Instruments</h2>
-    <table class="table is-striped is-fullwidth has-text-centered">
-        <thead>
-            <tr>
-                <th class="has-text-left">Name</th>
-                <th>Input</th>
-                <th>Output</th>
-                <th>Modify</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="has-text-left">microbrute</td>
-                <td>1</td>
-                <td>-</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">drumbrute</td>
-                <td>2</td>
-                <td>-</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">ju-06</td>
-                <td>3</td>
-                <td>-</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">micromonsta</td>
-                <td>4</td>
-                <td>-</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">tomcat</td>
-                <td>5</td>
-                <td>-</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">microphone</td>
-                <td>6</td>
-                <td>-</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr class="no-hover">
-                <td colspan="5">
-                    <a class="button is-outlined is-fullwidth">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span>Add a Device to Instruments</span>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div>
-    <h2>Effects</h2>
-    <table class="table is-striped is-fullwidth has-text-centered">
-        <thead>
-            <tr>
-                <th class="has-text-left">Name</th>
-                <th>Input</th>
-                <th>Output</th>
-                <th>Modify</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="has-text-left">hall of fame reverb</td>
-                <td>7</td>
-                <td>7</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">flashback delay</td>
-                <td>8</td>
-                <td>8</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">compressor</td>
-                <td>9</td>
-                <td>9</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">bitcrusher 1</td>
-                <td>10</td>
-                <td>10</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">bitcrusher 2</td>
-                <td>11</td>
-                <td>11</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">scooper 1</td>
-                <td>12</td>
-                <td>12</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">scooper 2</td>
-                <td>13</td>
-                <td>13</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">yellow fall</td>
-                <td>14</td>
-                <td>14</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">vt-3</td>
-                <td>15</td>
-                <td>15</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr>
-                <td class="has-text-left">bass eq</td>
-                <td>16</td>
-                <td>16</td>
-                <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-            </tr>
-            <tr class="no-hover">
-                <td colspan="5">
-                    <a class="button is-outlined is-fullwidth">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span>Add a Device to Effects</span>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div>
-    <h2>Mixer</h2>
-    <table class="table is-striped is-fullwidth has-text-centered">
-        <thead>
-        <tr>
-            <th class="has-text-left">Name</th>
-            <th>Input</th>
-            <th>Output</th>
-            <th>Modify</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="has-text-left">channel 1</td>
-            <td>-</td>
-            <td>1</td>
-            <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-            <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-        </tr>
-        <tr>
-            <td class="has-text-left">channel 2</td>
-            <td>-</td>
-            <td>2</td>
-            <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-            <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-        </tr>
-        <tr>
-            <td class="has-text-left">channel 3</td>
-            <td>-</td>
-            <td>3</td>
-            <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-            <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-        </tr>
-        <tr>
-            <td class="has-text-left">channel 4</td>
-            <td>-</td>
-            <td>4</td>
-            <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-            <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-        </tr>
-        <tr>
-            <td class="has-text-left">channel 7/8</td>
-            <td>-</td>
-            <td>5</td>
-            <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-            <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-        </tr>
-        <tr>
-            <td class="has-text-left">channel 11/12</td>
-            <td>-</td>
-            <td>6</td>
-            <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-            <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
-        </tr>
-        <tr class="no-hover">
-            <td colspan="5">
-                <a class="button is-outlined is-fullwidth">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                    <span>Add a Device to Mixer</span>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>

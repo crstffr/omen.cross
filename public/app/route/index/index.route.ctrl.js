@@ -1,4 +1,4 @@
 
-export class IndexRouteCtrl {
+export default class {
 
 }

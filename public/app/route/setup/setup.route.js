@@ -1,10 +1,9 @@
-
 import template from './setup.route.html!text';
-import {SetupRouteCtrl} from './setup.route.ctrl';
+import controller from './setup.route.ctrl';
 
-export let SetupRoute = {
-    url: '/setup',
-    name: 'setup',
+export default {
+    $url: '/setup',
+    $name: 'setup',
     template: template,
-    controller: SetupRouteCtrl
+    controller: controller
 };

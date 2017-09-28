@@ -9,10 +9,11 @@ System.config({
   },
   paths: {
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*"
+    "npm:*": "jspm_packages/npm/*",
   },
 
   map: {
+
     "angular": "npm:angular@1.6.6",
     "angular-ui-router": "npm:angular-ui-router@1.0.3",
     "babel": "npm:babel-core@5.8.38",

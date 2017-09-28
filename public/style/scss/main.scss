@@ -7,17 +7,48 @@ body {
 
 html body {
 
+  .nav {
+    .nav-menu {
+      .nav-item {
+        .name {
+          margin-left: .5rem;
+        }
+      }
+    }
+  }
+
   > .columns.no-bottom-margin {
     margin-bottom: 0;
+
+  }
+
+  .aside {
+    background-color: #233040;
+  }
+
+  .device-group {
+    margin-top: 3rem;
+
+    .is-squished {
+      width: 90%;
+      margin-left: 5%;
+    }
   }
 
   .section > .content {
     padding-top: 0;
   }
 
-  .admin-panel,
   .hero.is-fullheight {
-    min-height: calc(101vh - 5.5rem);
+    min-height: calc(100vh + 12px);
+  }
+
+  .admin-panel .is-fullheight {
+    min-height: calc(100vh + 6px - 5.5rem);
+  }
+
+  .admin-panel {
+    padding-bottom: 0;
   }
 
   table {
@@ -78,7 +109,7 @@ html body {
   color: #6F7B7E;
   white-space: nowrap;
 }
-.aside .main .item.active {
+.aside .main .item.is-active {
   color: #F6F7F7;
 }
 .aside .main .icon {
@@ -88,9 +119,6 @@ html body {
 .aside .main .name {
   font-size: 16px;
   font-weight: bold;
-}
-.admin-panel {
-  padding-bottom: 0;
 }
 .content {
   display: block;

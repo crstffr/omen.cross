@@ -1,10 +1,10 @@
 
 import template from './control.route.html!text';
-import {ControlRouteCtrl} from './control.route.ctrl';
+import controller from './control.route.ctrl';
 
-export let ControlRoute = {
-    url: '/control',
-    name: 'control',
+export default {
+    $url: '/control',
+    $name: 'control',
     template: template,
-    controller: ControlRouteCtrl
+    controller: controller
 };

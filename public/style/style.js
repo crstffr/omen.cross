@@ -1,5 +1,4 @@
 import 'fontawesome/css/font-awesome.css!';
-import 'bulma/css/bulma.css!';
 import './css/vendor.min.css!';
 import './css/main.min.css!';
 

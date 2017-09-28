@@ -28,7 +28,7 @@ module.exports = {
             combine: true,
             items: [
                 'fontawesome/css/font-awesome.css!',
-                'bulma/css/bulma.css!'
+                'style/css/vendor.min.css!'
             ]
         },
         socket: {

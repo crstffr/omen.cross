@@ -1,4 +1,4 @@
 
-export class LibraryRouteCtrl {
+export default class {
 
 }

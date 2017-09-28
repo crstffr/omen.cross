@@ -1,10 +1,10 @@
 
 import template from './patch.route.html!text';
-import {PatchRouteCtrl} from './patch.route.ctrl';
+import controller from './patch.route.ctrl';
 
-export let PatchRoute = {
-    url: '/patch',
-    name: 'patch',
+export default {
+    $url: '/patch',
+    $name: 'patch',
     template: template,
-    controller: PatchRouteCtrl
+    controller: controller
 };
