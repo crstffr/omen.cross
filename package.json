@@ -1,0 +1,74 @@
+{
+  "name": "omen-cross",
+  "version": "0.1.0",
+  "description": "Omen Cross: Hardware Audio Router",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:crstffr/omen-cross.git"
+  },
+  "scripts": {
+    "postinstall": "jspm install",
+    "server": "node ./server/index.js",
+    "public": "gulp server"
+  },
+  "main": "server/index.js",
+  "author": "crstffr",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "compression": "1.7.1",
+    "cors": "2.8.4",
+    "feathers-client": "1.1.0",
+    "feathers-errors": "2.1.0",
+    "feathers-memory": "0.7.1",
+    "feathers-nedb": "2.2.3",
+    "ip": "1.1.5",
+    "nedb": "1.8.0",
+    "serve-favicon": "2.4.5",
+    "socket.io": "2.0.3"
+  },
+  "devDependencies": {
+    "browser-sync": "2.18.13",
+    "del": "3.0.0",
+    "gulp": "3.9.1",
+    "gulp-clean-css": "3.9.0",
+    "gulp-help": "1.6.1",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "2.3.2",
+    "gulp-sourcemaps": "2.6.1",
+    "jspm": "0.16.53",
+    "jspm-bundler": "0.1.11",
+    "minimist": "1.2.0",
+    "opn": "5.1.0",
+    "run-sequence": "2.2.0",
+    "sass-jspm-importer": "0.0.6"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "public"
+    },
+    "dependencies": {
+      "angular": "npm:angular@1.6.6",
+      "angular-ui-router": "npm:angular-ui-router@^1.0.3",
+      "bulma": "npm:bulma@^0.5.3",
+      "css": "github:systemjs/plugin-css@^0.1.36",
+      "fontawesome": "github:FortAwesome/Font-Awesome@^4.7.0",
+      "lodash": "npm:lodash@4.11.1",
+      "socketio": "github:socketio/socket.io-client@1.4.5",
+      "socketio-wildcard": "npm:socketio-wildcard@0.3.0",
+      "text": "github:systemjs/plugin-text@^0.0.11"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@5.8.24",
+      "babel-runtime": "npm:babel-runtime@5.8.24",
+      "core-js": "npm:core-js@1.1.4"
+    },
+    "overrides": {
+      "github:socketio/socket.io-client@1.4.5": {
+        "format": "cjs",
+        "main": "socket.io.js",
+        "dependencies": {}
+      }
+    }
+  }
+}

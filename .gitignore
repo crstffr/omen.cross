@@ -1,0 +1,8 @@
+.idea
+database
+node_modules
+public/jspm_packages
+public/bundles.js
+public/app/**/*.min.css
+public/app/**/*.min.css.map
+public/bundles
