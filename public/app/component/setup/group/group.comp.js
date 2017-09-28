@@ -5,4 +5,8 @@ export default {
     $name: 'setupGroup',
     template: template,
     controller: GroupCtrl,
+    bindings: {
+        data: '<',
+        deleteGroup: '&'
+    }
 };

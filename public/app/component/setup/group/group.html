@@ -1,1 +1,55 @@
-This is the device group component
+<div class="device-group">
+    <div class="field is-grouped">
+        <div class="control align-with-h2">
+            <button class="button is-small is-static drag-handle"
+                    title="Reorder Group: {{$ctrl.data.name}}">
+                <span class="icon is-small">
+                    <i class="fa fa-bars"></i>
+                </span>
+            </button>
+        </div>
+        <div class="control is-expanded">
+            <h2>{{$ctrl.data.name}}</h2>
+        </div>
+        <div class="control align-with-h2">
+            <button class="button is-small is-outlined is-primary"
+                    title="Add Device to Group: {{$ctrl.data.name}}"
+                    ng-click="$ctrl.addDevice()">
+                <span class="icon is-small">
+                    <i class="fa fa-plus"></i>
+                </span>
+            </button>
+        </div>
+        <div class="control align-with-h2" ng-if="!$ctrl.data.devices.length">
+            <button class="button is-small is-outlined is-danger"
+                    title="Delete Group: {{$ctrl.data.name}}"
+                    ng-click="$ctrl.deleteGroup()">
+                <span class="icon is-small">
+                    <i class="fa fa-trash"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <article class="message is-warning" ng-if="!$ctrl.data.devices.length">
+        <div class="message-body has-text-centered">
+            There are no devices in this group.
+        </div>
+    </article>
+
+    <div class="card" ng-if="$ctrl.data.devices.length">
+        <div class="card-content is-paddingless">
+            <table class="table is-striped is-fullwidth has-text-centered is-marginless">
+                <tbody>
+                <tr ng-repeat="device in $ctrl.data.devices">
+                    <td class="has-text-left">{{device.name}}</td>
+                    <td>{{device.input || 'No Output'}}</td>
+                    <td>{{device.output || 'No Output'}}</td>
+                    <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
+                    <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
