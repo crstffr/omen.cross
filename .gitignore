@@ -1,5 +1,5 @@
 .idea
-database
+/database/
 node_modules
 public/jspm_packages
 public/bundles.js
