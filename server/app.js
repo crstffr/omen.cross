@@ -5,7 +5,6 @@ var rest = require('feathers-rest');
 var hooks = require('feathers-hooks');
 var favicon = require('serve-favicon');
 var compress = require('compression');
-var memory = require('feathers-memory');
 var bodyParser = require('body-parser');
 var socketio = require('feathers-socketio');
 var error = require('feathers-errors/handler');

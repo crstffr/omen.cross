@@ -10,11 +10,12 @@ export class DataHook {
 
         this.api.before(evt => {
             if (evt.method === 'create') {
-                evt.data._created = Date.now();
+                evt.data.created = Date.now();
             }
-            if (evt.method === 'update') {
-                evt.data._updated = Date.now();
+            if (evt.method === 'update' || evt.method === 'patch') {
+                evt.data.updated = Date.now();
             }
+            return evt;
         });
 
         this.api.after(evt => DataService.onEvent.trigger(evt));
@@ -28,9 +29,10 @@ export class DataHook {
 
     }
 
-    fetchAll() {
+    fetchAll(opts) {
         return new Promise(resolve => {
-            this.api.find({query: {$sort: {_created: 1}}}).then(result => resolve(result));
+            let query = Object.assign({}, opts, {$sort: {created: 1}});
+            this.api.find({query: query}).then(result => resolve(result));
         });
     }
 

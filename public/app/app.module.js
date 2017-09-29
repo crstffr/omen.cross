@@ -71,11 +71,11 @@ function AppController($timeout, SocketService, DataService) {
 
     // Force Angular to redraw when something happens it doesn't know about
 
-    SocketService.onAnything((what) => {
+    SocketService.onAnything(() => {
         $timeout(() => {});
     });
 
-    DataService.onEvent.register((what) => {
+    DataService.onEvent.register(() => {
         $timeout(() => {});
     });
 

@@ -4,7 +4,7 @@
             <h1>Device Setup</h1>
         </div>
         <div class="control align-with-h2">
-            <button class="button is-small is-outlined is-primary" ng-click="$ctrl.addGroupFormShow()">Add a Group</button>
+            <button class="button is-small is-outlined is-primary" ng-click="$ctrl.openForm()">Add a Group</button>
         </div>
     </div>
     <hr>
@@ -22,7 +22,7 @@
         <h1>Add a Group</h1>
         <p class="help">Groups are used for organizing your devices while patching.</p>
         <hr>
-        <form novalidate name="$ctrl.form" ng-submit="$ctrl.addGroupFormSubmit()">
+        <form novalidate name="$ctrl.form" ng-submit="$ctrl.submitForm()">
             <label class="label">Group Name</label>
             <div class="field is-grouped">
                 <div class="control is-expanded">
@@ -30,8 +30,7 @@
                            class="input" type="text"
                            placeholder="e.g Instruments"
                            ng-model="$ctrl.form.name"
-                           ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}"
-                           >
+                           ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
                 </div>
                 <div class="control">
                     <button class="button is-primary">Save</button>
@@ -39,7 +38,7 @@
                 <div class="control">
                     <button type="submit"
                             class="button"
-                            ng-click="$ctrl.addGroupFormDone()">Cancel</button>
+                            ng-click="$ctrl.closeForm()">Cancel</button>
                 </div>
             </div>
         </form>

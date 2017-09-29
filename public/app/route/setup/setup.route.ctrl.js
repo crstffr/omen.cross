@@ -20,30 +20,25 @@ export default class {
         });
     }
 
-    addGroupFormShow() {
+    openForm() {
         this.showForm = true;
         setTimeout(() => {
             RadioService.trigger('addGroup');
         }, 50);
     }
 
-    addGroupFormHide() {
+    closeForm() {
         this.showForm = false;
     }
 
-    addGroupFormDone() {
-        this.groupName = '';
-        this.addGroupFormHide();
-    }
-
-    addGroupFormSubmit() {
+    submitForm() {
         if (!this.form.$valid) { return; }
 
         Groups.api.create({
             devices: [],
             name: this.form.name
         }, () => {
-            this.addGroupFormDone();
+            this.closeForm();
         });
     }
 
