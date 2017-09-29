@@ -2,13 +2,14 @@ import angular from 'angular';
 import 'angular-ui-router';
 import '../style/style';
 
-import Routes from './app.routes';
-import Services from './app.services';
-import Components from './app.components';
+import {
+    Routes,
+    Services,
+    Components,
+    Directives
+} from './app.registry';
 
-let appDeps = ['ui.router'];
-
-export let app = angular.module('app', appDeps);
+export let app = angular.module('app', ['ui.router']);
 
 /**
  * Application Config Phase
@@ -51,6 +52,13 @@ Components.forEach(component => {
     app.component(component.$name, component);
 });
 
+/**
+ * Register the Directives
+ */
+Directives.forEach(directive => {
+    app.directive(directive.$name, directive);
+});
+
 
 /**
  * Application Controller
@@ -61,16 +69,15 @@ AppController.$inject = ['$timeout', 'SocketService', 'DataService'];
 
 function AppController($timeout, SocketService, DataService) {
 
-    // Force Angular redraw on any socket activity
+    // Force Angular to redraw when something happens it doesn't know about
+
     SocketService.onAnything((what) => {
-        console.log('socket event', what);
         $timeout(() => {});
     });
 
     DataService.onEvent.register((what) => {
-        console.log('data event', what);
         $timeout(() => {});
-    })
+    });
 
 }
 

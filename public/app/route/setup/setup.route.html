@@ -1,4 +1,4 @@
-<div ng-if="!$ctrl.addingGroup">
+<div ng-if="!$ctrl.showForm">
     <div class="field is-grouped">
         <div class="control is-expanded">
             <h1>Device Setup</h1>
@@ -12,69 +12,40 @@
 
 <div ng-if="$ctrl.ready">
 
-    <article class="message is-warning" ng-if="!$ctrl.addingGroup && !$ctrl.groups.length">
+    <article class="message is-warning" ng-if="!$ctrl.showForm && !$ctrl.groups.length">
         <div class="message-body has-text-centered">
             You do not have any groups setup yet.  You will need to add at least one group to continue.
         </div>
     </article>
 
-    <section ng-if="$ctrl.addingGroup">
-        <h1>Add a Device Group</h1>
-        <p class="help">Device groups are used for organizing your devices while patching.</p>
+    <section ng-if="$ctrl.showForm">
+        <h1>Add a Group</h1>
+        <p class="help">Groups are used for organizing your devices while patching.</p>
         <hr>
-        <form ng-submit="$ctrl.addGroupFormSubmit()">
+        <form novalidate name="$ctrl.form" ng-submit="$ctrl.addGroupFormSubmit()">
             <label class="label">Group Name</label>
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <input class="input" type="text" placeholder="e.g Instruments" ng-model="$ctrl.groupName" required>
+                    <input required focus-on="addGroup"
+                           class="input" type="text"
+                           placeholder="e.g Instruments"
+                           ng-model="$ctrl.form.name"
+                           ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}"
+                           >
                 </div>
                 <div class="control">
                     <button class="button is-primary">Save</button>
                 </div>
                 <div class="control">
-                    <button type="submit" class="button" ng-click="$ctrl.addGroupFormCancel()">Cancel</button>
+                    <button type="submit"
+                            class="button"
+                            ng-click="$ctrl.addGroupFormDone()">Cancel</button>
                 </div>
             </div>
         </form>
     </section>
 
-    <section class="box" ng-if="false">
-        <h3>Add a Device</h3>
-        <p class="help">Devices have inputs and/or outputs and are patched together to make noise.</p>
-        <hr>
-        <label class="label">Device Name</label>
-        <div class="field is-grouped">
-            <div class="control is-expanded">
-                <input class="input" type="text" placeholder="e.g Roland TR-808">
-            </div>
-            <div class="control">
-                <div class="select">
-                    <select>
-                        <option selected>No Input</option>
-                        <option>Input 1</option>
-                        <option>Input 2</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control">
-                <div class="select">
-                    <select>
-                        <option selected>No Output</option>
-                        <option>Output 1</option>
-                        <option>Output 2</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control">
-                <button class="button is-primary">Save</button>
-            </div>
-            <div class="control">
-                <button class="button">Cancel</button>
-            </div>
-        </div>
-    </section>
-
-    <div ng-if="!$ctrl.addingGroup">
+    <div ng-if="!$ctrl.showForm">
         <setup-group ng-repeat="(key, group) in $ctrl.groups"
                      delete-group="$ctrl.deleteGroup(group)"
                      data="group"></setup-group>

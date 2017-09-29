@@ -1,13 +1,13 @@
-import {Groups} from '../../data/groups';
+import {RadioService} from '../../service/radio.service';
+import {Groups} from '../../database/groups';
 
 export default class {
 
     constructor () {
 
         this.groups = [];
-        this.groupName = '';
-        this.addingGroup = false;
         this.ready = false;
+        this.showForm = false;
 
         Groups.api.on('created', () => this.fetchGroups());
         Groups.api.on('removed', () => this.fetchGroups());
@@ -15,31 +15,35 @@ export default class {
     }
 
     fetchGroups() {
-        console.log('fetching groups');
         return Groups.fetchAll().then(groups => {
             this.groups = groups;
         });
     }
 
     addGroupFormShow() {
-        this.addingGroup = true;
+        this.showForm = true;
+        setTimeout(() => {
+            RadioService.trigger('addGroup');
+        }, 50);
     }
 
     addGroupFormHide() {
-        this.addingGroup = false;
+        this.showForm = false;
     }
 
-    addGroupFormCancel() {
+    addGroupFormDone() {
         this.groupName = '';
         this.addGroupFormHide();
     }
 
     addGroupFormSubmit() {
+        if (!this.form.$valid) { return; }
+
         Groups.api.create({
             devices: [],
-            name: this.groupName
+            name: this.form.name
         }, () => {
-            this.addGroupFormCancel();
+            this.addGroupFormDone();
         });
     }
 
