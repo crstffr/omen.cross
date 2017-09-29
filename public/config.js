@@ -2,18 +2,19 @@ System.config({
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
+    "stage": 0,
     "optional": [
       "runtime",
-      "optimisation.modules.system"
+      "optimisation.modules.system",
+      "es7.decorators"
     ]
   },
   paths: {
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*",
+    "npm:*": "jspm_packages/npm/*"
   },
 
   map: {
-
     "angular": "npm:angular@1.6.6",
     "angular-ui-router": "npm:angular-ui-router@1.0.3",
     "babel": "npm:babel-core@5.8.38",
@@ -21,6 +22,7 @@ System.config({
     "bulma": "npm:bulma@0.5.3",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.36",
+    "draggable": "github:Shopify/draggable@1.0.0-beta",
     "fontawesome": "github:FortAwesome/Font-Awesome@4.7.0",
     "lodash": "npm:lodash@4.11.1",
     "socketio": "github:socketio/socket.io-client@1.4.5",

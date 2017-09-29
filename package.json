@@ -49,14 +49,15 @@
     },
     "dependencies": {
       "angular": "npm:angular@1.6.6",
-      "angular-ui-router": "npm:angular-ui-router@^1.0.3",
-      "bulma": "npm:bulma@^0.5.3",
-      "css": "github:systemjs/plugin-css@^0.1.36",
-      "fontawesome": "github:FortAwesome/Font-Awesome@^4.7.0",
+      "angular-ui-router": "npm:angular-ui-router@1.0.3",
+      "bulma": "npm:bulma@0.5.3",
+      "css": "github:systemjs/plugin-css@0.1.36",
+      "draggable": "github:Shopify/draggable@^1.0.0-beta",
+      "fontawesome": "github:FortAwesome/Font-Awesome@4.7.0",
       "lodash": "npm:lodash@4.11.1",
       "socketio": "github:socketio/socket.io-client@1.4.5",
       "socketio-wildcard": "npm:socketio-wildcard@0.3.0",
-      "text": "github:systemjs/plugin-text@^0.0.11"
+      "text": "github:systemjs/plugin-text@0.0.11"
     },
     "devDependencies": {
       "babel": "npm:babel-core@5.8.24",
@@ -68,6 +69,9 @@
         "format": "cjs",
         "main": "socket.io.js",
         "dependencies": {}
+      },
+      "github:Shopify/draggable@1.0.0-beta": {
+        "main": "src/index.js"
       }
     }
   }

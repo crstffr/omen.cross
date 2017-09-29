@@ -1,12 +1,12 @@
 import io from 'socketio';
 import wildcard from 'socketio-wildcard';
-import {EventHandler} from '../lib/eventHandler';
+import {EventHandler} from '../object/eventHandler';
+import Register from '../registry';
 
 class SocketService {
 
     constructor () {
 
-        this.$name = 'SocketService';
         this.connected = false;
 
         this.socket = io('http://' + window.location.hostname + ':8660');
@@ -54,4 +54,6 @@ class SocketService {
 
 }
 
-export default new SocketService();
+let inst = new SocketService();
+Register.value('Socket', inst);
+export default inst;

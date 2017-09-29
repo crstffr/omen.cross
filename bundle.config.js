@@ -21,8 +21,12 @@ module.exports = {
             items: [
                 'lodash',
                 'angular',
-                'angular-ui-router',
+                'draggable'
             ]
+        },
+        modules: {
+            exclude: ['libs'],
+            items: ['angular-ui-router']
         },
         style: {
             combine: true,
@@ -40,9 +44,9 @@ module.exports = {
             ]
         },
         app: {
-            exclude: ['libs', 'style', 'socket'],
+            exclude: ['libs', 'modules', 'style', 'socket'],
             items: {
-                'app/app.module': 'app'
+                'app/module': 'app'
             }
         }
     }

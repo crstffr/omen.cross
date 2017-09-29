@@ -1,8 +1,8 @@
+import Register from '../registry';
 
-class Radio {
+class RadioService {
 
     constructor() {
-        this.$name = 'RadioService';
         this.callbacks = {};
     }
 
@@ -25,4 +25,6 @@ class Radio {
 
 }
 
-export let RadioService = new Radio();
+let inst = new RadioService();
+Register.value('Radio', inst);
+export default inst;

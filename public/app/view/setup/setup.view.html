@@ -4,7 +4,9 @@
             <h1>Device Setup</h1>
         </div>
         <div class="control align-with-h2">
-            <button class="button is-small is-outlined is-primary" ng-click="$ctrl.openForm()">Add a Group</button>
+            <button class="button is-small is-outlined is-primary"
+                    ng-click="$ctrl.openForm()"
+                    focus-on="add-group-btn">Add a Group</button>
         </div>
     </div>
     <hr>
@@ -27,7 +29,7 @@
             <label class="label">Group Name</label>
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <input required focus-on="addGroup"
+                    <input required focus-on="group-name"
                            class="input" type="text"
                            ng-model="$ctrl.form.name"
                            placeholder="e.g Instruments"
@@ -46,11 +48,11 @@
     </section>
 
     <div ng-if="!$ctrl.showForm">
-        <setup-group ng-repeat="(key, group) in $ctrl.groups"
+        <device-group ng-repeat="(key, group) in $ctrl.groups"
                      get-output-options="$ctrl.getOutputOptions()"
                      get-input-options="$ctrl.getInputOptions()"
                      delete-group="$ctrl.deleteGroup(group)"
                      register-io="$ctrl.registerIo()"
-                     data="group"></setup-group>
+                     data="group"></device-group>
     </div>
 </div>

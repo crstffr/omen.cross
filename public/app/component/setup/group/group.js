@@ -1,10 +1,10 @@
+import Register from '../../../registry';
 import template from './group.html!text';
-import {GroupCtrl} from './group.ctrl';
+import controller from './group.ctrl';
 
-export default {
-    $name: 'setupGroup',
+Register.component('deviceGroup', {
     template: template,
-    controller: GroupCtrl,
+    controller: controller,
     bindings: {
         data: '<',
         registerIo: '&',
@@ -12,4 +12,4 @@ export default {
         getInputOptions: '&',
         getOutputOptions: '&'
     }
-};
+});

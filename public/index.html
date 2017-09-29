@@ -7,7 +7,7 @@
     <style>[ng-cloak] { display: none; }</style>
     <script src="loader.js"></script>
 </head>
-<body ng-controller="AppController as ctrl" ng-cloak>
+<body ng-cloak>
     <div class="columns no-bottom-margin">
         <aside class="column is-2 aside hero is-fullheight is-hidden-mobile">
             <div>
@@ -36,70 +36,42 @@
 
             <div class="admin-panel is-fullheight">
 
-            <nav class="nav has-shadow is-hidden-tablet" id="top">
-                <div class="container">
-                    <div class="nav-left">
-                        <a class="nav-item" href="">
-                            Ωmen Cross
-                        </a>
+                <nav class="nav has-shadow is-hidden-tablet" id="top">
+                    <div class="container">
+                        <div class="nav-left">
+                            <a class="nav-item" href>
+                                Ωmen Cross
+                            </a>
+                        </div>
+                        <span class="nav-toggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        <div class="nav-right nav-menu is-hidden-tablet">
+                            <a class="nav-item" ui-sref="patch" ui-sref-active="is-active" ng-click="">
+                                <span class="icon"><i class="fa fa-sitemap"></i></span>
+                                <span class="name">Patch</span>
+                            </a>
+                            <a class="nav-item" ui-sref="setup" ui-sref-active="is-active">
+                                <span class="icon"><i class="fa fa-cog"></i></span>
+                                <span class="name">Setup</span>
+                            </a>
+                            <a class="nav-item" ui-sref="library" ui-sref-active="is-active">
+                                <span class="icon"><i class="fa fa-book"></i></span>
+                                <span class="name">Library</span>
+                            </a>
+                            <a class="nav-item" ui-sref="control" ui-sref-active="is-active">
+                                <span class="icon"><i class="fa fa-bug"></i></span>
+                                <span class="name">Control</span>
+                            </a>
+                        </div>
                     </div>
-                    <span class="nav-toggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                    <div class="nav-right nav-menu is-hidden-tablet">
-                        <a class="nav-item" ui-sref="patch" ui-sref-active="is-active" ng-click="">
-                            <span class="icon"><i class="fa fa-sitemap"></i></span>
-                            <span class="name">Patch</span>
-                        </a>
-                        <a class="nav-item" ui-sref="setup" ui-sref-active="is-active">
-                            <span class="icon"><i class="fa fa-cog"></i></span>
-                            <span class="name">Setup</span>
-                        </a>
-                        <a class="nav-item" ui-sref="library" ui-sref-active="is-active">
-                            <span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="name">Library</span>
-                        </a>
-                        <a class="nav-item" ui-sref="control" ui-sref-active="is-active">
-                            <span class="icon"><i class="fa fa-bug"></i></span>
-                            <span class="name">Control</span>
-                        </a>
-                    </div>
+                </nav>
+
+                <div class="section">
+                    <ui-view class="content"></ui-view>
                 </div>
-            </nav>
-
-            <div class="section">
-                <ui-view class="content"></ui-view>
-            </div>
-
-
-                <!--
-                <div class="columns is-mobile is-multiline">
-                    <div class="column is-one-third-desktop is-full-mobile">
-                        <section class="panel">
-                            <p class="panel-heading">
-                                Total Users
-                            </p>
-                            <p class="panel-tabs">
-                                <a class="is-active" href="#">All Time</a>
-                                <a href="#">Past week</a>
-                                <a href="#">Past month</a>
-                                <a href="#">Past quarter</a>
-                                <a href="#">Past Year</a>
-                            </p>
-                            <div class="panel-block">
-                                <div id="chart1" style="height: 250px;"></div>
-                            </div>
-                            <div class="panel-block">
-                                <button class="button is-default is-outlined is-fullwidth">
-                                    View Data
-                                </button>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-                -->
 
             </div>
 
@@ -113,8 +85,6 @@
             </footer>
 
         </div>
-
-
 
     </div>
 

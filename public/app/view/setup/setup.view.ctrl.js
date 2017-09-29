@@ -1,5 +1,5 @@
-import {RadioService} from '../../service/radio.service';
 import {Groups} from '../../database/groups';
+import Focus from '../../service/focus';
 
 export default class {
 
@@ -10,12 +10,17 @@ export default class {
         this.outputs = [];
         this.ready = false;
         this.showForm = false;
-        
+
         Groups.api.on('created', () => this.fetchGroups());
         Groups.api.on('removed', () => this.fetchGroups());
 
         this.fetchGroups().then(() => this.ready = true);
         this.resetIo();
+    }
+
+    resetIo() {
+        this.inputs = Array(16).fill(1);
+        this.outputs = Array(16).fill(1);
     }
 
     fetchGroups() {
@@ -26,13 +31,12 @@ export default class {
 
     openForm() {
         this.showForm = true;
-        setTimeout(() => {
-            RadioService.trigger('addGroup');
-        }, 50);
+        Focus('group-name');
     }
 
     closeForm() {
         this.showForm = false;
+        Focus('add-group-btn');
     }
 
     submitForm() {
@@ -47,11 +51,6 @@ export default class {
 
     deleteGroup(group) {
         Groups.api.remove(group._id);
-    }
-
-    resetIo() {
-        this.inputs = Array(16).fill(1);
-        this.outputs = Array(16).fill(1);
     }
 
     registerIo() {

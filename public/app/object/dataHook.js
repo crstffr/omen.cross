@@ -1,12 +1,12 @@
 
-import {DataService} from '../service/data.service';
-import {EventHandler} from '../lib/eventHandler';
+import Data from '../service/data';
+import {EventHandler} from './eventHandler';
 
 export class DataHook {
 
     constructor (name) {
 
-        this.api = DataService.service(name);
+        this.api = Data.service(name);
 
         this.api.before(evt => {
             if (evt.method === 'create') {
@@ -18,7 +18,7 @@ export class DataHook {
             return evt;
         });
 
-        this.api.after(evt => DataService.onEvent.trigger(evt));
+        this.api.after(evt => Data.onEvent.trigger(evt));
 
         let onAny = new EventHandler();
         this.api.on('created', msg => onAny.trigger(msg));

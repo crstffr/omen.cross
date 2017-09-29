@@ -1,6 +1,6 @@
-import {RadioService} from '../../../service/radio.service';
-import {Devices} from '../../../database/devices';
-import {Groups} from '../../../database/groups';
+import Focus from '../../../service/focus';
+import Groups from '../../../database/groups';
+import Devices from '../../../database/devices';
 
 export class GroupCtrl {
 
@@ -28,9 +28,7 @@ export class GroupCtrl {
     openForm() {
         this.showForm = true;
         this.inputOptions = this.getInputOptions();
-        setTimeout(() => {
-            RadioService.trigger('addDevice');
-        }, 10);
+        Focus('addDevice');
     }
 
     closeForm() {
@@ -59,3 +57,5 @@ export class GroupCtrl {
     }
 
 }
+
+export default GroupCtrl;
