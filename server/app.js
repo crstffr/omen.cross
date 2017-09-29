@@ -1,6 +1,5 @@
 var cors = require('cors');
 var feathers = require('feathers');
-var nedb = require('feathers-nedb');
 var rest = require('feathers-rest');
 var hooks = require('feathers-hooks');
 var favicon = require('serve-favicon');
