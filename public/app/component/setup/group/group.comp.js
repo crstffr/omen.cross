@@ -7,6 +7,9 @@ export default {
     controller: GroupCtrl,
     bindings: {
         data: '<',
-        deleteGroup: '&'
+        registerIo: '&',
+        deleteGroup: '&',
+        getInputOptions: '&',
+        getOutputOptions: '&'
     }
 };

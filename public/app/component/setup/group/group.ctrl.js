@@ -20,12 +20,14 @@ export class GroupCtrl {
     
     fetchDevices() {
         return Devices.fetchAll({group: this.data._id}).then((devices) => {
-            this.devices = devices;
+            this.data.devices = this.devices = devices;
+            this.registerIo();
         });
     }
     
     openForm() {
         this.showForm = true;
+        this.inputOptions = this.getInputOptions();
         setTimeout(() => {
             RadioService.trigger('addDevice');
         }, 10);
@@ -40,10 +42,10 @@ export class GroupCtrl {
         if (!this.form.$valid) { return; }
 
         let device = {
+            group: this.data._id,
             name: this.form.name || '',
-            input: this.form.input || '',
-            output: this.form.output || '',
-            group: this.data._id
+            input: this.form.input ? this.form.input.value : '',
+            output: this.form.output ? this.form.output.value : ''
         };
 
         Devices.api.create(device, () => {

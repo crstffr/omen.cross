@@ -29,8 +29,8 @@
                 <div class="control is-expanded">
                     <input required focus-on="addGroup"
                            class="input" type="text"
-                           placeholder="e.g Instruments"
                            ng-model="$ctrl.form.name"
+                           placeholder="e.g Instruments"
                            ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
                 </div>
                 <div class="control">
@@ -47,7 +47,10 @@
 
     <div ng-if="!$ctrl.showForm">
         <setup-group ng-repeat="(key, group) in $ctrl.groups"
+                     get-output-options="$ctrl.getOutputOptions()"
+                     get-input-options="$ctrl.getInputOptions()"
                      delete-group="$ctrl.deleteGroup(group)"
+                     register-io="$ctrl.registerIo()"
                      data="group"></setup-group>
     </div>
 </div>
