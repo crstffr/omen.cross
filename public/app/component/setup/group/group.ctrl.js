@@ -7,14 +7,15 @@ export class GroupCtrl {
     constructor () {
 
         this.devices = [];
+        this.ready = false;
         this.showForm = false;
+
         Devices.api.on('created', () => this.fetchDevices());
         Devices.api.on('removed', () => this.fetchDevices());
 
         setTimeout(() => {
             this.fetchDevices().then(() => this.ready = true);
         }, 10);
-
     }
     
     fetchDevices() {
@@ -49,7 +50,10 @@ export class GroupCtrl {
             this.devices.push(device);
             this.closeForm();
         });
+    }
 
+    deleteDevice(device) {
+        Devices.api.remove(device._id);
     }
 
 }

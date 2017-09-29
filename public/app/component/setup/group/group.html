@@ -8,9 +8,6 @@
                 </span>
             </button>
         </div>
-        <div class="control is-expanded">
-            <h2>{{$ctrl.data.name}}</h2>
-        </div>
         <div class="control align-with-h2" ng-if="!$ctrl.showForm">
             <button class="button is-small is-outlined is-primary"
                     title="Add Device to Group: {{$ctrl.data.name}}"
@@ -19,6 +16,9 @@
                     <i class="fa fa-plus"></i>
                 </span>
             </button>
+        </div>
+        <div class="control is-expanded">
+            <h2>{{$ctrl.data.name}}</h2>
         </div>
         <div class="control align-with-h2" ng-if="!$ctrl.showForm && !$ctrl.devices.length">
             <button class="button is-small is-outlined is-danger"
@@ -31,11 +31,7 @@
         </div>
     </div>
 
-    <article class="message is-warning" ng-if="!$ctrl.showForm && !$ctrl.devices.length">
-        <div class="message-body has-text-centered">
-            There are no devices in this group.
-        </div>
-    </article>
+
 
     <section class="box" ng-if="$ctrl.showForm">
         <h3>Add Device to: {{$ctrl.data.name}}</h3>
@@ -79,16 +75,32 @@
         </form>
     </section>
 
+    <article class="message is-warning" ng-if="$ctrl.ready && !$ctrl.showForm && !$ctrl.devices.length">
+        <div class="message-body has-text-centered">
+            There are no devices in this group.
+        </div>
+    </article>
+
     <div class="card" ng-if="$ctrl.devices.length">
         <div class="card-content is-paddingless">
             <table class="table is-striped is-fullwidth has-text-centered is-marginless">
                 <tbody>
                     <tr ng-repeat="device in $ctrl.devices">
-                        <td class="has-text-left">{{device.name}}</td>
-                        <td>{{device.input ? 'Input ' + device.input : 'No Output'}}</td>
-                        <td>{{device.output ? 'Output ' + device.output : 'No Output'}}</td>
+                        <td width="50%" class="has-text-left">{{device.name}}</td>
+                        <td width="20%">{{device.input ? 'Input ' + device.input : '-'}}</td>
+                        <td>{{device.output ? 'Output ' + device.output : '-'}}</td>
+                        <!--
                         <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                        <td><a href><span class="icon"><i class="fa fa-trash"></i></span></a></td>
+                        -->
+                        <td class="has-text-right">
+                            <button class="button is-small is-outlined is-danger"
+                                    title="Delete Device: {{device.name}}"
+                                    ng-click="$ctrl.deleteDevice(device)">
+                                    <span class="icon is-small">
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
