@@ -1,8 +1,7 @@
 
+import Register from './registry';
 import angular from 'angular';
 import 'angular-ui-router';
-
-import Register from './registry';
 
 import '../style/style';
 import './view/index/index.view';
@@ -15,6 +14,9 @@ import './service/render';
 import './service/data';
 import './service/radio';
 import './component/patchbay/patchbay';
+import './component/add-device-form/add-device-form';
+import './component/device-list/device-list';
+import './component/device-table/device-table';
 import './component/setup/group/group';
 import './directive/focus';
 

@@ -7,7 +7,7 @@ let DataService = feathers()
     .configure(feathers.hooks())
     .configure(feathers.socketio(SocketService.socket));
 
-DataService.onEvent = new EventHandler();
+DataService.onAnything = new EventHandler();
 Register.value('Data', DataService);
 
 export default DataService;

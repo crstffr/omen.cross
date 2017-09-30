@@ -1,0 +1,41 @@
+<section class="box">
+
+    <form novalidate name="$ctrl.form" ng-submit="$ctrl.submit()">
+        <label class="label" for="add-device-form-name">Device Name</label>
+        <div class="field is-grouped">
+            <div class="control is-expanded">
+                <input class="input" type="text" required
+                       id="add-device-form-name"
+                       focus-on="add-device-form-name"
+                       placeholder="e.g Roland TR-808"
+                       ng-model="$ctrl.form.name"
+                       ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
+            </div>
+            <div class="control">
+                <div class="select">
+                    <select ng-model="$ctrl.form.input"
+                            ng-options="item as item.label for item in $ctrl.getInputs() track by item.value">
+                        <option value="" selected>No Input</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <div class="select">
+                    <select ng-model="$ctrl.form.output"
+                            ng-options="item as item.label for item in $ctrl.getOutputs() track by item.value">
+                        <option value="" selected>No Output</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <button class="button is-primary">Save</button>
+            </div>
+            <div class="control">
+                <button class="button" ng-click="$ctrl.closeForm()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <p class="help">
+        The input and output options correspond to the jacks your device occupies on the Ωmen Cross.
+    </p>
+</section>

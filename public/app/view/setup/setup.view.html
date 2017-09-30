@@ -47,12 +47,9 @@
         </form>
     </section>
 
-    <div ng-if="!$ctrl.showForm">
+    <div ng-show="!$ctrl.showForm">
         <device-group ng-repeat="(key, group) in $ctrl.groups"
-                     get-output-options="$ctrl.getOutputOptions()"
-                     get-input-options="$ctrl.getInputOptions()"
                      delete-group="$ctrl.deleteGroup(group)"
-                     register-io="$ctrl.registerIo()"
-                     data="group"></device-group>
+                     group="group"></device-group>
     </div>
 </div>

@@ -1,9 +1,8 @@
 import Register from '../../registry';
-import template from './patchbay.html!text';
+import template from './device-list.html!text';
 
-Register.component('patchbay', {
+Register.component('deviceList', {
     template: template,
-    bindings: {},
     controller: class {
 
         constructor () {
@@ -12,3 +11,6 @@ Register.component('patchbay', {
 
     }
 });
+
+
+

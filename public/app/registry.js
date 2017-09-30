@@ -1,7 +1,19 @@
-
+/**
+ * Angular 1.x module registration is frustrating when working in a modern environment,
+ * where applications have a dependency graph made from numerous imports and exports.
+ * Everything needs to be registered with the top-level Angular 'app' module in order
+ * for it to be available.  But including the app module in your modules will create
+ * circular dependencies.  App -> Module -> App, and so on.
+ *
+ * This class allows services, directives, and components to register themselves with
+ * your top-level Angular 'app' module without circular issues.  Registration happens
+ * asynchronously, waiting until the application module is passed in and ready.
+ *
+ * @author crstffr 2017
+ */
 class Registry {
 
-    ngApp;
+    ng;
     ready;
     isReady;
 
@@ -16,27 +28,21 @@ class Registry {
     }
 
     app(app) {
-        this.ngApp = app;
+        this.ng = app;
         this.isReady();
         return app;
     }
 
-    load(name) {
-        return this.whenReady().then(() => {
-            this.ngApp.run([name, () => {}]);
-        });
-    }
-
     config(config, deps) {
         return this.whenReady().then(() => {
-            this.ngApp.config(config);
+            this.ng.config(config);
         });
     }
 
     view(name, view) {
         return this.whenReady().then(() => {
             let componentName = name + 'View';
-            this.ngApp.component(componentName, view);
+            this.ng.component(componentName, view);
             this.config(['$stateProvider', ($stateProvider) => {
                 $stateProvider.state({
                     name: name,
@@ -49,36 +55,36 @@ class Registry {
 
     value(name, value) {
         return this.whenReady().then(() => {
-            this.ngApp.value(name, value);
+            this.ng.value(name, value);
         });
     }
 
     service(name, service, inject) {
         return this.whenReady().then(() => {
             if (inject) { service.$inject = inject; }
-            this.ngApp.service(name, service);
-            this.ngApp.run([name, () => {}]);
+            this.ng.service(name, service);
+            this.ng.run([name, () => {}]);
         });
     }
 
     component(name, component, inject) {
         return this.whenReady().then(() => {
             if (inject) { component.$inject = inject; }
-            this.ngApp.component(name, component);
+            this.ng.component(name, component);
         });
     }
 
     controller(name, controller, inject) {
         return this.whenReady().then(() => {
             if (inject) { controller.$inject = inject; }
-            this.ngApp.controller(name, controller);
+            this.ng.controller(name, controller);
         });
     }
 
     directive(name, directive, inject) {
         return this.whenReady().then(() => {
             if (inject) { directive.$inject = inject; }
-            this.ngApp.directive(name, directive);
+            this.ng.directive(name, directive);
         });
     }
 

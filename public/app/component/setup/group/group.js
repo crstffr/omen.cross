@@ -6,10 +6,7 @@ Register.component('deviceGroup', {
     template: template,
     controller: controller,
     bindings: {
-        data: '<',
-        registerIo: '&',
-        deleteGroup: '&',
-        getInputOptions: '&',
-        getOutputOptions: '&'
+        group: '<',
+        deleteGroup: '&'
     }
 });

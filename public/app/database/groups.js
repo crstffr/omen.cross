@@ -1,3 +1,7 @@
 import {DataHook} from '../object/dataHook';
-export let Groups = new DataHook('groups');
+let Groups = new DataHook('groups');
 export default Groups;
+
+Groups.fetchAllWithDevices = () => {
+
+};

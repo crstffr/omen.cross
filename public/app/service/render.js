@@ -8,7 +8,7 @@ Register.service('Render', ($timeout, Socket, Data) => {
         $timeout(() => {});
     });
 
-    Data.onEvent.register(() => {
+    Data.onAnything.register(() => {
         $timeout(() => {});
     });
 

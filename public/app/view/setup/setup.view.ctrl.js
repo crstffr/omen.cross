@@ -1,4 +1,4 @@
-import {Groups} from '../../database/groups';
+import Groups from '../../database/groups';
 import Focus from '../../service/focus';
 
 export default class {
@@ -65,26 +65,6 @@ export default class {
                 }
             });
         });
-    }
-
-    getInputOptions() {
-        return this.inputs.map((val, key) => {
-            if (!val) { return false; }
-            return {
-                value: key + 1,
-                label: 'Input ' + (key + 1)
-            }
-        }).filter(Boolean);
-    }
-
-    getOutputOptions() {
-        return this.outputs.map((val, key) => {
-            if (!val) { return false; }
-            return {
-                value: key + 1,
-                label: 'Output ' + (key + 1)
-            }
-        }).filter(Boolean);
     }
 
 }

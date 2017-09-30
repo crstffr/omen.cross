@@ -1,0 +1,38 @@
+
+<article class="message is-warning" ng-if="$ctrl.ready && !$ctrl.group.devices.length">
+    <div class="message-body has-text-centered">
+        There are no devices in this group.
+    </div>
+</article>
+
+<div class="card" ng-if="$ctrl.group.devices.length">
+    <div class="card-content is-paddingless">
+        <table class="table is-striped is-fullwidth has-text-centered is-marginless">
+            <tbody>
+                <tr ng-repeat="device in $ctrl.group.devices">
+                    <td width="50%" class="has-text-left">{{device.name}}</td>
+                    <td width="20%">{{device.input ? 'Input ' + device.input : '-'}}</td>
+                    <td width="20%">{{device.output ? 'Output ' + device.output : '-'}}</td>
+                    <td class="has-text-right">
+
+                        <button class="button is-small is-outlined"
+                                title="Edit Device: {{device.name}}"
+                                ng-click="$ctrl.editDevice(device)">
+                                    <span class="icon is-small">
+                                        <i class="fa fa-pencil"></i>
+                                    </span>
+                        </button>
+
+                        <button class="button is-small is-outlined is-danger"
+                                title="Delete Device: {{device.name}}"
+                                ng-click="$ctrl.deleteDevice(device)">
+                                    <span class="icon is-small">
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,16 +1,17 @@
 <div class="device-group">
-    <div class="field is-grouped" ng-if="!$ctrl.showForm">
+
+    <div class="field is-grouped">
         <div class="control align-with-h2">
             <button class="button is-small is-static drag-handle"
-                    title="Reorder Group: {{$ctrl.data.name}}">
+                    title="Reorder Group: {{$ctrl.group.name}}">
                 <span class="icon is-small">
                     <i class="fa fa-bars"></i>
                 </span>
             </button>
         </div>
-        <div class="control align-with-h2" ng-if="!$ctrl.showForm">
+        <div class="control align-with-h2">
             <button class="button is-small is-outlined is-primary"
-                    title="Add Device to Group: {{$ctrl.data.name}}"
+                    title="Add Device to Group: {{$ctrl.group.name}}"
                     ng-click="$ctrl.openForm()">
                 <span class="icon is-small">
                     <i class="fa fa-plus"></i>
@@ -18,11 +19,11 @@
             </button>
         </div>
         <div class="control is-expanded">
-            <h2>{{$ctrl.data.name}}</h2>
+            <h2>{{$ctrl.group.name}}</h2>
         </div>
-        <div class="control align-with-h2" ng-if="!$ctrl.showForm && !$ctrl.devices.length">
+        <div class="control align-with-h2" ng-if="!$ctrl.showForm && !$ctrl.group.devices.length">
             <button class="button is-small is-outlined is-danger"
-                    title="Delete Group: {{$ctrl.data.name}}"
+                    title="Delete Group: {{$ctrl.group.name}}"
                     ng-click="$ctrl.deleteGroup()">
                 <span class="icon is-small">
                     <i class="fa fa-trash"></i>
@@ -31,77 +32,10 @@
         </div>
     </div>
 
+    <add-device-form ng-if="$ctrl.showForm"
+                     group="$ctrl.group"
+                     close-form="$ctrl.closeForm()"></add-device-form>
 
+    <device-table group="$ctrl.group"></device-table>
 
-    <section class="box" ng-if="$ctrl.showForm">
-        <h3>Add Device to: {{$ctrl.data.name}}</h3>
-        <p class="help">Enter the device's name and which input and/or output it occupies on the back of the Ωmen Cross.</p>
-        <hr>
-        <form novalidate name="$ctrl.form" ng-submit="$ctrl.submitForm()">
-            <label class="label">Device Name</label>
-            <div class="field is-grouped">
-                <div class="control is-expanded">
-                    <input class="input" type="text" required
-                           focus-on="addDevice"
-                           placeholder="e.g Roland TR-808"
-                           ng-model="$ctrl.form.name"
-                           ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
-                </div>
-                <div class="control">
-                    <div class="select">
-                        <select ng-model="$ctrl.form.input"
-                                ng-options="item as item.label for item in $ctrl.getInputOptions() track by item.value">
-                            <option value="" selected>No Input</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="control">
-                    <div class="select">
-                        <select ng-model="$ctrl.form.output"
-                                ng-options="item as item.label for item in $ctrl.getOutputOptions() track by item.value">
-                            <option value="" selected>No Output</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="control">
-                    <button class="button is-primary">Save</button>
-                </div>
-                <div class="control">
-                    <button class="button" ng-click="$ctrl.closeForm()">Cancel</button>
-                </div>
-            </div>
-        </form>
-    </section>
-
-    <article class="message is-warning" ng-if="$ctrl.ready && !$ctrl.showForm && !$ctrl.devices.length">
-        <div class="message-body has-text-centered">
-            There are no devices in this group.
-        </div>
-    </article>
-
-    <div class="card" ng-if="$ctrl.devices.length">
-        <div class="card-content is-paddingless">
-            <table class="table is-striped is-fullwidth has-text-centered is-marginless">
-                <tbody>
-                    <tr ng-repeat="device in $ctrl.devices">
-                        <td width="50%" class="has-text-left">{{device.name}}</td>
-                        <td width="20%">{{device.input ? 'Input ' + device.input : '-'}}</td>
-                        <td width="20%">{{device.output ? 'Output ' + device.output : '-'}}</td>
-                        <!--
-                        <td><a href><span class="icon"><i class="fa fa-pencil"></i></span></a></td>
-                        -->
-                        <td class="has-text-right">
-                            <button class="button is-small is-outlined is-danger"
-                                    title="Delete Device: {{device.name}}"
-                                    ng-click="$ctrl.deleteDevice(device)">
-                                    <span class="icon is-small">
-                                        <i class="fa fa-trash"></i>
-                                    </span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>

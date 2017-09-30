@@ -18,7 +18,7 @@ export class DataHook {
             return evt;
         });
 
-        this.api.after(evt => Data.onEvent.trigger(evt));
+        this.api.after(evt => Data.onAnything.trigger(evt));
 
         let onAny = new EventHandler();
         this.api.on('created', msg => onAny.trigger(msg));
