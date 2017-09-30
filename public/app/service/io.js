@@ -34,6 +34,12 @@ class IOService {
         this.outputs[o - 1] = 1;
     }
 
+    registerDevices(devices) {
+        devices.forEach(device => {
+            this.registerDevice(device);
+        });
+    }
+
     registerDevice(device) {
         this.useInput(device.input);
         this.useOutput(device.output);

@@ -1,3 +1,3 @@
-import {DataHook} from '../object/dataHook';
-let Groups = new DataHook('groups');
+import DataSet from '../object/dataSet';
+let Groups = new DataSet('groups');
 export default Groups;
