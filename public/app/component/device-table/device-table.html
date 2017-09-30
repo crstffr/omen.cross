@@ -1,15 +1,15 @@
 
-<article class="message is-warning" ng-if="$ctrl.ready && !$ctrl.group.devices.length">
+<article class="message is-warning" ng-if="$ctrl.ready && !$ctrl.devices.length">
     <div class="message-body has-text-centered">
         There are no devices in this group.
     </div>
 </article>
 
-<div class="card" ng-if="$ctrl.group.devices.length">
+<div class="card" ng-if="$ctrl.devices.length">
     <div class="card-content is-paddingless">
         <table class="table is-striped is-fullwidth has-text-centered is-marginless">
             <tbody>
-                <tr ng-repeat="device in $ctrl.group.devices">
+                <tr ng-repeat="device in $ctrl.devices">
                     <td width="50%" class="has-text-left">{{device.name}}</td>
                     <td width="20%">{{device.input ? 'Input ' + device.input : '-'}}</td>
                     <td width="20%">{{device.output ? 'Output ' + device.output : '-'}}</td>

@@ -1,15 +1,15 @@
 import Register from '../registry';
 
-Register.service('Render', ($timeout, Socket, Data) => {
+Register.service('Render', ($timeout, Socket, Database) => {
 
     // Force Angular to redraw when something happens it doesn't know about
 
-    Socket.onAnything(() => {
+    Socket.onEvent(() => {
         $timeout(() => {});
     });
 
-    Data.onAnything.register(() => {
+    Database.onChange.register(() => {
         $timeout(() => {});
     });
 
-}, ['$timeout', 'Socket', 'Data']);
+}, ['$timeout', 'Socket', 'Database']);

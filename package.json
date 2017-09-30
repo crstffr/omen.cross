@@ -55,6 +55,7 @@
       "draggable": "github:Shopify/draggable@^1.0.0-beta",
       "fontawesome": "github:FortAwesome/Font-Awesome@4.7.0",
       "lodash": "npm:lodash@4.11.1",
+      "oo": "npm:object-observable@^1.0.8",
       "socketio": "github:socketio/socket.io-client@1.4.5",
       "socketio-wildcard": "npm:socketio-wildcard@0.3.0",
       "text": "github:systemjs/plugin-text@0.0.11"

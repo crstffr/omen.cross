@@ -11,7 +11,7 @@ import './view/library/library.view';
 import './view/control/control.view';
 import './service/socket';
 import './service/render';
-import './service/data';
+import './service/database';
 import './service/radio';
 import './component/patchbay/patchbay';
 import './component/add-group-form/add-group-form';

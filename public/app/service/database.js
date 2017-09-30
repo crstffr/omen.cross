@@ -3,11 +3,11 @@ import feathers from '../../vendor/feathers';
 import SocketService from './socket';
 import {EventHandler} from '../object/eventHandler';
 
-let DataService = feathers()
+let Database = feathers()
     .configure(feathers.hooks())
     .configure(feathers.socketio(SocketService.socket));
 
-DataService.onAnything = new EventHandler();
-Register.value('Data', DataService);
+Database.onChange = new EventHandler();
+Register.value('Database', Database);
 
-export default DataService;
+export default Database;

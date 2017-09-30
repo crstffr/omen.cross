@@ -1,4 +1,5 @@
 
 export default function remove(arr, value) {
-    return arr.filter(item => item !== value);
+    let i = arr.indexOf(value);
+    if (i) { arr.splice(i, 1); }
 }

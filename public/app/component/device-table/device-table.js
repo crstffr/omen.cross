@@ -1,6 +1,6 @@
 import Register from '../../registry';
+import {DataHook} from '../../object/dataHook';
 import template from './device-table.html!text';
-import Devices from '../../database/devices';
 import IO from '../../service/io';
 
 Register.component('deviceTable', {
@@ -14,8 +14,8 @@ Register.component('deviceTable', {
         ready = false;
 
         constructor () {
-            Devices.api.on('created', () => this.fetch());
-            Devices.api.on('removed', () => this.fetch());
+            this.dataHook = new DataHook('devices');
+            this.devices = this.dataHook.data;
         }
 
         $onInit() {
@@ -23,7 +23,7 @@ Register.component('deviceTable', {
         }
 
         fetch() {
-            return Devices.fetchAll({group: this.group._id}).then((devices) => {
+            return this.dataHook.fetchAll({group: this.group._id}).then((devices) => {
                 devices.forEach(device => IO.registerDevice(device));
                 this.group.devices = devices;
             });
@@ -34,7 +34,7 @@ Register.component('deviceTable', {
         }
 
         deleteDevice(device) {
-            Devices.api.remove(device._id);
+            this.dataHook.api.remove(device._id);
             IO.deregisterDevice(device);
         }
 

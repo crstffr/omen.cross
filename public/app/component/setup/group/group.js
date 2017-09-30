@@ -1,5 +1,6 @@
 import Register from '../../../registry';
 import template from './group.html!text';
+import Focus from '../../../service/focus';
 
 Register.component('deviceGroup', {
     template: template,

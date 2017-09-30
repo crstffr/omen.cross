@@ -13,15 +13,8 @@ Register.view('setup', {
         showForm = false;
 
         constructor () {
-            Groups.api.on('created', () => this.fetchGroups());
-            Groups.api.on('removed', () => this.fetchGroups());
-            this.fetchGroups().then(() => this.ready = true);
-        }
-
-        fetchGroups() {
-            return Groups.fetchAll().then(groups => {
-                this.groups = groups;
-            });
+            this.groups = Groups.data;
+            Groups.fetchAll().then(() => this.ready = true);
         }
 
         openForm() {
