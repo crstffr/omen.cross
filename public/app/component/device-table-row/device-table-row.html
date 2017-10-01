@@ -1,4 +1,4 @@
-    <td width="50%" class="has-text-left">
+    <td width="40%" class="has-text-left">
         <form name="$ctrl.form" class="is-marginless">
 
             <input ng-if="$ctrl.showForm" ng-model="$ctrl.form.name"
@@ -48,9 +48,10 @@
                             <i class="fa fa-pencil"></i>
                         </span>
             </button>
-            <button class="button is-small is-outlined is-danger"
+            <button class="button is-small is-outlined"
                     title="Delete Device: {{$ctrl.device.name}}"
-                    ng-click="$ctrl.deleteDevice($ctrl.device)">
+                    focus-on="delete-device-btn:{{$ctrl.device._id}}"
+                    ng-click="$ctrl.openModal()">
                         <span class="icon is-small">
                             <i class="fa fa-trash"></i>
                         </span>
@@ -72,4 +73,15 @@
                         </span>
             </button>
         </span>
+
+        <modal ng-if="$ctrl.showModal"
+               cancel="$ctrl.closeModal()"
+               confirm="$ctrl.deleteDevice()">
+            <modal-title>Confirm Delete</modal-title>
+            <modal-body>
+                You are about to remove <strong>{{$ctrl.device.name}}</strong>.
+                Do you wish to continue?
+            </modal-body>
+        </modal>
+
     </td>

@@ -1,0 +1,27 @@
+<div class="modal is-active">
+    <div class="modal-background" ng-click="$ctrl.cancel()"></div>
+    <div class="modal-content">
+        <div class="notification">
+            <button class="delete" ng-click="$ctrl.cancel()"></button>
+            <div>
+                <h2 class="title is-4">
+                    <span ng-transclude="title"></span>
+                </h2>
+                <div class="body">
+                    <span ng-transclude="body"></span>
+                </div>
+                <div class="buttons has-text-right">
+                    <span class="control">
+                        <a href class="button is-primary"
+                           ng-click="$ctrl.confirm()"
+                           focus-on="modal-okay-btn">{{$ctrl.text.confirm}}</a>
+                    </span>
+                    <span class="control">
+                        <a href class="button"
+                           ng-click="$ctrl.cancel()">{{$ctrl.text.cancel}}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

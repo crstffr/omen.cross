@@ -13,6 +13,7 @@ import './service/socket';
 import './service/render';
 import './service/database';
 import './service/radio';
+import './component/modal/modal';
 import './component/patchbay/patchbay';
 import './component/add-group-form/add-group-form';
 import './component/add-device-form/add-device-form';

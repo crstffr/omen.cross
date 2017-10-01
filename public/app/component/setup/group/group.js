@@ -24,6 +24,7 @@ Register.component('deviceGroup', {
 
         closeForm() {
             this.showForm = false;
+            Focus('add-device-btn:' + this.group.name);
         }
 
     },

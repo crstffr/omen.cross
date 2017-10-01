@@ -1,22 +1,24 @@
 import IO from '../../service/io';
+import Focus from '../../service/focus';
 import Register from '../../registry';
 import DataSet from '../../object/dataSet';
 import template from './device-table-row.html!text';
 
 Register.directive('deviceTableRow', () => {
     return {
-        template: template,
-        controllerAs: '$ctrl',
         scope: {
             device: '=',
             dataSet: '=set'
         },
+        template: template,
+        controllerAs: '$ctrl',
         bindToController: true,
         controller: class {
 
             device = {};
             dataSet = {};
             showForm = false;
+            showModal = false;
 
             getInputs() {
                 return IO.getInputOptions(this.device.input);
@@ -24,6 +26,15 @@ Register.directive('deviceTableRow', () => {
 
             getOutputs() {
                 return IO.getOutputOptions(this.device.output);
+            }
+
+            openModal() {
+                this.showModal = true;
+            }
+
+            closeModal() {
+                this.showModal = false;
+                Focus('delete-device-btn:' + this.device._id);
             }
 
             openForm() {
@@ -45,8 +56,6 @@ Register.directive('deviceTableRow', () => {
 
                 if (!this.form.$valid) { return; }
 
-                console.log('submit it');
-
                 this.dataSet.api.patch(this.device._id, {
                     name: this.form.name,
                     input: this.form.input.value || '',
@@ -54,10 +63,10 @@ Register.directive('deviceTableRow', () => {
                 }, () => {
                     this.closeForm();
                 });
-
             }
 
             deleteDevice() {
+                this.closeModal();
                 this.dataSet.api.remove(this.device._id);
             }
         }
