@@ -1,5 +1,11 @@
 import Register from '../registry';
 
+/**
+ * Keep track of the Inputs/Outputs that are currently used and
+ * what is available. Helper methods for rendering select options.
+ *
+ * @Singleton
+ */
 class IOService {
 
     inputs = [];
@@ -50,24 +56,24 @@ class IOService {
         this.freeOutput(device.output);
     }
 
-    getInputOptions() {
-        return this.inputs.map((val, key) => {
-            if (!val) { return false; }
-            return {
-                value: key + 1,
-                label: 'Input ' + (key + 1)
-            }
-        }).filter(Boolean);
+    getInputOptions(current) {
+        current = Number(current);
+        let options = [{value: '', label: 'No Input'}];
+        this.inputs.forEach((val, key) => {
+            if (current !== ++key && val === 0) { return false; }
+            options.push({value: key, label: 'Input ' + key});
+        });
+        return options;
     }
 
-    getOutputOptions() {
-        return this.outputs.map((val, key) => {
-            if (!val) { return false; }
-            return {
-                value: key + 1,
-                label: 'Output ' + (key + 1)
-            }
-        }).filter(Boolean);
+    getOutputOptions(current) {
+        current = Number(current);
+        let options = [{value: '', label: 'No Output'}];
+        this.outputs.forEach((val, key) => {
+            if (current !== ++key && val === 0) { return false; }
+            options.push({value: key, label: 'Output ' + key});
+        });
+        return options;
     }
 
 }

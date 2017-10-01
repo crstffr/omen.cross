@@ -17,8 +17,13 @@ Register.component('addDeviceForm', {
         group;
         closeForm;
 
-        constructor () {
-
+        constructor ($scope) {
+            // This is ridiculous. Sometimes I hate Angular. GROSSS!
+            let unwatch = $scope.$watch(() => this.form, () => {
+                this.form.input = {value: ''};
+                this.form.output = {value: ''};
+                unwatch();
+            });
         }
 
         getInputs() {
@@ -30,22 +35,17 @@ Register.component('addDeviceForm', {
         }
 
         submit() {
-
             if (!this.form.$valid) { return; }
 
-            let device = {
+            Devices.api.create({
                 group: this.group._id,
                 name: this.form.name || '',
                 input: this.form.input ? this.form.input.value : '',
                 output: this.form.output ? this.form.output.value : ''
-            };
-
-            Devices.api.create(device, () => {
+            }, () => {
                 this.closeForm();
             });
-
         }
-
     }
 });
 

@@ -4201,7 +4201,7 @@
              * @param name Name of the method to proxy
              * @param args... [optional] Arguments to use for partial application
              */
-            proxy: function (name) {
+            collection: function (name) {
                 var fn = this[name];
                 var args = Array.prototype.slice.call(arguments, 1);
 

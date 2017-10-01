@@ -1,0 +1,75 @@
+    <td width="50%" class="has-text-left">
+        <form name="$ctrl.form" class="is-marginless">
+
+            <input ng-if="$ctrl.showForm" ng-model="$ctrl.form.name"
+                   required type="text" class="input"
+                   ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
+
+            <span ng-if="!$ctrl.showForm">
+                {{$ctrl.device.name}}
+            </span>
+
+        </form>
+    </td>
+    <td width="20%">
+
+        <span class="field" ng-if="$ctrl.showForm" >
+            <span class="select">
+                <select class="select" ng-model="$ctrl.form.input"
+                        ng-options="item.label for item in $ctrl.getInputs() track by item.value">
+                </select>
+            </span>
+        </span>
+
+        <span ng-if="!$ctrl.showForm">
+            {{$ctrl.device.input ? 'Input ' + $ctrl.device.input : '-'}}
+        </span>
+    </td>
+    <td width="20%">
+
+        <span class="field" ng-if="$ctrl.showForm" >
+            <span class="select">
+                <select class="select" ng-model="$ctrl.form.output"
+                        ng-options="item.label for item in $ctrl.getOutputs() track by item.value">
+                </select>
+            </span>
+        </span>
+
+        <span ng-if="!$ctrl.showForm">
+            {{$ctrl.device.output ? 'Output ' + $ctrl.device.output : '-'}}
+        </span>
+    </td>
+    <td class="has-text-right">
+        <span ng-if="!$ctrl.showForm">
+            <button class="button is-small is-outlined"
+                    title="Edit Device: {{$ctrl.device.name}}"
+                    ng-click="$ctrl.openForm()">
+                        <span class="icon is-small">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+            </button>
+            <button class="button is-small is-outlined is-danger"
+                    title="Delete Device: {{$ctrl.device.name}}"
+                    ng-click="$ctrl.deleteDevice($ctrl.device)">
+                        <span class="icon is-small">
+                            <i class="fa fa-trash"></i>
+                        </span>
+            </button>
+        </span>
+        <span ng-if="$ctrl.showForm">
+            <button type="submit" class="button is-small is-primary"
+                    title="Save Changes to: {{$ctrl.device.name}}"
+                    ng-click="$ctrl.submit()">
+                        <span class="icon is-small">
+                            <i class="fa fa-check"></i>
+                        </span>
+            </button>
+            <button class="button is-small is-outlined"
+                    title="Cancel Changes: {{$ctrl.device.name}}"
+                    ng-click="$ctrl.closeForm()">
+                        <span class="icon is-small">
+                            <i class="fa fa-ban"></i>
+                        </span>
+            </button>
+        </span>
+    </td>

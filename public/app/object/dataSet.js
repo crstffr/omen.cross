@@ -27,7 +27,7 @@ export default class DataSet {
         /**
          * Protect the data property so it can't be overwritten.
          */
-        Object.defineProperty(this, 'data', { get: () => this.proxy });
+        Object.defineProperty(this, 'data', { get: () => this.collection });
 
         /**
          * Initialize the connection to the database table.
@@ -40,7 +40,7 @@ export default class DataSet {
          * Setup an observable data proxy that consumers can watch
          * and react to changes without having to tie into the DB.
          */
-        this.proxy = ObjectObservable.create(this.original);
+        this.collection = ObjectObservable.create(this.original);
 
         this.setupProxyHandlers();
         this.setupDatabaseHooks();
@@ -67,6 +67,7 @@ export default class DataSet {
         this.api.after(evt => {
             Database.onChange.trigger(evt);
         });
+
     }
 
     /**
@@ -102,7 +103,7 @@ export default class DataSet {
 
         this.api.on('created', data => {
             if (test(data, this.rules)) {
-                this.proxy.push(data);
+                this.collection.push(data);
             }
         });
 
@@ -110,10 +111,38 @@ export default class DataSet {
 
         this.api.on('removed', data => {
             if (test(data, this.rules)) {
-                this.proxy.forEach((item, i) => {
+                this.collection.forEach((item, i) => {
                     if (item._id === data._id) {
-                        this.proxy.splice(i, 1);
+                        this.collection.splice(i, 1);
                         onRemove.trigger(data);
+                    }
+                });
+            }
+        });
+
+        // When items are updated at the DB level, update them in the proxy.
+
+        this.api.on('updated', data => {
+            if (test(data, this.rules)) {
+                this.collection.forEach((item, i) => {
+                    if (item._id === data._id) {
+                        let oldVal = Object.assign({}, item);
+                        Object.assign(this.collection[i], data);
+                        onUpdate.trigger(data, oldVal);
+                    }
+                });
+            }
+        });
+
+        // When items are updated at the DB level, update them in the proxy.
+
+        this.api.on('patched', data => {
+            if (test(data, this.rules)) {
+                this.collection.forEach((item, i) => {
+                    if (item._id === data._id) {
+                        let oldVal = Object.assign({}, item);
+                        Object.assign(this.collection[i], data);
+                        onUpdate.trigger(data, oldVal);
                     }
                 });
             }
@@ -122,16 +151,16 @@ export default class DataSet {
     }
 
     watch(fn) {
-        return ObjectObservable.observe(this.proxy, changes => fn(changes));
+        return ObjectObservable.observe(this.collection, changes => fn(changes));
     }
 
     fetchAll(opts) {
-        this.proxy.length = 0;
+        this.collection.length = 0;
         return new Promise(resolve => {
             let query = Object.assign({}, opts, this.rules, {$sort: {created: 1}});
             this.api.find({query: query}).then(result => {
-                result.forEach(item => this.proxy.push(item));
-                resolve(this.proxy);
+                result.forEach(item => this.collection.push(item));
+                resolve(this.collection);
             });
         });
     }
