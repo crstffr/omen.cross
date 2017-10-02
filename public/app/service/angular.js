@@ -1,7 +1,20 @@
 import Register from '../registry';
 
+/*
+// This doesn't work unfortunately
+import angular from 'angular';
+
+let $injector = angular.injector(['ng']);
+export let $sce = $injector.get('$sce');
+export let $compile = $injector.get('$compile');
+export let $timeout = $injector.get('$timeout');
+export let $rootScope = $injector.get('$rootScope');
+*/
+
 let providers = [
     '$sce',
+    '$http',
+    '$filter',
     '$compile',
     '$timeout',
     '$interval',

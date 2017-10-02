@@ -56,7 +56,7 @@ Register.component('addDeviceForm', {
             });
         }
     }
-});
+}, ['$scope']);
 
 
 

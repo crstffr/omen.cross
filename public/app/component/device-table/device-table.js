@@ -15,7 +15,9 @@ Register.component('deviceTable', {
         ready = false;
 
         $onInit() {
+
             this.dataSet = new DataSet('devices', {group: this.group._id});
+
             this.dataSet.onRemove(device => IO.deregisterDevice(device));
             this.dataSet.onCreate(device => IO.registerDevice(device));
             this.dataSet.onUpdate((newVal, oldVal) => {
@@ -25,6 +27,11 @@ Register.component('deviceTable', {
 
             this.dataSet.fetchAll().then(() => this.ready = true);
             this.devices = this.group.devices = this.dataSet.data;
+        }
+
+        $onDestroy() {
+            this.dataSet.destroy();
+            delete this['dataSet'];
         }
     }
 });

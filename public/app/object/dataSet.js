@@ -6,15 +6,17 @@ import Database from '../service/database';
 import {EventHandler} from './eventHandler';
 
 /**
- *
+ * @TODO: cleanup handlers on destroy
  */
 export default class DataSet {
 
     data = [];
     table = '';
     rules = {};
+    handler = {};
     original = [];
-
+    watchers = [];
+    unwatch = () => {};
     onChange = () => {};
     onCreate = () => {};
     onRemove = () => {};
@@ -47,6 +49,22 @@ export default class DataSet {
         this.setupDatabaseHooks();
     }
 
+    destroy() {
+        if (this.handler) {
+            Object.values(this.handler)
+                  .forEach(handler => handler.destroy());
+        }
+        if (this.watchers) {
+            // stop watching any running observables
+            this.watchers.forEach(watcher => watcher());
+        }
+        /*
+        delete this['collection'];
+        delete this['handler'];
+        delete this['api'];
+        */
+    }
+
     /**
      *
      */
@@ -72,27 +90,30 @@ export default class DataSet {
 
     /**
      * Make a group of sane event handlers for when the proxy is modified
-     * or when data is manipulated from elsewhere.     *
+     * or when data is manipulated from elsewhere.
      */
     setupProxyHandlers() {
 
-        let onChange = new EventHandler();
-        let onCreate = new EventHandler();
-        let onRemove = new EventHandler();
-        let onUpdate = new EventHandler();
+        this.handler = {
+            change: new EventHandler(),
+            create: new EventHandler(),
+            remove: new EventHandler(),
+            update: new EventHandler()
+        };
 
-        this.onChange = fn => onChange.register(fn);
-        this.onCreate = fn => onCreate.register(fn);
-        this.onRemove = fn => onRemove.register(fn);
-        this.onUpdate = fn => onUpdate.register(fn);
+        this.onChange = fn => this.handler.change.register(fn);
+        this.onCreate = fn => this.handler.create.register(fn);
+        this.onRemove = fn => this.handler.remove.register(fn);
+        this.onUpdate = fn => this.handler.update.register(fn);
 
         this.watch(changes => {
-            onChange.trigger(changes);
+            if (!changes) { return; }
+            this.handler.change.trigger(changes);
             changes.forEach(change => {
                 switch (change.type) {
                     case 'set':
                         if (!change.target._id) { break; }
-                        onCreate.trigger(change.target);
+                        this.handler.create.trigger(change.target);
                         break;
                 }
             });
@@ -113,7 +134,7 @@ export default class DataSet {
                 this.collection.forEach((item, i) => {
                     if (item._id === data._id) {
                         this.collection.splice(i, 1);
-                        onRemove.trigger(data);
+                        this.handler.remove.trigger(data);
                     }
                 });
             }
@@ -127,7 +148,7 @@ export default class DataSet {
                     if (item._id === data._id) {
                         let oldVal = Object.assign({}, item);
                         Object.assign(this.collection[i], data);
-                        onUpdate.trigger(data, oldVal);
+                        this.handler.update.trigger(data, oldVal);
                     }
                 });
             }
@@ -141,7 +162,7 @@ export default class DataSet {
                     if (item._id === data._id) {
                         let oldVal = Object.assign({}, item);
                         Object.assign(this.collection[i], data);
-                        onUpdate.trigger(data, oldVal);
+                        this.handler.update.trigger(data, oldVal);
                     }
                 });
             }
@@ -150,7 +171,10 @@ export default class DataSet {
     }
 
     watch(fn) {
-        return ObjectObservable.observe(this.collection, changes => fn(changes));
+        let handler = changes => fn(changes);
+        let watcher = ObjectObservable.observe(this.collection, handler);
+        this.watchers.push(watcher);
+        return watcher;
     }
 
     fetchAll(opts) {

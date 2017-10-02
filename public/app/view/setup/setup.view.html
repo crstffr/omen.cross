@@ -21,12 +21,13 @@
         </div>
     </article>
 
-    <add-group-form ng-if="$ctrl.showForm" close-form="$ctrl.closeForm()"></add-group-form>
+    <add-group-form ng-if="$ctrl.showForm"
+                    close-form="$ctrl.closeForm()">
+    </add-group-form>
 
     <device-group ng-repeat="(key, group) in $ctrl.groups"
-                     delete-group="$ctrl.deleteGroup(group)"
-                     ng-show="!$ctrl.showForm"
-                     group="group">
+                  ng-show="!$ctrl.showForm"
+                  group="group">
     </device-group>
 
 </div>

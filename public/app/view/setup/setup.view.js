@@ -27,9 +27,5 @@ Register.view('setup', {
             Focus('add-group-btn');
         }
 
-        deleteGroup(group) {
-            Groups.api.remove(group._id);
-        }
-
     }
 });

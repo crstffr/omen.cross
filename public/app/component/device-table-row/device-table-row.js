@@ -8,8 +8,7 @@ import Modal from '../../component/modal/modal';
 Register.directive('deviceTableRow', () => {
     return {
         scope: {
-            device: '=',
-            dataSet: '=set'
+            device: '='
         },
         template: template,
         controllerAs: '$ctrl',
@@ -24,10 +23,16 @@ Register.directive('deviceTableRow', () => {
 
             $onInit() {
                 this.id = this.device._id;
+                this.dataSet = new DataSet('devices', {_id: this.id});
             }
 
             $onDestroy() {
-                this.modal.destroy();
+                this.dataSet.destroy();
+                if (this.modal.destroy) {
+                    this.modal.destroy();
+                }
+                delete this['modal'];
+                delete this['dataSet'];
             }
 
             getInputs() {
@@ -41,9 +46,9 @@ Register.directive('deviceTableRow', () => {
             openModal() {
                 this.modal = new Modal({
                     text: {
-                        title: 'Confirm Delete',
+                        title: 'Delete Device?',
                         body: `
-                            You are about to delete <strong>${this.device.name}</strong>.
+                            You are about to delete the <strong>${this.device.name}</strong> device.
                             Do you wish to continue?
                         `
                     },

@@ -1,6 +1,7 @@
 <div class="device-group">
 
     <div class="field is-grouped">
+
         <div class="control align-with-h2">
             <button class="button is-small is-static drag-handle"
                     title="Reorder Group: {{$ctrl.group.name}}">
@@ -9,29 +10,31 @@
                 </span>
             </button>
         </div>
+
         <div class="control align-with-h2">
             <button class="button is-small is-outlined"
+                    focus-id="{{$ctrl.id}}"
+                    focus-on="delete-group-btn"
                     title="Delete Group: {{$ctrl.group.name}}"
-                    ng-click="$ctrl.deleteGroup()">
+                    ng-click="$ctrl.openModal()">
                 <span class="icon is-small">
                     <i class="fa fa-trash"></i>
                 </span>
             </button>
         </div>
+
         <div class="control is-expanded">
             <h2>{{$ctrl.group.name}}</h2>
         </div>
+
         <div class="control align-with-h2" ng-if="!$ctrl.showForm">
             <button class="button is-small is-outlined"
                     focus-id="{{$ctrl.group._id}}"
                     focus-on="add-device-btn"
                     title="Add Device to Group: {{$ctrl.group.name}}"
                     ng-click="$ctrl.openForm()">
-                <span>
-                    Add Device
-                </span>
+                <span>Add Device</span>
             </button>
-
         </div>
     </div>
 
