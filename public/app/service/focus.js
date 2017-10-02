@@ -1,9 +1,10 @@
 import Register from '../registry';
 import Radio from './radio';
 
-function Focus (eventName, delay = 10) {
+function Focus (name, id, delay = 10) {
+    id = id ? ':' + id : '';
     setTimeout(() => {
-        Radio.trigger('focusOn:' + eventName);
+        Radio.trigger('focusOn:' + name + id);
     }, delay);
 }
 

@@ -1,71 +1,122 @@
 import angular from 'angular';
-import Register from '../../registry';
+import uid from '../../util/uid';
+import Ng from '../../service/angular';
 import Focus from '../../service/focus';
+import redraw from '../../service/redraw';
 import defaults from '../../util/defaults';
+import Modals from '../../service/modals';
 import template from './modal.html!text';
 
 let $document = angular.element(document);
 let $body = angular.element(document.body);
 
-Register.directive('modal', () => {
-    return {
-        scope: {
-            text: '=?',
-            cancel: '&',
-            confirm: '&',
-        },
-        restrict: 'E',
-        template: template,
-        controllerAs: '$ctrl',
-        bindToController: true,
-        transclude: {
-            title: 'modalTitle',
-            body: 'modalBody'
-        },
-        controller: class {
+export default class Modal {
 
-            text;
-            element;
+    id = '';
+    ctrl = {};
+    elem = {};
+    scope = {};
+    isReady;
+    ready;
 
-            constructor () {}
+    constructor (opts) {
 
-            $onInit() {
+        this.id = uid();
+        this.text = opts.text || {};
+        this.ctrl = opts.controller || {};
+        this.tmpl = opts.template || template;
 
-                this.text = defaults(this.text, {
-                    confirm: 'Yes, Continue',
-                    cancel: 'No, Cancel'
-                });
+        Modals.register(this);
 
-                this.escHandlerBound = this.escHandler.bind(this);
-                $document.on('keydown', this.escHandlerBound);
-                $body.addClass('has-open-modal');
-            }
+        this.ready = new Promise((resolve) => {
+            this.isReady = resolve;
+        });
 
-            $onDestroy() {
-                $body.removeClass('has-open-modal');
-                $document.off('keydown', this.escHandlerBound);
-            }
+        Ng.get(['$compile', '$scope', '$sce']).then(({$compile, $scope, $sce}) => {
 
-            escHandler(evt) {
-                if (evt.keyCode === 27) {
-                    console.log('cancel it');
-                    this.cancel();
+            let trust = $sce.trustAsHtml;
+
+            this.ctrl = defaults(this.ctrl, {
+                id: this.id, text: this.text
+            });
+
+            this.ctrl.text = defaults(this.ctrl.text, opts.text, {
+                title: 'Confirm',
+                cancel: 'No, Cancel',
+                confirm: 'Yes, Continue',
+                body: 'Are you sure you wish to continue?',
+            });
+
+            this.ctrl.text.body = trust(this.ctrl.text.body);
+            this.ctrl.text.title = trust(this.ctrl.text.title);
+
+            this.scope = $scope({
+                $ctrl: this.ctrl,
+                cancel: () => {
+                    this.ctrl.cancel();
+                    this.destroy();
+                },
+                confirm: () => {
+                    this.ctrl.confirm();
+                    this.destroy();
                 }
+            });
+
+            this.escHandler = (e) => {
+                if (e.keyCode === 27) {
+                    this.scope.cancel();
+                }
+            };
+
+            let html = $compile(this.tmpl)(this.scope)[0].outerHTML;
+            this.elem = $compile(html)(this.scope);
+            $body.append(this.elem);
+            this.isReady();
+
+            if (!opts.delay) {
+                this.open();
             }
 
-        },
-        link: (scope, element, attrs, ctrl) => {
+        });
 
-            // Move the modal to the bottom of the body so that it
-            // is away from everything and renders on it's own.
-
-            $body.append(element);
-
-            Focus('modal-okay-btn');
-
-        }
     }
-});
 
+    whenReady () {
+        return this.ready;
+    }
 
+    open () {
+        return this.whenReady().then(() => {
+            redraw(() => {
+                $body.addClass('has-open-modal');
+                this.elem.addClass('is-active');
+                Focus('modal-okay-btn', this.id);
+                $body.on('keydown', this.escHandler);
+            });
+        });
+    }
 
+    close () {
+        return this.whenReady().then(() => {
+            redraw(() => {
+                $body.removeClass('has-open-modal');
+                this.elem.removeClass('is-active');
+                $body.off('keydown', this.escHandler);
+            });
+        });
+    }
+
+    destroy () {
+        return this.close().then(() => {
+            if (this.scope) {
+                this.scope.$destroy();
+                delete this['ctrl'];
+                delete this['scope'];
+                this.elem.remove();
+                delete this['element'];
+                Modals.remove(this.id);
+            }
+        });
+    }
+
+}

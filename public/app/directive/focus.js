@@ -6,7 +6,8 @@ Register.directive('focusOn', () => {
     return {
         restrict: 'A',
         link: (scope, element, attrs) => {
-            let eventName = 'focusOn:' + attrs.focusOn;
+            let id = attrs.focusId ? ':' + attrs.focusId : '';
+            let eventName = 'focusOn:' + attrs.focusOn + id;
             let destroy = Radio.register(eventName, () => {
                 element[0].focus();
             });

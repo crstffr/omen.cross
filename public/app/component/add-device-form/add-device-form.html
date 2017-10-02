@@ -1,13 +1,21 @@
 <section class="box">
-    <form novalidate name="$ctrl.form" ng-submit="$ctrl.submit()">
-        <label class="label" for="add-device-form-name">Device Name</label>
+    <form novalidate
+          name="$ctrl.form"
+          ng-submit="$ctrl.submit()">
+
+        <label class="label" for="add-device-form-name">
+            Device Name
+        </label>
+
         <div class="field is-grouped">
             <div class="control is-expanded">
-                <input class="input" type="text" required
+                <input required
+                       type="text"
+                       class="input"
                        id="add-device-form-name"
+                       ng-model="$ctrl.form.name"
                        focus-on="add-device-form-name"
                        placeholder="e.g Roland TR-808"
-                       ng-model="$ctrl.form.name"
                        ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
             </div>
             <div class="control">
@@ -25,14 +33,17 @@
                 </div>
             </div>
             <div class="control">
-                <button class="button is-primary">Save</button>
+                <button type="submit"
+                        class="button is-primary">Save</button>
             </div>
             <div class="control">
-                <button class="button" ng-click="$ctrl.closeForm()">Cancel</button>
+                <button type="button"
+                        class="button"
+                        ng-click="$ctrl.closeForm()">Cancel</button>
             </div>
         </div>
     </form>
-    <p class="help">
-        The input and output options correspond to the jacks your device occupies on the Ωmen Cross.
+    <p class="help">ut and output options correspond to the jacks your device occupies on the Ωmen Cross.
+        The inp
     </p>
 </section>

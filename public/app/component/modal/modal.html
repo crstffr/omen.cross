@@ -1,27 +1,28 @@
-<div class="modal is-active">
-    <div class="modal-background" ng-click="$ctrl.cancel()"></div>
+<modal class="modal" id="{{$ctrl.id}}">
+    <div class="modal-background" ng-click="cancel()"></div>
     <div class="modal-content">
         <div class="notification">
-            <button class="delete" ng-click="$ctrl.cancel()"></button>
+            <button class="delete" ng-click="cancel()"></button>
             <div>
-                <h2 class="title is-4">
-                    <span ng-transclude="title"></span>
-                </h2>
-                <div class="body">
-                    <span ng-transclude="body"></span>
-                </div>
+                <h2 class="title is-4" ng-bind-html="$ctrl.text.title"></h2>
+                <div class="body" ng-bind-html="$ctrl.text.body"></div>
                 <div class="buttons has-text-right">
                     <span class="control">
-                        <a href class="button is-primary"
-                           ng-click="$ctrl.confirm()"
-                           focus-on="modal-okay-btn">{{$ctrl.text.confirm}}</a>
+                        <button class="button is-primary"
+                                ng-click="confirm()"
+                                focus-on="modal-okay-btn"
+                                focus-id="{{$ctrl.id}}">
+                                {{$ctrl.text.confirm}}
+                        </button>
                     </span>
                     <span class="control">
-                        <a href class="button"
-                           ng-click="$ctrl.cancel()">{{$ctrl.text.cancel}}</a>
+                        <button class="button"
+                                ng-click="cancel()">
+                                {{$ctrl.text.cancel}}
+                        </button>
                     </span>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</modal>

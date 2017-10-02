@@ -1,6 +1,7 @@
 
 import test from '../util/rules';
 import ObjectObservable from 'oo';
+import redraw from '../service/redraw';
 import Database from '../service/database';
 import {EventHandler} from './eventHandler';
 
@@ -64,9 +65,9 @@ export default class DataSet {
             }
         });
 
-        this.api.after(evt => {
-            Database.onChange.trigger(evt);
-        });
+        // Force Angular to redraw after anything happens from DB.
+
+        this.api.after(() => redraw());
     }
 
     /**

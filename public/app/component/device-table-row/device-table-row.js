@@ -3,6 +3,7 @@ import Focus from '../../service/focus';
 import Register from '../../registry';
 import DataSet from '../../object/dataSet';
 import template from './device-table-row.html!text';
+import Modal from '../../component/modal/modal';
 
 Register.directive('deviceTableRow', () => {
     return {
@@ -15,10 +16,19 @@ Register.directive('deviceTableRow', () => {
         bindToController: true,
         controller: class {
 
+            id = '';
+            modal = {};
             device = {};
             dataSet = {};
             showForm = false;
-            showModal = false;
+
+            $onInit() {
+                this.id = this.device._id;
+            }
+
+            $onDestroy() {
+                this.modal.destroy();
+            }
 
             getInputs() {
                 return IO.getInputOptions(this.device.input);
@@ -29,12 +39,23 @@ Register.directive('deviceTableRow', () => {
             }
 
             openModal() {
-                this.showModal = true;
-            }
-
-            closeModal() {
-                this.showModal = false;
-                Focus('delete-device-btn:' + this.device._id);
+                this.modal = new Modal({
+                    text: {
+                        title: 'Confirm Delete',
+                        body: `
+                            You are about to delete <strong>${this.device.name}</strong>.
+                            Do you wish to continue?
+                        `
+                    },
+                    controller: {
+                        cancel: () => {
+                            Focus('delete-device-btn', this.id);
+                        },
+                        confirm: () => {
+                            this.dataSet.api.remove(this.id);
+                        }
+                    }
+                });
             }
 
             openForm() {
@@ -46,17 +67,22 @@ Register.directive('deviceTableRow', () => {
                 });
 
                 this.showForm = true;
+                Focus('device-name', this.id);
             }
 
             closeForm() {
                 this.showForm = false;
+                Focus('edit-device-btn', this.id);
             }
 
             submit() {
 
-                if (!this.form.$valid) { return; }
+                if (!this.form.$valid) {
+                    Focus('device-name', this.id);
+                    return;
+                }
 
-                this.dataSet.api.patch(this.device._id, {
+                this.dataSet.api.patch(this.id, {
                     name: this.form.name,
                     input: this.form.input.value || '',
                     output: this.form.output.value || ''
@@ -65,10 +91,6 @@ Register.directive('deviceTableRow', () => {
                 });
             }
 
-            deleteDevice() {
-                this.closeModal();
-                this.dataSet.api.remove(this.device._id);
-            }
         }
     }
 });

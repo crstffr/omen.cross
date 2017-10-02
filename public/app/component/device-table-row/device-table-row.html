@@ -1,8 +1,18 @@
     <td width="40%" class="has-text-left">
-        <form name="$ctrl.form" class="is-marginless">
 
-            <input ng-if="$ctrl.showForm" ng-model="$ctrl.form.name"
-                   required type="text" class="input"
+        <form novalidate
+              name="$ctrl.form"
+              class="is-marginless"
+              id="edit:{{$ctrl.id}}">
+
+            <input required
+                   type="text"
+                   class="input"
+                   ng-if="$ctrl.showForm"
+                   focus-on="device-name"
+                   focus-id="{{$ctrl.id}}"
+                   form="edit:{{$ctrl.id}}"
+                   ng-model="$ctrl.form.name"
                    ng-class="{'is-danger': $ctrl.form.$submitted && $ctrl.form.$invalid}">
 
             <span ng-if="!$ctrl.showForm">
@@ -13,9 +23,11 @@
     </td>
     <td width="20%">
 
-        <span class="field" ng-if="$ctrl.showForm" >
+        <span class="field" ng-if="$ctrl.showForm">
             <span class="select">
-                <select class="select" ng-model="$ctrl.form.input"
+                <select class="select"
+                        form="edit:{{$ctrl.id}}"
+                        ng-model="$ctrl.form.input"
                         ng-options="item.label for item in $ctrl.getInputs() track by item.value">
                 </select>
             </span>
@@ -29,7 +41,9 @@
 
         <span class="field" ng-if="$ctrl.showForm" >
             <span class="select">
-                <select class="select" ng-model="$ctrl.form.output"
+                <select class="select"
+                        form="edit:{{$ctrl.id}}"
+                        ng-model="$ctrl.form.output"
                         ng-options="item.label for item in $ctrl.getOutputs() track by item.value">
                 </select>
             </span>
@@ -43,6 +57,8 @@
         <span ng-if="!$ctrl.showForm">
             <button class="button is-small is-outlined"
                     title="Edit Device: {{$ctrl.device.name}}"
+                    focus-on="edit-device-btn"
+                    focus-id="{{$ctrl.id}}"
                     ng-click="$ctrl.openForm()">
                         <span class="icon is-small">
                             <i class="fa fa-pencil"></i>
@@ -50,7 +66,8 @@
             </button>
             <button class="button is-small is-outlined"
                     title="Delete Device: {{$ctrl.device.name}}"
-                    focus-on="delete-device-btn:{{$ctrl.device._id}}"
+                    focus-on="delete-device-btn"
+                    focus-id="{{$ctrl.id}}"
                     ng-click="$ctrl.openModal()">
                         <span class="icon is-small">
                             <i class="fa fa-trash"></i>
@@ -58,14 +75,18 @@
             </button>
         </span>
         <span ng-if="$ctrl.showForm">
-            <button type="submit" class="button is-small is-primary"
+            <button type="submit"
+                    form="edit:{{$ctrl.id}}"
+                    class="button is-small is-primary"
                     title="Save Changes to: {{$ctrl.device.name}}"
                     ng-click="$ctrl.submit()">
                         <span class="icon is-small">
                             <i class="fa fa-check"></i>
                         </span>
             </button>
-            <button class="button is-small is-outlined"
+            <button type="button"
+                    form="edit:{{$ctrl.id}}"
+                    class="button is-small is-outlined"
                     title="Cancel Changes: {{$ctrl.device.name}}"
                     ng-click="$ctrl.closeForm()">
                         <span class="icon is-small">
@@ -74,14 +95,16 @@
             </button>
         </span>
 
-        <modal ng-if="$ctrl.showModal"
-               cancel="$ctrl.closeModal()"
-               confirm="$ctrl.deleteDevice()">
+        <!--
+        <modal cancel="closeModal"
+               confirm="deleteDevice"
+               ng-if="$ctrl.showModal">
             <modal-title>Confirm Delete</modal-title>
             <modal-body>
                 You are about to remove <strong>{{$ctrl.device.name}}</strong>.
                 Do you wish to continue?
             </modal-body>
         </modal>
+        -->
 
     </td>

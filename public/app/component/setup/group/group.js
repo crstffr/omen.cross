@@ -13,18 +13,15 @@ Register.component('deviceGroup', {
         group = {};
         showForm = false;
 
-        constructor () {
-
-        }
+        constructor () {}
 
         openForm() {
             this.showForm = true;
-            Focus('add-device-form-name');
         }
 
         closeForm() {
             this.showForm = false;
-            Focus('add-device-btn:' + this.group.name);
+            Focus('add-device-btn', this.group._id);
         }
 
     },

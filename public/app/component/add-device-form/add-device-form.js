@@ -2,6 +2,7 @@ import Register from '../../registry';
 import template from './add-device-form.html!text';
 
 import IO from '../../service/io';
+import Focus from '../../service/focus';
 import Groups from '../../database/groups';
 import Devices from '../../database/devices';
 
@@ -26,6 +27,10 @@ Register.component('addDeviceForm', {
             });
         }
 
+        $onInit() {
+            Focus('add-device-form-name');
+        }
+
         getInputs() {
             return IO.getInputOptions();
         }
@@ -35,7 +40,11 @@ Register.component('addDeviceForm', {
         }
 
         submit() {
-            if (!this.form.$valid) { return; }
+
+            if (!this.form.$valid) {
+                Focus('add-device-form-name');
+                return;
+            }
 
             Devices.api.create({
                 group: this.group._id,

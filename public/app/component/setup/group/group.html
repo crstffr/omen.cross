@@ -10,26 +10,28 @@
             </button>
         </div>
         <div class="control align-with-h2">
-            <button class="button is-small is-outlined is-primary"
-                    focus-on="add-device-btn:{{$ctrl.group.name}}"
-                    title="Add Device to Group: {{$ctrl.group.name}}"
-                    ng-click="$ctrl.openForm()">
-                <span class="icon is-small">
-                    <i class="fa fa-plus"></i>
-                </span>
-            </button>
-        </div>
-        <div class="control is-expanded">
-            <h2>{{$ctrl.group.name}}</h2>
-        </div>
-        <div class="control align-with-h2" ng-if="!$ctrl.showForm && !$ctrl.group.devices.length">
-            <button class="button is-small is-outlined is-danger"
+            <button class="button is-small is-outlined"
                     title="Delete Group: {{$ctrl.group.name}}"
                     ng-click="$ctrl.deleteGroup()">
                 <span class="icon is-small">
                     <i class="fa fa-trash"></i>
                 </span>
             </button>
+        </div>
+        <div class="control is-expanded">
+            <h2>{{$ctrl.group.name}}</h2>
+        </div>
+        <div class="control align-with-h2" ng-if="!$ctrl.showForm">
+            <button class="button is-small is-outlined"
+                    focus-id="{{$ctrl.group._id}}"
+                    focus-on="add-device-btn"
+                    title="Add Device to Group: {{$ctrl.group.name}}"
+                    ng-click="$ctrl.openForm()">
+                <span>
+                    Add Device
+                </span>
+            </button>
+
         </div>
     </div>
 
