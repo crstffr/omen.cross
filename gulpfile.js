@@ -54,6 +54,7 @@ var globs = {
                 // core.min.css when they are modified.
 
                 paths.core.sass + 'main.scss',
+                paths.core.sass + 'components/*.scss',
                 paths.core.sass + '_settings.scss'
             ],
             comp: [

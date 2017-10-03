@@ -1,0 +1,43 @@
+html body {
+
+  .device-group {
+
+    padding: 2.5vw 0;
+
+  }
+
+  &.draggable--is-dragging {
+
+    .draggable-mirror {
+      background: rgba(255, 255, 255, .6);
+      > div {
+        transform: scale(.92);
+      }
+    }
+
+    .draggable-source--is-dragging {
+      background: #eee;
+      border: 1px solid $grey-lighter;
+      * {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .drag-handle {
+    &.is-static {
+      cursor: -webkit-grab;
+      pointer-events: all;
+      &:active {
+        cursor: -webkit-grabbing;
+      }
+    }
+  }
+
+  setup-group {
+    &:not(:last-child) {
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid whitesmoke;
+    }
+  }
+}

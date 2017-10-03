@@ -1,0 +1,60 @@
+
+html body {
+
+  .aside {
+
+    padding: 0;
+    background-color: #233040;
+    min-height: calc(100vh + 12px);
+
+    .main {
+
+      padding: 15%;
+      padding-top: 4vw;
+      color: #6F7B7E;
+
+      &.fixed {
+        position: fixed;
+        width: calc(16.666% - 3.25vw);
+        padding: 0;
+        left: 3vw;
+        top: 3vw;
+      }
+
+      .logo {
+        margin: 0;
+        color: #fff;
+        font-size: 2.8vw;
+        margin-bottom: 1vw;
+        @extend .decorative-font;
+      }
+
+      .item {
+
+        display: block;
+        padding: .8vw 0 .8vw .3vw;
+        color: #6F7B7E;
+        white-space: nowrap;
+
+        &.is-active {
+          color: #F6F7F7;
+        }
+
+        .icon {
+          font-size: 1.6vw;
+          margin-right: .3vw;
+        }
+
+        .name {
+          font-size: 1.4vw;
+        }
+
+      }
+
+
+
+    }
+
+  }
+
+}

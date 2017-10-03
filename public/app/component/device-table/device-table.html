@@ -7,7 +7,8 @@
 
 <div class="card" ng-if="$ctrl.devices.length">
     <div class="card-content is-paddingless">
-        <table class="table is-striped is-fullwidth has-text-centered is-marginless">
+        <table class="table is-fullwidth has-text-centered is-marginless"
+               ng-class="{'is-striped': $ctrl.devices.length >= 3}">
             <tbody>
                 <tr device-table-row ng-repeat="device in $ctrl.devices"
                     data-set="$ctrl.dataSet"

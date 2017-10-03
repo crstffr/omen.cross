@@ -1,0 +1,50 @@
+
+html body {
+
+  .modal {
+
+    top: -25%;
+
+    .modal-background {
+      background-color: rgba(255,255,255,.4);
+      background-color: rgba(0,0,0,.3);
+    }
+
+    .modal-content {
+      max-width: 480px;
+      border-radius: 3px 3px 3px 3px;
+      box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.6);
+
+      .notification {
+        padding: 1.25rem;
+
+        .delete {
+          right: 1rem;
+          top: 1rem;
+        }
+      }
+
+      .title {
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,.2);
+      }
+
+      .body {
+        margin-bottom: 3rem;
+      }
+
+    }
+
+    .message-body {
+      border: 0;
+    }
+  }
+
+  &.has-open-modal {
+    .outer-container {
+      animation: blur .06s linear forwards;
+    }
+  }
+
+}

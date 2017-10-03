@@ -1,9 +1,11 @@
 @import "../../jspm_packages/npm/bulma@0.5.3/sass/utilities/initial-variables";
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  height: 100%;
-}
+@import "./components/aside";
+@import "./components/modal";
+@import "./components/panel";
+@import "./components/panel";
+@import "./components/layout";
+@import "./components/device-group";
 
 @keyframes blur {
   to {
@@ -11,33 +13,33 @@ body {
   }
 }
 
+ui-view,
+setup-view,
+setup-group,
+device-group,
+draggable-container {
+  display: block;
+}
+
 html body {
 
-  setup-group,
-  device-group,
-  draggable-container {
-    display: block;
+  &, .body-font {
+    font-family: 'Anonymous Pro', monospace;
+    letter-spacing: 0.05em;
+    font-weight: 500;
   }
 
-  &.draggable--is-dragging {
-
-    .draggable-source--is-dragging {
-
-      background: #eee;
-      border: 1px solid $grey-lighter;
-
-      * {
-        visibility: hidden;
-      }
-    }
-
+  button, input, select {
+    @extend .body-font;
   }
 
-  setup-group {
-    &:not(:last-child) {
-      padding-bottom: 3.5rem;
-      border-bottom: 1px solid whitesmoke;
-    }
+  .decorative-font {
+    font-family: 'Cinzel Decorative', serif;
+    letter-spacing: 0.3rem;
+  }
+
+  .columns {
+    margin-left: 0;
   }
 
   .title {
@@ -54,96 +56,11 @@ html body {
     }
   }
 
-  .drag-handle {
-    &.is-static {
-      cursor: -webkit-grab;
-      pointer-events: all;
-      &:active {
-        cursor: -webkit-grabbing;
-      }
-    }
-  }
 
   > .columns.no-bottom-margin {
     margin-bottom: 0;
-
   }
 
-  .aside {
-    background-color: #233040;
-  }
-
-  .modal {
-
-    top: -25%;
-
-    .modal-background {
-      background-color: rgba(255,255,255,.4);
-      background-color: rgba(0,0,0,.3);
-    }
-
-    .modal-content {
-      max-width: 480px;
-      border-radius: 8px 8px 8px 8px;
-      box-shadow: 0px 4px 20px 1px rgba(0,0,0,0.4);
-
-      .notification {
-        padding: 1.25rem;
-        
-        .delete {
-          right: 1rem;
-          top: 1rem;
-        }
-      }
-
-      .title {
-        padding-bottom: 1rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid rgba(0,0,0,.2);
-      }
-
-      .body {
-        margin-bottom: 3rem;
-      }
-
-    }
-
-    .message-body {
-      border: 0;
-    }
-  }
-
-  &.has-open-modal {
-    .outer-container {
-      animation: blur .06s linear forwards;
-    }
-  }
-
-  .device-group {
-
-    padding: 1rem 0;
-
-    .is-squished {
-      width: 90%;
-      margin-left: 5%;
-    }
-  }
-
-  .section > .content {
-    padding-top: 0;
-  }
-
-  .hero.is-fullheight {
-    min-height: calc(100vh + 12px);
-  }
-
-  .admin-panel .is-fullheight {
-    min-height: calc(100vh + 6px - 5.5rem);
-  }
-
-  .admin-panel {
-    padding-bottom: 0;
-  }
 
   table {
 
@@ -157,7 +74,7 @@ html body {
 
   .control.align-with-h2 {
     .button.is-small {
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
     }
   }
 
@@ -183,45 +100,7 @@ html body {
   background-color: transparent;
   border-width: 2px;
 }
-.aside {
-  background-color: #354052;
-  margin-right: -10px;
-}
-.aside .main {
-  padding: 15%;
-  color: #6F7B7E;
-}
-.aside .title {
-  color: #6F7B7E;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.aside .main .item {
-  display: block;
-  padding: 10px 0;
-  color: #6F7B7E;
-  white-space: nowrap;
-}
-.aside .main .item.is-active {
-  color: #F6F7F7;
-}
-.aside .main .icon {
-  font-size: 19px;
-  margin-right: 10px;
-}
-.aside .main .name {
-  font-size: 16px;
-  font-weight: bold;
-}
-.content {
-  display: block;
-  background-color: #fff;
-  padding: 40px 20px;
-}
-.hero .tabs ul {
-  border-bottom: 1px solid #d3d6db;
-}
+
 .footer.footer-shorter {
   padding: 2rem 4rem;
 }

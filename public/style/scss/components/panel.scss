@@ -1,0 +1,21 @@
+html body {
+
+  .content-panel-column {
+
+    &, .content-panel {
+      padding-left: 0;
+      padding-bottom: 0;
+      min-height: calc(100vh + 6px - 5.5rem);
+    }
+
+    .content-panel {
+
+      .section {
+        padding: 4vw 5vw 3vw 5vw;
+      }
+
+    }
+
+  }
+
+}

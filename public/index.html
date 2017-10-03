@@ -4,38 +4,36 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro:400,700" rel="stylesheet">
     <style>[ng-cloak] { display: none; }</style>
     <script src="loader.js"></script>
 </head>
 <body ng-cloak>
     <div class="outer-container columns no-bottom-margin">
-        <aside class="column is-2 aside hero is-fullheight is-hidden-mobile">
-            <div>
-                <div class="main">
-                    <div class="title">Ωmen Cross</div>
-                    <a class="item" ui-sref="patch" ui-sref-active="is-active">
-                        <span class="icon"><i class="fa fa-sitemap"></i></span>
-                        <span class="name">Patch</span>
-                    </a>
-                    <a class="item" ui-sref="setup" ui-sref-active="is-active">
-                        <span class="icon"><i class="fa fa-cog"></i></span>
-                        <span class="name">Setup</span>
-                    </a>
-                    <a class="item" ui-sref="library" ui-sref-active="is-active">
-                        <span class="icon"><i class="fa fa-book"></i></span>
-                        <span class="name">Library</span>
-                    </a>
-                    <a class="item" ui-sref="control" ui-sref-active="is-active">
-                        <span class="icon"><i class="fa fa-bug"></i></span>
-                        <span class="name">Control</span>
-                    </a>
-                </div>
+        <aside class="column is-2 aside is-fullheight is-hidden-mobile">
+            <div class="main fixed">
+                <div class="title logo">ΩMEN</div>
+                <a class="item" ui-sref="patch" ui-sref-active="is-active">
+                    <span class="icon"><i class="fa fa-sitemap"></i></span>
+                    <span class="name">Patch</span>
+                </a>
+                <a class="item" ui-sref="setup" ui-sref-active="is-active">
+                    <span class="icon"><i class="fa fa-cog"></i></span>
+                    <span class="name">Devices</span>
+                </a>
+                <a class="item" ui-sref="library" ui-sref-active="is-active">
+                    <span class="icon"><i class="fa fa-book"></i></span>
+                    <span class="name">Library</span>
+                </a>
+                <a class="item" ui-sref="control" ui-sref-active="is-active">
+                    <span class="icon"><i class="fa fa-bug"></i></span>
+                    <span class="name">Control</span>
+                </a>
             </div>
         </aside>
-        <div class="column is-10 admin-panel">
-
-            <div class="admin-panel is-fullheight">
-
+        <div class="column is-10 content-panel-column">
+            <div class="content-panel">
                 <nav class="nav has-shadow is-hidden-tablet" id="top">
                     <div class="container">
                         <div class="nav-left">
@@ -55,7 +53,7 @@
                             </a>
                             <a class="nav-item" ui-sref="setup" ui-sref-active="is-active">
                                 <span class="icon"><i class="fa fa-cog"></i></span>
-                                <span class="name">Setup</span>
+                                <span class="name">Devices</span>
                             </a>
                             <a class="nav-item" ui-sref="library" ui-sref-active="is-active">
                                 <span class="icon"><i class="fa fa-book"></i></span>
