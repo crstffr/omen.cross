@@ -180,7 +180,7 @@ export default class DataSet {
     fetchAll(opts) {
         this.collection.length = 0;
         return new Promise(resolve => {
-            let query = Object.assign({}, opts, this.rules, {$sort: {created: 1}});
+            let query = Object.assign({$sort: {created: 1}}, opts, this.rules);
             this.api.find({query: query}).then(result => {
                 result.forEach(item => this.collection.push(item));
                 resolve(this.collection);

@@ -1,7 +1,7 @@
 <div ng-if="!$ctrl.showForm">
     <div class="field is-grouped">
         <div class="control is-expanded">
-            <h1>Device Setup</h1>
+            <h1 class="title is-3">Device Setup</h1>
         </div>
         <div class="control align-with-h2">
             <button class="button is-small is-outlined is-primary"
@@ -12,22 +12,24 @@
     <hr>
 </div>
 
-<div ng-if="$ctrl.ready">
+<draggable-container>
+    <div ng-if="$ctrl.ready">
 
-    <article class="message is-warning" ng-if="!$ctrl.showForm && !$ctrl.groups.length">
-        <div class="message-body has-text-centered">
-            You do not have any groups setup yet.
-            You will need to add at least one group to continue.
-        </div>
-    </article>
+        <article class="message is-warning" ng-if="!$ctrl.showForm && !$ctrl.groups.length">
+            <div class="message-body has-text-centered">
+                You do not have any groups setup yet.
+                You will need to add at least one group to continue.
+            </div>
+        </article>
 
-    <add-group-form ng-if="$ctrl.showForm"
-                    close-form="$ctrl.closeForm()">
-    </add-group-form>
+        <add-group-form ng-if="$ctrl.showForm"
+                        close-form="$ctrl.closeForm()">
+        </add-group-form>
 
-    <device-group ng-repeat="(key, group) in $ctrl.groups"
-                  ng-show="!$ctrl.showForm"
-                  group="group">
-    </device-group>
+        <device-group ng-repeat="(key, group) in $ctrl.groups | orderBy:'index'"
+                      ng-show="!$ctrl.showForm"
+                      group="group">
+        </device-group>
 
-</div>
+    </div>
+</draggable-container>
