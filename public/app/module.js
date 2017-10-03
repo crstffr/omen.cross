@@ -22,6 +22,7 @@ import './component/add-device-form/add-device-form';
 import './component/device-list/device-list';
 import './component/device-table/device-table';
 import './component/setup/group/group';
+import './directive/sortable';
 import './directive/focus';
 
 Register.app(angular.module('app', ['ui.router']));

@@ -12,8 +12,8 @@
     <hr>
 </div>
 
-<draggable-container>
-    <div ng-if="$ctrl.ready">
+<sortable-container on-sort="$ctrl.sort(order)">
+    <sortable-contents ng-if="$ctrl.ready">
 
         <article class="message is-warning" ng-if="!$ctrl.showForm && !$ctrl.groups.length">
             <div class="message-body has-text-centered">
@@ -26,10 +26,9 @@
                         close-form="$ctrl.closeForm()">
         </add-group-form>
 
-        <device-group ng-repeat="(key, group) in $ctrl.groups | orderBy:'index'"
-                      ng-show="!$ctrl.showForm"
-                      group="group">
+        <device-group ng-repeat="(key, group) in $ctrl.groups | orderBy: 'index'"
+                      sortable-item sortable-id="{{group._id}}" group="group">
         </device-group>
 
-    </div>
-</draggable-container>
+    </sortable-contents>
+</sortable-container>
