@@ -22,6 +22,7 @@ System.config({
     "bulma": "npm:bulma@0.5.3",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.36",
+    "deep-equal": "npm:deep-equal@1.0.1",
     "draggable": "github:Shopify/draggable@1.0.0-beta",
     "fontawesome": "github:FortAwesome/Font-Awesome@4.7.0",
     "lodash": "npm:lodash@4.11.1",

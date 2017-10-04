@@ -13,23 +13,23 @@ Register.view('patch', {
         ready = false;
 
         constructor () {
-            this.groups = Groups.data;
-            this.devices = Devices.data;
-            this.fetchData().then(() => this.ready = true);
+            this.groups = Groups;
+            this.devices = Devices;
+            this.fetch().then(() => this.ready = true);
         }
 
-        fetchData() {
+        fetch() {
 
-            let opts = {$sort: {index: 1}};
+            let promises = [];
 
-            return Promise.all([
-                Devices.fetchAll(opts),
-                Groups.fetchAll(opts)
-            ]).then(results => {
-
-                console.log(results);
-
+            Groups.fetchAll({$sort: {index: 1}}).then(groups => {
+                groups.forEach(group => {
+                    let subset = new Devices.Subset({group: group._id});
+                    subset.fetchAll().then(() => group.devices = subset);
+                });
             });
+
+            return Promise.all(promises);
 
         }
 

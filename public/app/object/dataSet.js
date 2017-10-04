@@ -1,9 +1,12 @@
 
 import test from '../util/rules';
+import filter from '../util/filter';
 import ObjectObservable from 'oo';
 import redraw from '../service/redraw';
 import Database from '../service/database';
 import {EventHandler} from './eventHandler';
+
+let DataSets = {};
 
 /**
  * @TODO: cleanup handlers on destroy
@@ -31,8 +34,16 @@ export default class DataSet {
          * Protect the data property so it can't be overwritten.
          */
         Object.defineProperty(this, 'data', { get: () => this.collection });
+
+        /**
+         * Give the ability to access the collection via Array-like notation
+         */
         Object.defineProperty(this, 'array', { get: () => Object.values(this.collection) });
-        Object.defineProperty(this, 'length', { get: () => Object.keys(this.collection).length });
+
+        /**
+         * Provide a collection total in an Array-like notation
+         */
+        Object.defineProperty(this, 'length', { get: () => this.array.length });
 
         /**
          * Initialize the connection to the database table.
@@ -49,22 +60,31 @@ export default class DataSet {
 
         this.setupProxyHandlers();
         this.setupDatabaseHooks();
+        this.setupSubsetClass();
     }
 
+    /**
+     *
+     */
     destroy() {
         if (this.handler) {
             Object.values(this.handler)
                   .forEach(handler => handler.destroy());
         }
         if (this.watchers) {
-            // stop watching any running observables
             this.watchers.forEach(watcher => watcher());
         }
-        /*
-        delete this['collection'];
-        delete this['handler'];
-        delete this['api'];
-        */
+    }
+
+    /**
+     *
+     * @param fn
+     */
+    watch(fn) {
+        let handler = changes => fn(changes);
+        let watcher = ObjectObservable.observe(this.collection, handler);
+        this.watchers.push(watcher);
+        return watcher;
     }
 
     /**
@@ -85,7 +105,7 @@ export default class DataSet {
             }
         });
 
-        // Force Angular to redraw after anything happens from DB.
+        // Force Angular to redraw after anything happens to the DB.
 
         this.api.after(() => redraw());
     }
@@ -159,21 +179,14 @@ export default class DataSet {
         });
 
     }
-
-    watch(fn) {
-        let handler = changes => fn(changes);
-        let watcher = ObjectObservable.observe(this.collection, handler);
-        this.watchers.push(watcher);
-        return watcher;
-    }
-
-    addItem(item) {
+    
+    addItem(item = {}) {
         this.collection[item._id] = item;
     }
 
     updateItem(id, data) {
         if (this.collection[id]) {
-            Object.assign(this.collection[id] || {}, data);
+            Object.assign(this.collection[id], data);
         }
     }
 
@@ -191,30 +204,47 @@ export default class DataSet {
         });
     }
 
-    fetchAll(opts) {
+    fetchAll(opts = {}) {
         return new Promise(resolve => {
             let query = Object.assign({$sort: {created: 1}}, opts, this.rules);
             this.api.find({query: query}).then(result => {
                 result.forEach(item => this.addItem(item));
-                resolve(this.collection);
+                resolve(this.array);
             });
         });
     }
+    
+    setupSubsetClass() {
 
-    /*
-    fetchSet(opts) {
-        return new Promise(resolve => {
-            let query = Object.assign({$sort: {created: 1}}, opts, this.rules);
-            let uid = this.table + JSON.stringify(query);
+        let _parent = this;
 
-            console.log('subset uid', uid);
-            this.api.find({query: query}).then(result => {
-                resolve(result);
-            });
-        });
+        this.Subset = class {
+
+            rules;
+
+            constructor (rules = {}) {
+
+                this.rules = rules;
+
+                Object.defineProperty(this, 'data', { get: () => {
+                    return this.array.reduce((result, item) => {
+                        result[item._id] = item;
+                        return result
+                    }, {});
+                }});
+
+                Object.defineProperty(this, 'array', { get: () => {
+                    return filter(_parent.data, this.rules);
+                }});
+
+            }
+
+            fetchAll(opts = {}) {
+                Object.assign(opts, this.rules);
+                return _parent.fetchAll(opts).then((result) => {
+                    return this.array;
+                });
+            }
+        }
     }
-    */
-
 }
-
-

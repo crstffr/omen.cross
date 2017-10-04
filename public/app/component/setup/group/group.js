@@ -1,5 +1,7 @@
 import Register from '../../../registry';
 import template from './group.html!text';
+import Groups from '../../../database/groups';
+import Devices from '../../../database/devices';
 import DataSet from '../../../object/dataSet';
 import Focus from '../../../service/focus';
 import Modal from '../../modal/modal';
@@ -14,20 +16,21 @@ Register.component('deviceGroup', {
         id = '';
         group = {};
         modal = {};
+        groups = {};
         showForm = false;
 
         $onInit() {
             this.id = this.group._id;
-            this.devices = new DataSet('groups', {_id: this.id});
+            this.groups = new DataSet('groups', {_id: this.id});
         }
 
         $onDestroy() {
-            this.devices.destroy();
+            this.groups.destroy();
             if (this.modal.destroy) {
                 this.modal.destroy();
             }
             delete this['modal'];
-            delete this['devices'];
+            delete this['groups'];
         }
 
         openModal() {
@@ -44,7 +47,8 @@ Register.component('deviceGroup', {
                         Focus('delete-group-btn', this.id);
                     },
                     confirm: () => {
-                        this.devices.api.remove(this.id);
+                        this.groups.api.remove(this.id);
+                        Devices.api.remove(null, {query: {group: this.id}});
                     }
                 }
             });
