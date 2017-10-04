@@ -18,16 +18,16 @@ Register.component('deviceGroup', {
 
         $onInit() {
             this.id = this.group._id;
-            this.dataSet = new DataSet('groups', {_id: this.id});
+            this.devices = new DataSet('groups', {_id: this.id});
         }
 
         $onDestroy() {
-            this.dataSet.destroy();
+            this.devices.destroy();
             if (this.modal.destroy) {
                 this.modal.destroy();
             }
             delete this['modal'];
-            delete this['dataSet'];
+            delete this['devices'];
         }
 
         openModal() {
@@ -44,7 +44,7 @@ Register.component('deviceGroup', {
                         Focus('delete-group-btn', this.id);
                     },
                     confirm: () => {
-                        this.dataSet.api.remove(this.id);
+                        this.devices.api.remove(this.id);
                     }
                 }
             });

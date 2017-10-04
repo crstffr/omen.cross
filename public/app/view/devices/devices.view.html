@@ -26,9 +26,11 @@
                         close-form="$ctrl.closeForm()">
         </add-group-form>
 
-        <device-group ng-repeat="(key, group) in $ctrl.groups | orderBy: 'index'"
-                      sortable-item sortable-id="{{group._id}}" group="group">
-        </device-group>
+        <div ng-hide="$ctrl.showForm">
+            <device-group ng-repeat="(key, group) in $ctrl.groups.array | orderBy: 'index'"
+                          sortable-item sortable-id="{{group._id}}" group="group">
+            </device-group>
+        </div>
 
     </sortable-contents>
 </sortable-container>

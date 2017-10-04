@@ -1,10 +1,10 @@
 import Register from '../../registry';
-import template from './setup.view.html!text';
+import template from './devices.view.html!text';
 import Groups from '../../database/groups';
 import Focus from '../../service/focus';
 
-Register.view('setup', {
-    $url: '/setup',
+Register.view('devices', {
+    $url: '/devices',
     template: template,
     controller: class {
 
@@ -13,10 +13,10 @@ Register.view('setup', {
         showForm = false;
 
         constructor () {
-            this.groups = Groups.data;
+            this.groups = Groups;
             Groups.fetchAll().then(() => this.ready = true);
         }
-        
+
         sort(order) {
             order.forEach((id, index) => {
                 Groups.api.patch(id, {index: index});

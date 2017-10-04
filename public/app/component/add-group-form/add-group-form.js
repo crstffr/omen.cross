@@ -16,36 +16,16 @@ Register.component('addGroupForm', {
 
             if (!this.form.$valid) { return; }
 
-            Groups.api.find({
-                query: {
-                    $limit: 1,
-                    $select: ['index'],
-                    $sort: {index: -1}
-                }
-            }, (n, result) => {
-
-                let i = 0;
-
-                if (result.length && result[0].index >= 0) {
-                    i  = result[0].index + 1;
-                    console.log('new index', i);
-                }
-
-
-
+            Groups.getMax('index').then(i => {
                 Groups.api.create({
-                    index: i,
+                    index: i + 1,
                     devices: [],
                     name: this.form.name
                 }, () => {
                     this.closeForm();
                 });
-
-
             });
-
         }
-
     }
 });
 

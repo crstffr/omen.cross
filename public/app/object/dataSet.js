@@ -14,7 +14,7 @@ export default class DataSet {
     table = '';
     rules = {};
     handler = {};
-    original = [];
+    original = {};
     watchers = [];
     unwatch = () => {};
     onChange = () => {};
@@ -31,6 +31,8 @@ export default class DataSet {
          * Protect the data property so it can't be overwritten.
          */
         Object.defineProperty(this, 'data', { get: () => this.collection });
+        Object.defineProperty(this, 'array', { get: () => Object.values(this.collection) });
+        Object.defineProperty(this, 'length', { get: () => Object.keys(this.collection).length });
 
         /**
          * Initialize the connection to the database table.
@@ -121,50 +123,38 @@ export default class DataSet {
 
         // When items are created at the DB level, add them to our proxy.
 
-        this.api.on('created', data => {
-            if (test(data, this.rules)) {
-                this.collection.push(data);
+        this.api.on('created', item => {
+            if (test(item, this.rules)) {
+                this.addItem(item);
             }
         });
 
         // When items are removed at the DB level, remove them from the proxy.
 
-        this.api.on('removed', data => {
-            if (test(data, this.rules)) {
-                this.collection.forEach((item, i) => {
-                    if (item._id === data._id) {
-                        this.collection.splice(i, 1);
-                        this.handler.remove.trigger(data);
-                    }
-                });
+        this.api.on('removed', item => {
+            if (test(item, this.rules)) {
+                delete this.collection[item._id];
+                this.handler.remove.trigger(item);
             }
         });
 
         // When items are updated at the DB level, update them in the proxy.
 
-        this.api.on('updated', data => {
-            if (test(data, this.rules)) {
-                this.collection.forEach((item, i) => {
-                    if (item._id === data._id) {
-                        let oldVal = Object.assign({}, item);
-                        Object.assign(this.collection[i], data);
-                        this.handler.update.trigger(data, oldVal);
-                    }
-                });
+        this.api.on('updated', item => {
+            if (test(item, this.rules)) {
+                let oldVal = Object.assign({}, item);
+                this.updateItem(item._id, item);
+                this.handler.update.trigger(item, oldVal);
             }
         });
 
         // When items are patched at the DB level, update them in the proxy.
 
-        this.api.on('patched', data => {
-            if (test(data, this.rules)) {
-                this.collection.forEach((item, i) => {
-                    if (item._id === data._id) {
-                        let oldVal = Object.assign({}, item);
-                        Object.assign(this.collection[i], data);
-                        this.handler.update.trigger(data, oldVal);
-                    }
-                });
+        this.api.on('patched', item => {
+            if (test(item, this.rules)) {
+                let oldVal = Object.assign({}, item);
+                this.updateItem(item._id, item);
+                this.handler.update.trigger(item, oldVal);
             }
         });
 
@@ -177,16 +167,53 @@ export default class DataSet {
         return watcher;
     }
 
+    addItem(item) {
+        this.collection[item._id] = item;
+    }
+
+    updateItem(id, data) {
+        if (this.collection[id]) {
+            Object.assign(this.collection[id] || {}, data);
+        }
+    }
+
+    getMax(field) {
+        let max = 0;
+        let opts = {query: {$limit: 1, $select: [field], $sort: {}}};
+        opts.query.$sort[field] = -1;
+        return new Promise(resolve => {
+            this.api.find(opts, (n, result) => {
+                if (result.length && result[0][field] >= 0) {
+                    max = resolve(result[0][field]);
+                }
+                resolve(max);
+            });
+        });
+    }
+
     fetchAll(opts) {
-        this.collection.length = 0;
         return new Promise(resolve => {
             let query = Object.assign({$sort: {created: 1}}, opts, this.rules);
             this.api.find({query: query}).then(result => {
-                result.forEach(item => this.collection.push(item));
+                result.forEach(item => this.addItem(item));
                 resolve(this.collection);
             });
         });
     }
+
+    /*
+    fetchSet(opts) {
+        return new Promise(resolve => {
+            let query = Object.assign({$sort: {created: 1}}, opts, this.rules);
+            let uid = this.table + JSON.stringify(query);
+
+            console.log('subset uid', uid);
+            this.api.find({query: query}).then(result => {
+                resolve(result);
+            });
+        });
+    }
+    */
 
 }
 

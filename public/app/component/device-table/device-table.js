@@ -16,22 +16,21 @@ Register.component('deviceTable', {
 
         $onInit() {
 
-            this.dataSet = new DataSet('devices', {group: this.group._id});
-
-            this.dataSet.onRemove(device => IO.deregisterDevice(device));
-            this.dataSet.onCreate(device => IO.registerDevice(device));
-            this.dataSet.onUpdate((newVal, oldVal) => {
+            this.devices = new DataSet('devices', {group: this.group._id});
+            this.devices.onRemove(device => IO.deregisterDevice(device));
+            this.devices.onCreate(device => IO.registerDevice(device));
+            this.devices.onUpdate((newVal, oldVal) => {
                 IO.deregisterDevice(oldVal);
                 IO.registerDevice(newVal);
             });
 
-            this.dataSet.fetchAll().then(() => this.ready = true);
-            this.devices = this.group.devices = this.dataSet.data;
+            this.devices.fetchAll().then(() => this.ready = true);
+            this.group.devices = this.devices.data;
         }
 
         $onDestroy() {
-            this.dataSet.destroy();
-            delete this['dataSet'];
+            this.devices.destroy();
+            delete this['devices'];
         }
     }
 });

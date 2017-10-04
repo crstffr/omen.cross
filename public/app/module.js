@@ -6,7 +6,7 @@ import 'angular-ui-router';
 import '../style/style';
 import './view/index/index.view';
 import './view/patch/patch.view';
-import './view/setup/setup.view';
+import './view/devices/devices.view';
 import './view/library/library.view';
 import './view/control/control.view';
 import './service/database';

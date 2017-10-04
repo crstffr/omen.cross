@@ -1,0 +1,54 @@
+
+html body {
+
+  .patch-groups {
+    width: 22%;
+
+  }
+
+  .patch-group {
+
+    margin-bottom: 2vw;
+
+    .title {
+      margin: 0;
+    }
+
+  }
+
+  .patch-item {
+
+    padding: .3vw;
+    margin: .5vw 0;
+    border: 1px solid $grey-lighter;
+
+    .patch-item-name {
+      font-size: .9rem;
+      font-weight: bold;
+      line-height: 1.8;
+    }
+
+  }
+
+  .patch-panel {
+
+    padding: 0 0 0 3vw;
+
+    .title {
+      margin: 0;
+    }
+
+    sortable-container {
+      background: pink;
+      width: 100%;
+      height: 80vh;
+
+      padding: .3vw;
+      margin: .5vw 0;
+      border: 1px solid $grey-lighter;
+
+    }
+
+  }
+
+}

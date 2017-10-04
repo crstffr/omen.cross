@@ -18,21 +18,21 @@ Register.directive('deviceTableRow', () => {
             id = '';
             modal = {};
             device = {};
-            dataSet = {};
+            devices = {};
             showForm = false;
 
             $onInit() {
                 this.id = this.device._id;
-                this.dataSet = new DataSet('devices', {_id: this.id});
+                this.devices = new DataSet('devices', {_id: this.id});
             }
 
             $onDestroy() {
-                this.dataSet.destroy();
+                this.devices.destroy();
                 if (this.modal.destroy) {
                     this.modal.destroy();
                 }
                 delete this['modal'];
-                delete this['dataSet'];
+                delete this['devices'];
             }
 
             getInputs() {
@@ -57,7 +57,7 @@ Register.directive('deviceTableRow', () => {
                             Focus('delete-device-btn', this.id);
                         },
                         confirm: () => {
-                            this.dataSet.api.remove(this.id);
+                            this.devices.api.remove(this.id);
                         }
                     }
                 });
@@ -87,7 +87,7 @@ Register.directive('deviceTableRow', () => {
                     return;
                 }
 
-                this.dataSet.api.patch(this.id, {
+                this.devices.api.patch(this.id, {
                     name: this.form.name,
                     input: this.form.input.value || '',
                     output: this.form.output.value || ''

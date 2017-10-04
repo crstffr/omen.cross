@@ -5,6 +5,7 @@
 @import "./components/panel";
 @import "./components/panel";
 @import "./components/layout";
+@import "components/patch-panel";
 @import "./components/device-group";
 
 @keyframes blur {
@@ -62,6 +63,9 @@ html body {
     margin-bottom: 0;
   }
 
+  .no-select {
+    user-select: none;
+  }
 
   table {
 

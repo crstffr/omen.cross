@@ -25,7 +25,7 @@ html body {
   }
 
   .drag-handle {
-    &.is-static {
+    &, &.is-static {
       cursor: -webkit-grab;
       pointer-events: all;
       &:active {
