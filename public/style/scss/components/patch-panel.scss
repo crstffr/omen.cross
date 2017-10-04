@@ -1,10 +1,13 @@
 
 $item-margin: 8px;
 $item-height: 33px;
-$item-padding: $item-margin / 2;
+$item-padding-v: $item-margin / 4;
+$item-padding-h: 10px;
+$item-icon-width: 18px;
 $item-name-height: 24px;
 $item-width: 250px;
-$item-offset: 35px;
+$item-offset: 30px;
+$column-margin: 5vw;
 
 html body.omen {
 
@@ -23,7 +26,7 @@ html body.omen {
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
-    padding-right: 2.5vw;
+    padding-right: $column-margin;
     border-right: 1px solid $grey-lighter;
   }
 
@@ -31,7 +34,7 @@ html body.omen {
     order: 0;
     flex: 1 1 auto;
     align-self: auto;
-    padding-left: 2.5vw;
+    padding-left: $column-margin;
   }
 
   .drag-handle {
@@ -71,12 +74,21 @@ html body.omen {
       * {
         visibility: hidden;
       }
+      dropslot.dropslot {
+        display: none;
+      }
+    }
+
+    &.gu-mirror {
+      dropslot {
+        display: block;
+      }
     }
 
     patch-device-contents {
 
       &, &.field {
-        padding: $item-padding;
+        padding: $item-padding-v $item-padding-h;
         border: 1px solid $grey-lighter;
         width: $item-width;
         background: #fff;
@@ -84,16 +96,20 @@ html body.omen {
       }
 
       .icon {
-        width: 24px;
-        height: 24px;
+        width: $item-icon-width;
+        height: $item-name-height;
       }
-
 
       .patch-item-name {
         font-size: .9rem;
         font-weight: bold;
+        text-align: center;
         height: $item-name-height;
         line-height: $item-name-height;
+      }
+
+      .icon.patch-wire {
+        display: none;
       }
 
       .icon.grouped-only {
@@ -113,11 +129,7 @@ html body.omen {
       margin-left: $item-offset;
     }
 
-    &.gu-mirror {
-      dropslot {
-        display: block;
-      }
-    }
+
 
   }
 
@@ -141,10 +153,18 @@ html body.omen {
       patch-device {
 
         border: 0;
-        width: $item-width + $item-height;
+        width: $item-width;
 
+        patch-device-contents.field {
 
-        patch-device-contents {
+          .patch-item-name {
+            margin: 0;
+            text-align: left;
+          }
+
+          .icon.patch-wire {
+            display: inline-flex;
+          }
 
           .icon.grouped-only {
             display: none;

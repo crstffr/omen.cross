@@ -18,7 +18,9 @@
                         device-output="{{device.output}}">
 
                     <patch-device-contents
-                        class="no-select drag-handle field is-grouped">
+                            class="no-select drag-handle field is-grouped"
+                            ng-class="{'has-input': device.input, 'has-output': device.output}">
+
                         <div class="control">
                             <span class="icon" ng-if="!device.output">
                                 <i class="fa fa-volume-up"></i>
@@ -26,13 +28,15 @@
                             <span class="icon" ng-if="device.output">
                                 <i class="fa fa-dot-circle-o"></i>
                             </span>
-                            <span class="icon patch-wire patched-only" ng-if="device.input">
+                            <span class="icon patch-wire" ng-if="device.input">
                                 <i class="fa fa-level-down"></i>
                             </span>
                         </div>
-                        <div class="control is-expanded has-text-centered patch-item-name">
+
+                        <div class="control is-expanded patch-item-name">
                             {{device.name}}
                         </div>
+
                         <div class="control" >
                             <span class="icon grouped-only" ng-if="device.input">
                                 <i class="fa fa-long-arrow-right"></i>
@@ -41,14 +45,12 @@
                                 <i class="fa fa-volume-up"></i>
                             </span>
                         </div>
+
                     </patch-device-contents>
 
-                    <dropslot ng-if="device.input">
-
-                    </dropslot>
+                    <dropslot class="dropslot" ng-if="device.input"></dropslot>
 
                 </patch-device>
-
 
             </device-container>
 
