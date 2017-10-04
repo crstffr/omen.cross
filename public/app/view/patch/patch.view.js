@@ -31,11 +31,14 @@ Register.view('patch', {
 
         initDraggables() {
 
-            let containers = [];
+            let containers = [$('dropzone')[0]];
             $('device-container').forEach(el => containers.push(el));
-            containers.push($('dropzone')[0]);
 
             this.draggable = dragula(containers, {
+                isContainer: (el) => {
+                    let type = (el.nodeName || '').toLowerCase();
+                    return type === 'dropslot';
+                },
                 accepts: (item, cont, source, sibling) => {
 
                     let type = (cont.nodeName || '').toLowerCase();
@@ -56,13 +59,24 @@ Register.view('patch', {
                             break;
                         case 'dropslot':
                             return Boolean(itemOutput);
-                            return false;
                             break;
                     }
                 }
             }).on('drop', (item, cont, source, sibling) => {
 
-                console.log('dropped', item, cont);
+                let type = (cont.nodeName || '').toLowerCase();
+
+                switch (type) {
+                    case 'device-container':
+
+                        break;
+                    case 'dropzone':
+
+                        break;
+                    case 'dropslot':
+
+                        break;
+                }
 
             });
 

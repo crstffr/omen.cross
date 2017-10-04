@@ -1,5 +1,12 @@
 
-html body {
+$item-margin: 8px;
+$item-height: 33px;
+$item-padding: $item-margin / 2;
+$item-name-height: 24px;
+$item-width: 250px;
+$item-offset: 35px;
+
+html body.omen {
 
   .patch-columns {
     display: -ms-flexbox;
@@ -27,7 +34,6 @@ html body {
     padding-left: 2.5vw;
   }
 
-
   .drag-handle {
     &.gu-mirror {
       &, &:active {
@@ -36,8 +42,11 @@ html body {
     }
   }
 
-  .patch-group {
 
+
+  patch-group {
+
+    display: block;
     margin-bottom: 2vw;
 
     .title {
@@ -45,19 +54,17 @@ html body {
       @extend .no-pointer;
     }
 
+    dropslot {
+      display: none;
+    }
+
   }
 
-  .patch-item {
+  patch-device {
 
-    width: 200px;
-    padding: .3vw;
-    margin: .5vw 0;
-    border: 1px solid $grey-lighter;
-    background: #fff;
-
-    &.gu-mirror {
-      //transform: scale(.8);
-    }
+    display: block;
+    margin: $item-margin 0;
+    width: $item-width;
 
     &.gu-transit {
       background: #eee;
@@ -66,10 +73,50 @@ html body {
       }
     }
 
-    .patch-item-name {
-      font-size: .9rem;
-      font-weight: bold;
-      line-height: 1.8;
+    patch-device-contents {
+
+      &, &.field {
+        padding: $item-padding;
+        border: 1px solid $grey-lighter;
+        width: $item-width;
+        background: #fff;
+        margin: 0;
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+      }
+
+
+      .patch-item-name {
+        font-size: .9rem;
+        font-weight: bold;
+        height: $item-name-height;
+        line-height: $item-name-height;
+      }
+
+      .icon.grouped-only {
+        display: inline-flex;
+      }
+
+      .icon.patched-only {
+        display: none;
+      }
+
+    }
+
+    dropslot {
+      display: none;
+      min-height: $item-height;
+      margin-top: $item-margin;
+      margin-left: $item-offset;
+    }
+
+    &.gu-mirror {
+      dropslot {
+        display: block;
+      }
     }
 
   }
@@ -83,18 +130,37 @@ html body {
 
     dropzone {
 
+      width: 100%;
       display: block;
       min-height: 80vh;
-      width: 100%;
+
+      > patch-device {
+        margin-bottom: 40px;
+      }
+
+      patch-device {
+
+        border: 0;
+        width: $item-width + $item-height;
+
+
+        patch-device-contents {
+
+          .icon.grouped-only {
+            display: none;
+          }
+
+          .icon.patched-only {
+            display: inline-flex;
+          }
+
+        }
+
+      }
 
       dropslot {
         display: block;
-        background: pink;
-        content: '&nbsp;'
       }
-
     }
-
   }
-
 }
