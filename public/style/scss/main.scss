@@ -1,11 +1,11 @@
-@import "../../jspm_packages/npm/bulma@0.5.3/sass/utilities/initial-variables";
+@import "jspm:bulma/sass/utilities/initial-variables";
 
 @import "./components/aside";
 @import "./components/modal";
 @import "./components/panel";
 @import "./components/panel";
 @import "./components/layout";
-@import "components/patch-panel";
+@import "./components/patch-panel";
 @import "./components/device-group";
 
 @keyframes blur {

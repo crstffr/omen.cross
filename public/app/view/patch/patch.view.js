@@ -12,6 +12,7 @@ Register.view('patch', {
 
         groups = {};
         devices = {};
+        draggable = {};
         ready = false;
 
         constructor () {
@@ -23,22 +24,47 @@ Register.view('patch', {
         }
 
         $onDestroy() {
-
+            if (this.draggable.destroy) {
+                this.draggable.destroy();
+            }
         }
 
         initDraggables() {
 
             let containers = [];
+            $('device-container').forEach(el => containers.push(el));
+            containers.push($('dropzone')[0]);
 
-            $('draggable-container').forEach(el => containers.push(el));
-            containers.push($('drop-zone')[0]);
+            this.draggable = dragula(containers, {
+                accepts: (item, cont, source, sibling) => {
 
+                    let type = (cont.nodeName || '').toLowerCase();
 
-            console.log(containers);
+                    let itemGroupId = item.getAttribute('device-group');
+                    let contGroupId = cont.getAttribute('device-group');
+                    let itemOutput = item.getAttribute('device-output');
+                    let itemInput = item.getAttribute('device-input');
 
-            dragula(containers, {
+                    switch (type) {
+                        case 'device-container':
+                            if (itemGroupId === contGroupId) {
+                                return true;
+                            }
+                            break;
+                        case 'dropzone':
+                            return Boolean(itemInput);
+                            break;
+                        case 'dropslot':
+                            return Boolean(itemOutput);
+                            return false;
+                            break;
+                    }
+                }
+            }).on('drop', (item, cont, source, sibling) => {
 
-            })
+                console.log('dropped', item, cont);
+
+            });
 
         }
 

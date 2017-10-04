@@ -1,6 +1,41 @@
 
 html body {
 
+  .patch-columns {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: stretch;
+    align-items: stretch;
+  }
+
+  .patch-groups {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    padding-right: 2.5vw;
+    border-right: 1px solid $grey-lighter;
+  }
+
+  .patch-panel {
+    order: 0;
+    flex: 1 1 auto;
+    align-self: auto;
+    padding-left: 2.5vw;
+  }
+
+
+  .drag-handle {
+    &.gu-mirror {
+      &, &:active {
+        cursor: -webkit-grabbing;
+      }
+    }
+  }
+
   .patch-group {
 
     margin-bottom: 2vw;
@@ -14,9 +49,22 @@ html body {
 
   .patch-item {
 
+    width: 200px;
     padding: .3vw;
     margin: .5vw 0;
     border: 1px solid $grey-lighter;
+    background: #fff;
+
+    &.gu-mirror {
+      //transform: scale(.8);
+    }
+
+    &.gu-transit {
+      background: #eee;
+      * {
+        visibility: hidden;
+      }
+    }
 
     .patch-item-name {
       font-size: .9rem;
@@ -28,21 +76,21 @@ html body {
 
   .patch-panel {
 
-    padding: 0 0 0 3vw;
-
     .title {
       margin: 0;
       @extend .no-pointer;
     }
 
-    drop-zone {
+    dropzone {
 
       display: block;
       min-height: 80vh;
       width: 100%;
 
-      .patch-item.blank {
-        background: #eee;
+      dropslot {
+        display: block;
+        background: pink;
+        content: '&nbsp;'
       }
 
     }

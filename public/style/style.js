@@ -1,5 +1,4 @@
 import 'fontawesome/css/font-awesome.css!';
-import 'dragula/dist/dragula.min.css!';
 import './css/vendor.min.css!';
 import './css/main.min.css!';
 

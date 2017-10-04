@@ -1,11 +1,2 @@
-@import "../../jspm_packages/npm/bulma@0.5.3/sass/utilities/initial-variables";
-
-$dark: #213142;
-$primary: saturate(#547986, 50%);
-$success: #48a970;
-$danger: #f44336;
-
-// $box-shadow: 0 2px 3px rgba($black, 0.2), 0 0 0 1px rgba($black, 0.2);
-// $border: darken($grey-lighter, 10%);
-
-@import "../../jspm_packages/npm/bulma@0.5.3/bulma";
+@import "./vendor/bulma";
+@import "./vendor/dragula";

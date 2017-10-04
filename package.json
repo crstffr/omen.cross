@@ -41,7 +41,7 @@
     "minimist": "1.2.0",
     "opn": "5.1.0",
     "run-sequence": "2.2.0",
-    "sass-jspm-importer": "0.0.6"
+    "sass-jspm-importer": "github:idcware/node-sass-jspm-importer"
   },
   "jspm": {
     "directories": {
