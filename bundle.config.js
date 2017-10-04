@@ -21,6 +21,7 @@ module.exports = {
             items: [
                 'lodash',
                 'angular',
+                'dragula',
                 'draggable'
             ]
         },

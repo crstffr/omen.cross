@@ -1,17 +1,13 @@
 
 html body {
 
-  .patch-groups {
-    width: 22%;
-
-  }
-
   .patch-group {
 
     margin-bottom: 2vw;
 
     .title {
       margin: 0;
+      @extend .no-pointer;
     }
 
   }
@@ -36,16 +32,18 @@ html body {
 
     .title {
       margin: 0;
+      @extend .no-pointer;
     }
 
-    sortable-container {
-      background: #eee;
+    drop-zone {
+
+      display: block;
       min-height: 80vh;
       width: 100%;
 
-      padding: .3vw;
-      margin: .5vw 0;
-      border: 1px solid $grey-lighter;
+      .patch-item.blank {
+        background: #eee;
+      }
 
     }
 

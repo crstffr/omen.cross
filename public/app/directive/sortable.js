@@ -2,7 +2,7 @@ import Register from '../registry';
 import {Sortable} from 'draggable';
 import $ from '../util/$';
 
-Register.directive('sortableContainer', () => {
+Register.directive('sortableContainer', ($parse) => {
     return {
         restrict: 'E',
         link: (scope, element, attrs, ctrl) => {
@@ -10,6 +10,7 @@ Register.directive('sortableContainer', () => {
             element = element[0];
             let item = '[sortable-item]';
             let handle = '[sortable-handle]';
+            let containers = [element];
 
             let opts = {
                 draggable: item,
@@ -17,7 +18,21 @@ Register.directive('sortableContainer', () => {
                 delay: 200
             };
 
-            let sortable = new Sortable([element], opts)
+            if (attrs.sortableAppendMirror === 'self') {
+                opts.appendTo = element;
+            }
+
+            if (attrs.sortableConnect) {
+                let others = [];
+                try {
+                    others = $parse(attrs.sortableConnect)(scope);
+                    others.forEach(selector => {
+                        containers.push($(selector));
+                    })
+                } catch(e) {}
+            }
+
+            let sortable = new Sortable(containers, opts)
                 .on('sortable:stop', () => {
 
                     scope.order = [];
@@ -35,4 +50,4 @@ Register.directive('sortableContainer', () => {
 
         }
     }
-});
+}, ['$parse']);

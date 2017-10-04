@@ -2,55 +2,51 @@
 
     <div class="column is-3 is-paddingless patch-groups">
 
-        <div class="patch-group" ng-repeat="group in $ctrl.groups.array | orderBy: 'index'">
+        <div ng-repeat="group in $ctrl.groups.array | orderBy: 'index'"
+                   ng-show="$ctrl.ready"
+                   class="patch-group">
 
-            <h2 class="title is-5 no-select">{{group.name}}</h2>
+        <h2 class="title is-5 no-select">{{group.name}}</h2>
 
-            <sortable-container>
-                <sortable-contents>
-                    <div ng-repeat="(key, device) in group.devices.array | orderBy: 'index'"
-                        sortable-item sortable-id="{{device._id}}" sortable-handle
-                        class="no-select drag-handle patch-item field is-grouped">
-                        <div class="control" ng-if="device.output">
-                            <span class="icon">
-                                <i class="fa fa-dot-circle-o"></i>
-                            </span>
-                        </div>
-                        <div class="control" ng-if="!device.output">
-                            <span class="icon">
-                                <i class="fa fa-volume-up"></i>
-                            </span>
-                        </div>
-                        <div class="control is-expanded has-text-centered patch-item-name">
-                            {{device.name}}
-                        </div>
-                        <div class="control" ng-if="device.input">
-                            <span class="icon">
-                                <i class="fa fa-long-arrow-right"></i>
-                            </span>
-                        </div>
-                        <div class="control" ng-if="!device.input">
-                            <span class="icon">
-                                <i class="fa fa-volume-up"></i>
-                            </span>
-                        </div>
-                    </div>
-                </sortable-contents>
-            </sortable-container>
+        <draggable-container>
+            <drag-item ng-repeat="(key, device) in $ctrl.devices[group._id].array | orderBy: 'index'"
+                 draggable-item draggable-id="{{device._id}}"
+                 class="no-select drag-handle patch-item field is-grouped">
+                <div class="control" ng-if="device.output">
+                        <span class="icon">
+                            <i class="fa fa-dot-circle-o"></i>
+                        </span>
+                </div>
+                <div class="control" ng-if="!device.output">
+                        <span class="icon">
+                            <i class="fa fa-volume-up"></i>
+                        </span>
+                </div>
+                <div class="control is-expanded has-text-centered patch-item-name">
+                    {{device.name}}
+                </div>
+                <div class="control" ng-if="device.input">
+                        <span class="icon">
+                            <i class="fa fa-long-arrow-right"></i>
+                        </span>
+                </div>
+                <div class="control" ng-if="!device.input">
+                        <span class="icon">
+                            <i class="fa fa-volume-up"></i>
+                        </span>
+                </div>
+            </drag-item>
+        </draggable-container>
 
-        </div>
-
+    </div>
 
     </div>
     <div class="column patch-panel">
 
         <h2 class="title is-5 no-select">Patchbay</h2>
+        <drop-zone>
 
-        <sortable-container>
-            <sortable-contents>
-
-            </sortable-contents>
-        </sortable-container>
+        </drop-zone>
     </div>
 
 </div>

@@ -67,6 +67,10 @@ html body {
     user-select: none;
   }
 
+  .no-pointer {
+    pointer-events: none;
+  }
+
   table {
 
     &.has-text-centered {
