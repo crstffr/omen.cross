@@ -1,5 +1,5 @@
 
-export default function $(selector) {
+export default function $(selector, parent = window.document) {
 
     let selectorType = 'querySelectorAll';
 
@@ -8,5 +8,5 @@ export default function $(selector) {
         selector = selector.substr(1, selector.length);
     }
 
-    return window.document[selectorType](selector);
+    return parent[selectorType](selector);
 };

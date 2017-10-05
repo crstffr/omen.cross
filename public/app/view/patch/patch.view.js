@@ -64,6 +64,8 @@ Register.view('patch', {
                 }
             }).on('drop', (item, cont, source, sibling) => {
 
+                this.connectAll();
+
                 let type = (cont.nodeName || '').toLowerCase();
 
                 switch (type) {
@@ -80,6 +82,38 @@ Register.view('patch', {
 
             });
 
+        }
+
+        connectAll() {
+
+            let zone = $('dropzone')[0];
+            let connClass = 'is-connected';
+
+            this.getChildren(zone).forEach(deviceElem => {
+                let dropslot = this.getDropslot(deviceElem);
+                let grandkids = this.getChildren(dropslot);
+                if (grandkids.length) {
+                    deviceElem.classList.add(connClass);
+                } else {
+                    deviceElem.classList.remove(connClass);
+                }
+            });
+
+        }
+
+        getChildren(elem = '') {
+            return Array.from(elem.children) || [];
+        }
+
+        getDropslot(deviceElem) {
+            let dropslot;
+            this.getChildren(deviceElem).forEach(childElem => {
+                let type = (childElem.nodeName || '').toLowerCase();
+                if (type === 'dropslot') {
+                    dropslot = childElem;
+                }
+            });
+            return dropslot;
         }
 
         fetch() {
