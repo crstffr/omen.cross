@@ -15,10 +15,12 @@ export function childrenOf(element) {
     return Array.from(element.children || []) || [];
 }
 
-export function specificChildOf(parent, nodeName) {
-    return childrenOf(parent).reduce((result, val, i) => {
-        return (val.nodeName === nodeName.toUpperCase()) ? val : result;
+export function childOf(parent, nodeName) {
+    let result = false;
+    childrenOf(parent).forEach(child => {
+        result = (child.nodeName === nodeName.toUpperCase()) ? child : result;
     });
+    return result;
 }
 
 export default select;

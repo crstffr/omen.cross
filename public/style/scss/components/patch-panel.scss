@@ -85,30 +85,6 @@ html body.omen {
       }
     }
 
-    &.has-input {
-      .patch-device-contents {
-        .icon-sound {
-          display: block;
-        }
-      }
-    }
-
-    &.has-output {
-      .patch-device-contents {
-        .icon-io {
-          display: block;
-        }
-      }
-    }
-
-    &.has-input.has-output {
-      .patch-device-contents {
-        .icon-sound {
-          display: none;
-        }
-      }
-    }
-
     .patch-device-contents {
 
       color: $dark;
@@ -119,11 +95,6 @@ html body.omen {
         width: $item-width;
         background: #fff;
         margin: 0;
-      }
-
-      .icon-io,
-      .icon-sound {
-        display: none;
       }
 
       .icon {
@@ -160,8 +131,6 @@ html body.omen {
       margin-left: $item-offset;
     }
 
-
-
   }
 
   .patch-panel {
@@ -182,20 +151,8 @@ html body.omen {
       }
 
       > patch-device {
-
         padding-bottom: 20px;
         margin-bottom: 20px;
-
-        &.has-input.has-output {
-          > .patch-device-details {
-            .icon-sound {
-              display: block;
-            }
-            .icon-io {
-              display: none;
-            }
-          }
-        }
       }
 
       patch-device {
@@ -215,15 +172,6 @@ html body.omen {
             display: block;
           }
 
-          .has-output.has-no-input {
-            .icon-io {
-              display: none;
-            }
-            .icon-sound {
-              display: block;
-            }
-          }
-
           .grouped-only {
             display: none;
           }
@@ -237,29 +185,7 @@ html body.omen {
           }
 
         }
-
-        &.is-connected {
-
-          > .patch-device-details {
-
-            .patch-connected {
-              display: block;
-            }
-
-            .patch-disconnected {
-              display: none;
-            }
-
-          }
-
-        }
-
-
-
-
       }
-
-
     }
   }
 }

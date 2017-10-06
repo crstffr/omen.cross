@@ -4,6 +4,7 @@ import template from './patch-container.html!text';
 Register.component('patchContainer', {
     template: template,
     bindings: {
+        id: '<',
         type: '@',
         group: '<',
         filter: '@',

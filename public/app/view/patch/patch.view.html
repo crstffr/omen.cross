@@ -9,7 +9,8 @@
                     {{group.name}}
                 </h2>
 
-                <patch-container type="group" group="group" filter="unpatched"
+                <patch-container type="group" id="group._id"
+                                 group="group" filter="unpatched"
                                  devices="$ctrl.devices[group._id]">
                 </patch-container>
         </patch-group>

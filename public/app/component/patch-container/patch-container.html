@@ -5,12 +5,13 @@
               ng-if="($ctrl.filter === 'unpatched' && !device.patched) || !$ctrl.filter"
 
               device="device"
+
               ng-class="{
                    'has-input': device.input,
                    'has-output': device.output,
                    'has-no-input': !device.input,
                    'has-no-output': !device.output,
-                   'is-patch-root': device.patch.root >= 0,
-                   'is-patched': device.patch.to.length > 0
+                   'is-patch-root': device.patchedTo === 'root',
+                   'is-patched': device.patched
                }">
 </patch-device>

@@ -84,6 +84,11 @@ Register.view('patch', {
                 let fromType = from.$ctrl.type;
                 let toType = cont.$ctrl.type;
 
+                if (toType === 'group') {
+                    this.disconnect(item);
+                }
+
+                /*
                 switch (toType) {
                     case 'group':
                         // return the device to it's group
@@ -95,14 +100,46 @@ Register.view('patch', {
                         });
                         break;
                 }
+                */
 
-                this.connect();
+                this.connect(this.$root);
 
-                if ((toType === 'group' && fromType !== 'group') ||
-                    (fromType === 'group' && toType !== 'group')) {
+                let prune = true;
+                const tR = 'root';
+                const tG = 'group';
+                const tD = 'device';
+                const fT = fromType;
+                const tT = toType;
+
+                if (tT === fT) {
+                    if ((tT === tG || tT === tR) ||
+                       (cont.$ctrl.id === from.$ctrl.id)) {
+                        prune = false;
+                    }
+                }
+
+                if (prune) {
                     item.remove();
                 }
 
+            });
+
+        }
+
+        disconnect(item) {
+
+            if (!item.$ctrl) { return; }
+            let device = item.$ctrl.device;
+
+            Devices.api.patch(device._id, {
+                patchedSource: null,
+                patchedIndex: null,
+                patchedTo: null,
+                patched: false
+            });
+
+            $.select('patch-device', item).forEach(child => {
+                this.disconnect(child);
             });
 
         }
@@ -113,59 +150,30 @@ Register.view('patch', {
 
         }
 
-        connect(parent = this.$root) {
+        connect(parent) {
 
             let pType = parent.getAttribute('type');
 
-            $.childrenOf(parent).forEach((childElem, i) => {
+            $.childrenOf(parent).forEach((child, i) => {
+
+                if (!child.$ctrl) { return; }
 
                 let index = i + 1;
-                let cDevice = childElem.$ctrl.device;
+                let cDevice = child.$ctrl.device;
+                let pDevice = parent.$ctrl.device || {};
+                let patchedTo = (pType === 'root') ? pType : pDevice._id;
 
-                switch(pType) {
+                Devices.api.patch(cDevice._id, {
+                    patched: true,
+                    patchedTo: patchedTo,
+                    patchedIndex: index
+                });
 
-                    case 'root':
-                        Devices.api.patch(cDevice._id, {
-                            patched: true,
-                            patchedTo: 'root',
-                            patchedIndex: index,
-                        });
-                        break;
+                let next = $.childOf(child, 'patch-container');
 
-                    case 'device':
-
-                        let pDevice = parent.$ctrl.device;
-
-                        Devices.api.patch(cDevice._id, {
-                            patched: true,
-                            patchedTo: pDevice._id,
-                            patchedIndex: index
-                        });
-
-                        break;
+                if (next) {
+                    this.connect(next);
                 }
-
-
-
-                let newParent = $.specificChildOf(childElem, 'patch-container');
-                this.connect(newParent);
-
-                /*
-                let dropslot = this.findDropslot(inputDevice);
-                let outputDevices = this.getChildren(dropslot);
-                let count = outputDevices.length;
-
-                if (count > 0) {
-                    inputDevice.classList.add(connClass);
-                    if (count > 1) {
-                        inputDevice.classList.add(multClass);
-                    }
-                    this.connect(dropslot);
-                } else {
-                    inputDevice.classList.remove(connClass, multClass);
-                }
-                */
-
             });
         }
 
