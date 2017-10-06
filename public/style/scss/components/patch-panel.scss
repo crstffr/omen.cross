@@ -189,9 +189,10 @@ html body.omen {
 
     patch-container[type='root'] {
 
-      width: $item-offset - 1;
+      width: 100px;
       display: block;
       min-height: 80vh;
+      // background: lightblue;
 
       .dropslot {
         display: block;

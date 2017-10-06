@@ -1,6 +1,7 @@
 import Register from '../../registry';
 import template from './patch-device.html!text';
 import Devices from '../../database/devices';
+import * as $ from '../../util/$';
 
 Register.component('patchDevice', {
     template: template,
@@ -11,6 +12,7 @@ Register.component('patchDevice', {
     controller: class {
 
         constructor($element) {
+            this.$element = $element[0];
             $element[0].$ctrl = this;
         }
 
@@ -43,6 +45,46 @@ Register.component('patchDevice', {
 
             }
 
+        }
+
+        disconnect(element = this.$element) {
+
+            let ctrl = element.$ctrl;
+            if (!ctrl) { return; }
+
+            Devices.api.patch(ctrl.device._id, {
+                patchedSource: null,
+                patchedIndex: null,
+                patchedTo: null,
+                patched: false
+            });
+
+            $.select('patch-device', element).forEach(child => {
+                this.disconnect(child);
+            });
+
+        }
+
+        startRootPatch() {
+
+            Devices.api.patch(this.device._id, {
+                patchedTo: 'root',
+                patchedIndex: 0,
+                patched: true
+            });
+
+        }
+
+        dblclick() {
+            if (this.device.patched) {
+                this.disconnect();
+            } else {
+
+                if (this.device.input && !this.device.output) {
+                    this.startRootPatch();
+                }
+
+            }
         }
 
     }

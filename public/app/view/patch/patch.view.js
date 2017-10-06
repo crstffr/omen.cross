@@ -54,7 +54,7 @@ Register.view('patch', {
         }
 
         initDraggables() {
-
+            
             this.draggable = dragula([], {
                 isContainer: (el) => (el.nodeName === 'PATCH-CONTAINER'),
                 accepts: (item, cont, source, sibling) => {
@@ -91,7 +91,7 @@ Register.view('patch', {
                 let toType = cont.$ctrl.type;
 
                 if (toType === 'group') {
-                    this.disconnect(item);
+                    item.$ctrl.disconnect();
                 }
 
                 this.connect(this.$root);
@@ -116,24 +116,6 @@ Register.view('patch', {
 
             });
 
-        }
-
-
-        disconnect(item) {
-
-            if (!item.$ctrl) { return; }
-            let device = item.$ctrl.device;
-
-            Devices.api.patch(device._id, {
-                patchedSource: null,
-                patchedIndex: null,
-                patchedTo: null,
-                patched: false
-            });
-
-            $.select('patch-device', item).forEach(child => {
-                this.disconnect(child);
-            });
         }
 
         connect(parent) {
