@@ -42,6 +42,27 @@ html body.omen {
     }
   }
 
+  &.is-dragging {
+
+    patch-container[type='root'] {
+      .patch-device-contents {
+        pointer-events: none;
+      }
+    }
+
+    patch-device.gu-transit {
+
+      // margin-bottom: $item-height;
+
+      patch-container[type='device'] {
+        display: none;
+      }
+    }
+
+
+
+  }
+
   patch-group {
 
     display: block;
@@ -79,9 +100,21 @@ html body.omen {
       }
     }
 
-    &.gu-mirror {
+    &.gu-mirror,
+    &.gu-transit {
+      &.is-patched {
+        .dropslot {
+          display: block;
+        }
+      }
+    }
+
+    &.is-patched {
+      .patch-device-contents.field {
+        margin: 0;
+      }
       .dropslot {
-        display: block;
+
       }
     }
 
@@ -95,6 +128,16 @@ html body.omen {
         width: $item-width;
         background: #fff;
         margin: 0;
+
+        .control {
+          margin-right: 0;
+        }
+
+        .patch-item-name {
+          padding-left: .75rem;
+          line-height: $item-name-height;
+        }
+
       }
 
       .icon {
@@ -113,7 +156,7 @@ html body.omen {
       .patch-item-name {
         font-size: .9rem;
         font-weight: bold;
-        text-align: center;
+        text-align: left;
         height: $item-name-height;
         line-height: $item-name-height;
 
@@ -124,11 +167,15 @@ html body.omen {
 
     }
 
-    .dropslot {
+    patch-container[type='device'] {
       display: none;
+      width: 100%;
+      //background: pink;
       min-height: $item-height;
-      margin-top: $item-margin;
+      padding-top: $item-height;
+      margin-top: -$item-height;
       margin-left: $item-offset;
+      margin-bottom: $item-margin;
     }
 
   }
@@ -142,7 +189,7 @@ html body.omen {
 
     patch-container[type='root'] {
 
-      width: 100%;
+      width: $item-offset - 1;
       display: block;
       min-height: 80vh;
 
@@ -150,18 +197,20 @@ html body.omen {
         display: block;
       }
 
-      > patch-device {
-        padding-bottom: 20px;
-        margin-bottom: 20px;
+      > patch-device:not(:first-of-type) {
+        margin-top: $item-height;
       }
 
       patch-device {
+
+        &.has-output.has-no-input.is-patched {
+          // margin-bottom: $item-height;
+        }
 
         .patch-device-contents.field {
 
           .patch-item-name {
             margin: 0;
-            text-align: left;
           }
 
           .patch-connected {
@@ -185,6 +234,7 @@ html body.omen {
           }
 
         }
+
       }
     }
   }

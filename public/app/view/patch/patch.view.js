@@ -5,6 +5,8 @@ import Groups from '../../database/groups';
 import * as $ from '../../util/$'
 import dragula from 'dragula';
 
+let $body = window.document.body;
+
 Register.view('patch', {
     $url: '/patch',
     template: template,
@@ -78,6 +80,10 @@ Register.view('patch', {
                             break;
                     }
                 }
+            }).on('drag', () => {
+                $body.classList.add('is-dragging');
+            }).on('dragend', () => {
+                $body.classList.remove('is-dragging');
             }).on('drop', (item, cont, from, sibling) => {
 
                 let device = item.$ctrl.device;
@@ -87,20 +93,6 @@ Register.view('patch', {
                 if (toType === 'group') {
                     this.disconnect(item);
                 }
-
-                /*
-                switch (toType) {
-                    case 'group':
-                        // return the device to it's group
-                        Devices.api.patch(device._id, {
-                            patchedSource: null,
-                            patchedIndex: null,
-                            patchedTo: null,
-                            patched: false
-                        });
-                        break;
-                }
-                */
 
                 this.connect(this.$root);
 
@@ -126,6 +118,7 @@ Register.view('patch', {
 
         }
 
+
         disconnect(item) {
 
             if (!item.$ctrl) { return; }
@@ -141,13 +134,6 @@ Register.view('patch', {
             $.select('patch-device', item).forEach(child => {
                 this.disconnect(child);
             });
-
-        }
-
-        reorderDevices(group) {
-
-
-
         }
 
         connect(parent) {

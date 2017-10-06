@@ -24,13 +24,16 @@ Register.component('patchDevice', {
             let isRoot = d.patchedTo === 'root';
 
             switch (what) {
-                case 'sound':
-                    return ((d.input && !d.output) || isRoot) ||
-                            (d.output && !d.input && d.patched);
+                case 'sound-input':
+                    return ((d.input && !d.output) || isRoot);
+                    break;
+
+                case 'sound-output':
+                    return (d.output && !d.input);
                     break;
 
                 case 'jack':
-                    return !this.icon('sound');
+                    return !this.icon('sound-input');
                     break;
 
                 case 'patched':

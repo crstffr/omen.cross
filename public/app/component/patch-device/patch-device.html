@@ -4,17 +4,16 @@
        class="patch-device-contents drag-handle field is-grouped">
 
         <div class="control">
-
-            <span class="patch-icons-input">
+            <span>
                 <span class="icon">
-                    <span ng-if="$ctrl.icon('sound')">
+                    <span ng-if="$ctrl.icon('sound-input')">
                         <i class="fa fa-volume-up"></i>
                     </span>
                     <span ng-if="$ctrl.icon('jack')">
                         <i class="fa fa-dot-circle-o"></i>
                     </span>
                 </span>
-                <span class="icon patched-only">
+                <span class="icon" ng-if="$ctrl.device.input">
                     <span ng-if="$ctrl.icon('patched')">
                         <i class="fa fa-level-down"></i>
                     </span>
@@ -30,11 +29,10 @@
         </div>
 
         <div class="control">
-            <span class="icon grouped-only" ng-if="$ctrl.device.input">
-                <i class="fa fa-long-arrow-right"></i>
-            </span>
-            <span class="icon grouped-only" ng-if="!$ctrl.device.input">
-                <i class="fa fa-volume-up"></i>
+            <span class="icon">
+                <span ng-if="$ctrl.icon('sound-output')">
+                    <i class="fa fa-volume-up"></i>
+                </span>
             </span>
         </div>
 
@@ -47,5 +45,9 @@
         device="$ctrl.device"
         id="$ctrl.device._id"
         devices="$ctrl.patchedTo"
-        ng-if="$ctrl.device.input">
+        ng-if="$ctrl.device.input"
+        ng-class="{
+            'is-patched': $ctrl.patchedTo.array.length > 0,
+            'not-patched': !$ctrl.patchedTo.array.length
+        }">
 </patch-container>
