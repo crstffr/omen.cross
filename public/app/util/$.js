@@ -1,12 +1,24 @@
 
-export default function $(selector, parent = window.document) {
+export function select(selector, parent = window.document) {
 
-    let selectorType = 'querySelectorAll';
+    let query = 'querySelectorAll';
 
     if (selector.indexOf('#') === 0) {
-        selectorType = 'getElementById';
+        query = 'getElementById';
         selector = selector.substr(1, selector.length);
     }
 
-    return parent[selectorType](selector);
-};
+    return parent[query](selector);
+}
+
+export function childrenOf(element) {
+    return Array.from(element.children || []) || [];
+}
+
+export function specificChildOf(parent, nodeName) {
+    return childrenOf(parent).reduce((result, val, i) => {
+        return (val.nodeName === nodeName.toUpperCase()) ? val : result;
+    });
+}
+
+export default select;

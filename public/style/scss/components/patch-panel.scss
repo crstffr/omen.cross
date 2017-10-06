@@ -1,4 +1,3 @@
-
 $item-margin: 8px;
 $item-height: 33px;
 $item-padding-v: $item-margin / 4;
@@ -43,8 +42,6 @@ html body.omen {
     }
   }
 
-
-
   patch-group {
 
     display: block;
@@ -55,8 +52,13 @@ html body.omen {
       @extend .no-pointer;
     }
 
-    dropslot {
+    .dropslot {
       display: none;
+    }
+
+    patch-container {
+      display: block;
+      min-height: 40px;
     }
 
   }
@@ -72,18 +74,44 @@ html body.omen {
       * {
         visibility: hidden;
       }
-      dropslot.dropslot {
+      .dropslot {
         display: none;
       }
     }
 
     &.gu-mirror {
-      dropslot {
+      .dropslot {
         display: block;
       }
     }
 
-    patch-device-contents {
+    &.has-input {
+      .patch-device-contents {
+        .icon-sound {
+          display: block;
+        }
+      }
+    }
+
+    &.has-output {
+      .patch-device-contents {
+        .icon-io {
+          display: block;
+        }
+      }
+    }
+
+    &.has-input.has-output {
+      .patch-device-contents {
+        .icon-sound {
+          display: none;
+        }
+      }
+    }
+
+    .patch-device-contents {
+
+      color: $dark;
 
       &, &.field {
         padding: $item-padding-v $item-padding-h;
@@ -94,26 +122,8 @@ html body.omen {
       }
 
       .icon-io,
-      .icon-input {
+      .icon-sound {
         display: none;
-      }
-
-      &.has-input {
-        .icon-input {
-          display: block;
-        }
-      }
-
-      &.has-output {
-        .icon-io {
-          display: block;
-        }
-      }
-
-      &.has-input.has-output {
-        .icon-input {
-          display: none;
-        }
       }
 
       .icon {
@@ -129,8 +139,6 @@ html body.omen {
         display: none;
       }
 
-
-
       .patch-item-name {
         font-size: .9rem;
         font-weight: bold;
@@ -145,7 +153,7 @@ html body.omen {
 
     }
 
-    dropslot {
+    .dropslot {
       display: none;
       min-height: $item-height;
       margin-top: $item-margin;
@@ -163,21 +171,24 @@ html body.omen {
       @extend .no-pointer;
     }
 
-    dropzone {
+    patch-container[type='root'] {
 
       width: 100%;
       display: block;
       min-height: 80vh;
+
+      .dropslot {
+        display: block;
+      }
 
       > patch-device {
 
         padding-bottom: 20px;
         margin-bottom: 20px;
 
-        > patch-device-contents {
-
-          &.has-input.has-output {
-            .icon-input {
+        &.has-input.has-output {
+          > .patch-device-details {
+            .icon-sound {
               display: block;
             }
             .icon-io {
@@ -189,9 +200,7 @@ html body.omen {
 
       patch-device {
 
-        patch-device-contents.field {
-
-          // width: $item-width - 50px;
+        .patch-device-contents.field {
 
           .patch-item-name {
             margin: 0;
@@ -204,6 +213,15 @@ html body.omen {
 
           .patch-disconnected {
             display: block;
+          }
+
+          .has-output.has-no-input {
+            .icon-io {
+              display: none;
+            }
+            .icon-sound {
+              display: block;
+            }
           }
 
           .grouped-only {
@@ -220,10 +238,9 @@ html body.omen {
 
         }
 
-
         &.is-connected {
 
-          > patch-device-contents {
+          > .patch-device-details {
 
             .patch-connected {
               display: block;
@@ -238,11 +255,11 @@ html body.omen {
         }
 
 
+
+
       }
 
-      dropslot {
-        display: block;
-      }
+
     }
   }
 }

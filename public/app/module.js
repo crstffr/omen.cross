@@ -21,6 +21,8 @@ import './component/add-group-form/add-group-form';
 import './component/add-device-form/add-device-form';
 import './component/device-list/device-list';
 import './component/device-table/device-table';
+import './component/patch-device/patch-device';
+import './component/patch-container/patch-container'
 import './component/setup/group/group';
 import './directive/sortable';
 import './directive/focus';

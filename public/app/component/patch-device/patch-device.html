@@ -1,0 +1,39 @@
+<div class="patch-device-details">
+
+    <a href ng-dblclick="$ctrl.place()"
+       class="patch-device-contents drag-handle field is-grouped">
+
+        <div class="control">
+            <span class="icon patch-icon-1">
+                <i class="fa fa-volume-up icon-sound"></i>
+                <i class="fa fa-dot-circle-o icon-io"></i>
+            </span>
+
+            <span class="icon patch-icon-2 patched-only" ng-if="$ctrl.device.input">
+                <i class="fa fa-level-down patch-connected"></i>
+                <i class="fa fa-long-arrow-right patch-disconnected"></i>
+            </span>
+        </div>
+
+        <div class="control is-expanded patch-item-name">
+            {{$ctrl.device.name}}
+        </div>
+
+        <div class="control">
+            <span class="icon grouped-only" ng-if="$ctrl.device.input">
+                <i class="fa fa-long-arrow-right"></i>
+            </span>
+            <span class="icon grouped-only" ng-if="!$ctrl.device.input">
+                <i class="fa fa-volume-up"></i>
+            </span>
+        </div>
+
+    </a>
+</div>
+
+<patch-container
+        type="device"
+        class="dropslot"
+        device="$ctrl.device"
+        ng-if="$ctrl.device.input">
+</patch-container>

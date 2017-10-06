@@ -1,4 +1,5 @@
 @import "jspm:bulma/sass/utilities/initial-variables";
+@import "jspm:bulma/sass/utilities/derived-variables";
 
 @import "./components/aside";
 @import "./components/modal";
@@ -7,6 +8,11 @@
 @import "./components/layout";
 @import "./components/patch-panel";
 @import "./components/device-group";
+
+$input-focus-color: $grey-darker !default
+$input-focus-border-color: $link !default
+$input-focus-box-shadow-size: 0 0 0 0.125em !default
+$input-focus-box-shadow-color: rgba($link, 0.25) !default
 
 @keyframes blur {
   to {
@@ -55,6 +61,14 @@ html body {
           margin-left: .5rem;
         }
       }
+    }
+  }
+
+  .is-focusable {
+    &:focus,
+    &:active {
+      border-color: $input-focus-border-color;
+      box-shadow: $input-focus-box-shadow-size $input-focus-box-shadow-color;
     }
   }
 

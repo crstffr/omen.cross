@@ -3,67 +3,22 @@
     <div class="patch-column patch-groups">
 
         <patch-group ng-repeat="group in $ctrl.groups.array | orderBy: 'index'"
-                   ng-show="$ctrl.ready"
-                   class="patch-group">
+                     ng-show="$ctrl.ready">
 
-            <h2 class="title is-5 no-select is-marginless">{{group.name}}</h2>
+                <h2 class="title is-5 no-select is-marginless">
+                    {{group.name}}
+                </h2>
 
-            <device-container device-group="{{group._id}}" >
-
-                <patch-device
-                        ng-repeat="(key, device) in $ctrl.devices[group._id].array | orderBy: 'index'"
-                        device-id="{{device._id}}"
-                        device-group="{{group._id}}"
-                        device-input="{{device.input}}"
-                        device-output="{{device.output}}">
-
-                    <patch-device-contents
-                            class="no-select drag-handle field is-grouped"
-                            ng-class="{'has-input': device.input, 'has-output': device.output}">
-
-                        <div class="control">
-
-                            <span class="icon patch-icon-1">
-                                <i class="fa fa-volume-up icon-input"></i>
-                                <i class="fa fa-dot-circle-o icon-io"></i>
-                            </span>
-
-                            <span class="icon patch-icon-2 patched-only" ng-if="device.input">
-                                <i class="fa fa-level-down patch-connected"></i>
-                                <i class="fa fa-long-arrow-right patch-disconnected"></i>
-                            </span>
-
-                        </div>
-
-                        <div class="control is-expanded patch-item-name">
-                            {{device.name}}
-                        </div>
-
-                        <div class="control">
-                            <span class="icon grouped-only" ng-if="device.input">
-                                <i class="fa fa-long-arrow-right"></i>
-                            </span>
-                            <span class="icon grouped-only" ng-if="!device.input">
-                                <i class="fa fa-volume-up"></i>
-                            </span>
-                        </div>
-
-                    </patch-device-contents>
-
-                    <dropslot class="dropslot"
-                              ng-if="device.input"
-                              device-id="{{device._id}}"></dropslot>
-
-                </patch-device>
-
-            </device-container>
-
+                <patch-container type="group" group="group" filter="unpatched"
+                                 devices="$ctrl.devices[group._id]">
+                </patch-container>
         </patch-group>
 
     </div>
+
     <div class="patch-column patch-panel">
         <h2 class="title is-5 no-select">Patches</h2>
-        <dropzone></dropzone>
+        <patch-container type="root" devices="$ctrl.rootDevices"></patch-container>
     </div>
 
 </div>

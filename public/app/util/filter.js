@@ -7,10 +7,14 @@ export default function filter(collection, rules) {
 
         Object.entries(rules).forEach(([prop, value]) => {
 
-            if (!item[prop]) { return; }
+            if (typeof item[prop] === 'undefined') { return; }
+
             let pass = false;
 
             switch (typeof value) {
+                case 'boolean':
+                    pass = item[prop] === value;
+                    break;
                 case 'number':
                 case 'string':
                     pass = Boolean(String(item[prop]) === String(value));
