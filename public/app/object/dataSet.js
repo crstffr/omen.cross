@@ -192,7 +192,7 @@ export default class DataSet {
 
     getMax(field) {
         let max = 0;
-        let opts = {query: {$limit: 1, $select: [field], $sort: {}}};
+        let opts = Object.assign({query: {$limit: 1, $select: [field], $sort: {}}}, this.rules);
         opts.query.$sort[field] = -1;
         return new Promise(resolve => {
             this.api.find(opts, (n, result) => {
@@ -237,6 +237,11 @@ export default class DataSet {
                     return filter(_parent.data, this.rules);
                 }});
 
+            }
+
+            getMax(opts = {}) {
+                Object.assign(opts, this.rules);
+                return _parent.getMax(opts);
             }
 
             fetchAll(opts = {}) {

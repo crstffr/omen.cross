@@ -77,7 +77,8 @@
         "main": "src/index.js"
       },
       "github:apoterenko/dragula@master": {
-        "main": "src/index.js",
+        "format": "cjs",
+        "main": "dragula.js",
         "dependencies": {
           "contra": "npm:contra@1.9.4",
           "crossvent": "npm:crossvent@1.5.5"

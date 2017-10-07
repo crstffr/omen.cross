@@ -17,12 +17,6 @@ Register.component('patchContainer', {
             $element[0].$ctrl = this;
         }
 
-        $onInit() {
-
-
-
-        }
-
     }
 }, ['$element']);
 

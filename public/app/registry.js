@@ -2,8 +2,8 @@
  * Angular 1.x module registration is frustrating when working in a modern environment,
  * where applications have a dependency graph made from numerous imports and exports.
  * Everything needs to be registered with the top-level Angular 'app' module in order
- * for it to be available.  But including the app module in your modules will create
- * circular dependencies.  App -> Module -> App, and so on.
+ * for it to be available.  But including the app module in your components will create
+ * circular dependencies.  App -> Component -> App, and so on.
  *
  * This class allows services, directives, and components to register themselves with
  * your top-level Angular 'app' module without circular issues.  Registration happens

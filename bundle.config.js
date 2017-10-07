@@ -19,7 +19,6 @@ module.exports = {
     bundles: {
         libs: {
             items: [
-                'lodash',
                 'angular',
                 'dragula',
                 'draggable'

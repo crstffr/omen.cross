@@ -1,6 +1,6 @@
 import Register from '../../registry';
 import template from './patch.view.html!text';
-import Devices from '../../database/devices';
+import {Devices, RootDevices} from '../../database/devices';
 import Groups from '../../database/groups';
 import * as $ from '../../util/$'
 import dragula from 'dragula';
@@ -27,8 +27,8 @@ Register.view('patch', {
         }
 
         $onInit() {
+            this.rootDevices = RootDevices;
             this.$root = $.select('patch-container[type="root"]')[0];
-            this.rootDevices = new Devices.Subset({patchedTo: 'root'});
             this.unpatchedDevices = new Devices.Subset({patched: false});
         }
 
@@ -54,7 +54,7 @@ Register.view('patch', {
         }
 
         initDraggables() {
-            
+
             this.draggable = dragula([], {
                 isContainer: (el) => (el.nodeName === 'PATCH-CONTAINER'),
                 accepts: (item, cont, source, sibling) => {

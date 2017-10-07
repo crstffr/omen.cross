@@ -1,6 +1,6 @@
 import Register from '../../registry';
 import template from './patch-device.html!text';
-import Devices from '../../database/devices';
+import {Devices, RootDevices} from '../../database/devices';
 import * as $ from '../../util/$';
 
 Register.component('patchDevice', {
@@ -66,13 +66,13 @@ Register.component('patchDevice', {
         }
 
         startRootPatch() {
-
-            Devices.api.patch(this.device._id, {
-                patchedTo: 'root',
-                patchedIndex: 0,
-                patched: true
+            RootDevices.getMax('patchedIndex').then((i) => {
+                Devices.api.patch(this.device._id, {
+                    patchedIndex: (i || 0) + 1,
+                    patchedTo: 'root',
+                    patched: true
+                });
             });
-
         }
 
         dblclick() {
