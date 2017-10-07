@@ -1,11 +1,8 @@
 <patch-device device="device"
 
-              ng-if="($ctrl.filter === 'unpatched' && !device.patched) || !$ctrl.filter"
-
               ng-repeat="(key, device) in
                          $ctrl.devices.array |
                          orderBy: 'patchedIndex'"
-
 
               ng-class="{
                    'has-input': device.input,

@@ -10,6 +10,10 @@ $column-margin: 5vw;
 
 html body.omen {
 
+  .patch-controls {
+
+  }
+
   .patch-columns {
     display: flex;
     flex-wrap: wrap;
@@ -59,8 +63,6 @@ html body.omen {
       }
     }
 
-
-
   }
 
   patch-group {
@@ -77,9 +79,36 @@ html body.omen {
       display: none;
     }
 
-    patch-container {
-      display: block;
-      min-height: 40px;
+  }
+
+  patch-container {
+
+    display: block;
+    min-height: $item-height;
+
+    &.is-empty {
+      margin: $item-margin 0;
+      line-height: $item-height;
+      min-width: $item-width;
+      text-align: center;
+
+      &::after {
+        content: 'Empty'
+      }
+
+      &[type='group'] {
+        background: #eee;
+      }
+
+      &[type='root'] {
+        width: 100%;
+        line-height: 70vh;
+      }
+
+    }
+
+    &[type='root'] {
+
     }
 
   }
@@ -180,63 +209,63 @@ html body.omen {
 
   }
 
-  .patch-panel {
 
-    .title {
-      margin: 0;
-      @extend .no-pointer;
+
+  .title {
+    margin: 0;
+    @extend .no-pointer;
+  }
+
+  patch-container[type='root'] {
+
+    width: 100px;
+    display: block;
+    min-height: 70vh;
+    // background: lightblue;
+
+    .dropslot {
+      display: block;
     }
 
-    patch-container[type='root'] {
+    > patch-device:not(:first-of-type) {
+      margin-top: $item-height;
+    }
 
-      width: 100px;
-      display: block;
-      min-height: 80vh;
-      // background: lightblue;
+    patch-device {
 
-      .dropslot {
-        display: block;
+      &.has-output.has-no-input.is-patched {
+        // margin-bottom: $item-height;
       }
 
-      > patch-device:not(:first-of-type) {
-        margin-top: $item-height;
-      }
+      .patch-device-contents.field {
 
-      patch-device {
-
-        &.has-output.has-no-input.is-patched {
-          // margin-bottom: $item-height;
+        .patch-item-name {
+          margin: 0;
         }
 
-        .patch-device-contents.field {
+        .patch-connected {
+          display: none;
+        }
 
-          .patch-item-name {
-            margin: 0;
-          }
+        .patch-disconnected {
+          display: block;
+        }
 
-          .patch-connected {
-            display: none;
-          }
+        .grouped-only {
+          display: none;
+        }
 
-          .patch-disconnected {
-            display: block;
-          }
+        .patched-only {
+          display: inline-block;
+        }
 
-          .grouped-only {
-            display: none;
-          }
-
-          .patched-only {
-            display: inline-block;
-          }
-
-          .icon.patched-only {
-            display: inline-flex;
-          }
-
+        .icon.patched-only {
+          display: inline-flex;
         }
 
       }
+
     }
   }
+
 }

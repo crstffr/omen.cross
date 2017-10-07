@@ -1,25 +1,49 @@
+<div class="field is-grouped">
+    <div class="control is-expanded">
+        <h1 class="title is-3">Patch</h1>
+    </div>
+    <div class="control has-text-right align-with-h2">
+        <button class="button is-small is-outlined"
+                ng-click="$ctrl.autoPatch()">Auto Patch</button>
+
+        <button class="button is-small is-outlined"
+                ng-click="$ctrl.reset()">Reset</button>
+    </div>
+</div>
+<hr>
 <div class="patch-columns">
 
     <div class="patch-column patch-groups">
 
-        <patch-group ng-repeat="group in $ctrl.groups.array | orderBy: 'index'"
-                     ng-show="$ctrl.ready">
+        <patch-group
+                ng-repeat="group in $ctrl.groups.array | orderBy: 'index'"
+                ng-show="$ctrl.ready">
 
                 <h2 class="title is-5 no-select is-marginless">
                     {{group.name}}
                 </h2>
 
-                <patch-container type="group" id="group._id"
-                                 group="group" filter="unpatched"
-                                 devices="$ctrl.devices[group._id]">
+                <patch-container
+                        type="group" id="group._id"
+                        group="group" filter="unpatched"
+                        devices="$ctrl.devices[group._id]"
+                        ng-class="{
+                           'is-empty': !$ctrl.devices[group._id].array.length
+                        }">
                 </patch-container>
         </patch-group>
 
     </div>
 
     <div class="patch-column patch-panel">
-        <h2 class="title is-5 no-select">Patches</h2>
-        <patch-container type="root" devices="$ctrl.rootDevices"></patch-container>
+        <h2 class="title is-5 is-marginless">&nbsp;</h2>
+        <patch-container
+                type="root"
+                devices="$ctrl.rootDevices"
+                ng-class="{
+                   'is-empty': !$ctrl.rootDevices.array.length
+                }">
+        </patch-container>
     </div>
 
 </div>

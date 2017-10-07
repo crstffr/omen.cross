@@ -5,15 +5,16 @@ export default function filter(collection, rules) {
 
     Object.values(collection).forEach(item => {
 
+        let pass = null;
+
         Object.entries(rules).forEach(([prop, value]) => {
 
+            if (pass === false) { return; }
             if (typeof item[prop] === 'undefined') { return; }
-
-            let pass = false;
 
             switch (typeof value) {
                 case 'boolean':
-                    pass = item[prop] === value;
+                    pass = (item[prop] === value);
                     break;
                 case 'number':
                 case 'string':
@@ -24,10 +25,11 @@ export default function filter(collection, rules) {
                     break;
             }
 
-            if (pass) {
-                output.push(item);
-            }
         });
+
+        if (pass === true) {
+            output.push(item);
+        }
     });
 
     return output;

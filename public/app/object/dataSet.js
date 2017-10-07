@@ -220,7 +220,7 @@ export default class DataSet {
 
         this.Subset = class {
 
-            rules;
+            rules = {};
 
             constructor (rules = {}) {
 

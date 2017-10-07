@@ -21,18 +21,18 @@ Register.view('patch', {
         constructor () {
             this.groups = Groups;
             this.fetch().then(() => {
-                this.ready = true;
                 this.initDraggables();
+                this.ready = true;
             });
         }
 
         $onInit() {
             this.rootDevices = RootDevices;
             this.$root = $.select('patch-container[type="root"]')[0];
-            this.unpatchedDevices = new Devices.Subset({patched: false});
         }
 
         $onDestroy() {
+            delete this['devices'];
             if (this.draggable.destroy) {
                 this.draggable.destroy();
             }
@@ -43,10 +43,16 @@ Register.view('patch', {
                 Groups.fetchAll({$sort: {index: 1}}).then(groups => {
                     let promises = [];
                     groups.forEach(group => {
-                        let subset = new Devices.Subset({group: group._id});
+
+                        let subset = new Devices.Subset({
+                            group: group._id,
+                            patched: false
+                        });
+
                         promises.push(subset.fetchAll().then(() => {
                             this.devices[group._id] = subset;
                         }));
+
                     });
                     Promise.all(promises).then(resolve);
                 });
@@ -145,6 +151,44 @@ Register.view('patch', {
             });
         }
 
+        reset() {
+            Devices.api.patch(null, {
+                patched: false,
+                patchedTo: null,
+                patchedIndex: null
+            });
+        }
+
+        autoPatch() {
+            let lookup = {};
+
+            let inputs = Devices.array.filter(device => {
+                return Boolean(device.input && !device.output);
+            });
+
+            let outputs = Devices.array.filter(device => {
+                return Boolean(device.output && !device.input);
+            });
+
+            inputs.forEach((device, i) => {
+                lookup[device.input] = device._id;
+                Devices.api.patch(device._id, {
+                    patched: true,
+                    patchedTo: 'root',
+                    patchedIndex: i + 1
+                });
+            });
+
+            outputs.forEach((device) => {
+                let match = lookup[device.output];
+                if (!match) { return; }
+                Devices.api.patch(device._id, {
+                    patched: true,
+                    patchedTo: match,
+                    patchedIndex: 1
+                });
+            });
+        }
     }
 });
 

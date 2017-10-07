@@ -41,10 +41,7 @@ Register.component('patchDevice', {
                 case 'patched':
                     return this.patchedTo.array.length > 0;
                     break;
-
-
             }
-
         }
 
         disconnect(element = this.$element) {
@@ -62,7 +59,6 @@ Register.component('patchDevice', {
             $.select('patch-device', element).forEach(child => {
                 this.disconnect(child);
             });
-
         }
 
         startRootPatch() {
@@ -76,17 +72,15 @@ Register.component('patchDevice', {
         }
 
         dblclick() {
-            if (this.device.patched) {
+            let d = this.device;
+            if (d.patched) {
                 this.disconnect();
+            } else if (d.input && !d.output) {
+                this.startRootPatch();
             } else {
-
-                if (this.device.input && !this.device.output) {
-                    this.startRootPatch();
-                }
-
+                console.log('patch IO');
             }
         }
-
     }
 }, ['$element']);
 
