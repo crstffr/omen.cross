@@ -1,16 +1,16 @@
 import angular from 'angular';
-import uid from '../../util/uid';
-import Ng from '../../service/angular';
-import Focus from '../../service/focus';
-import redraw from '../../service/redraw';
-import defaults from '../../util/defaults';
-import Modals from '../../service/modals';
-import template from './modal.html!text';
+import uid from '../../../util/uid';
+import Ng from '../../../service/angular';
+import Focus from '../../../service/focus';
+import redraw from '../../../service/redraw';
+import defaults from '../../../util/defaults';
+import Modals from '../../../service/modals';
+import template from './confirm-modal.html!text';
 
 let $document = angular.element(document);
 let $body = angular.element(document.body);
 
-export default class Modal {
+export default class ConfirmModal {
 
     id = '';
     ctrl = {};

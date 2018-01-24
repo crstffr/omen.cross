@@ -3,7 +3,7 @@ import Focus from '../../service/focus';
 import Register from '../../registry';
 import DataSet from '../../object/dataSet';
 import template from './device-table-row.html!text';
-import Modal from '../../component/modal/modal';
+import ConfirmationModal from '../../component/modal/confirm';
 
 Register.directive('deviceTableRow', () => {
     return {
@@ -44,7 +44,7 @@ Register.directive('deviceTableRow', () => {
             }
 
             openModal() {
-                this.modal = new Modal({
+                this.modal = new ConfirmationModal({
                     text: {
                         title: 'Delete Device?',
                         body: `

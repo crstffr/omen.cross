@@ -4,7 +4,7 @@ import Groups from '../../../database/groups';
 import Devices from '../../../database/devices';
 import DataSet from '../../../object/dataSet';
 import Focus from '../../../service/focus';
-import Modal from '../../modal/modal';
+import ConfirmationModal from '../../modal/confirm';
 
 Register.component('deviceGroup', {
     template: template,
@@ -34,7 +34,7 @@ Register.component('deviceGroup', {
         }
 
         openModal() {
-            this.modal = new Modal({
+            this.modal = new ConfirmationModal({
                 text: {
                     title: 'Delete Group?',
                     body: `

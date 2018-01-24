@@ -1,0 +1,21 @@
+<modal class="modal" id="{{$ctrl.id}}">
+    <div class="modal-background" ng-click="confirm()"></div>
+    <div class="modal-content">
+        <div class="notification">
+            <div>
+                <h2 class="title is-4" ng-bind-html="$ctrl.text.title"></h2>
+                <div class="body" ng-bind-html="$ctrl.text.body"></div>
+                <div class="buttons has-text-right">
+                    <span class="control" ng-show="$ctrl.closeable">
+                        <button class="button is-primary"
+                                ng-click="confirm()"
+                                focus-on="modal-okay-btn"
+                                focus-id="{{$ctrl.id}}">
+                                {{$ctrl.text.confirm}}
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</modal>
