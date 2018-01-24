@@ -1,11 +1,11 @@
 var ip = require('ip');
 var app = require('./app');
 var services = require('./services');
-var settings = require('../settings');
+var settings = require('./settings');
 
-app.listen(settings.server.port);
+app.listen(settings.port);
 
-console.log('Webserver at http://' + settings.server.ip + ':' + settings.server.port);
+console.log('Webserver at http://' + settings.ip + ':' + settings.port);
 
 app.use('groups', services['groups']);
 app.use('devices', services['devices']);

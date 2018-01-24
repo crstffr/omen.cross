@@ -25,7 +25,6 @@ System.config({
     "deep-equal": "npm:deep-equal@1.0.1",
     "draggable": "github:Shopify/draggable@1.0.0-beta",
     "dragula": "github:apoterenko/dragula@master",
-    "fontawesome": "github:FortAwesome/Font-Awesome@4.7.0",
     "lodash": "npm:lodash@4.11.1",
     "oo": "npm:object-observable@1.0.8",
     "socketio": "github:socketio/socket.io-client@1.4.5",

@@ -1,4 +1,3 @@
-import 'fontawesome/css/font-awesome.css!';
 import './css/vendor.min.css!';
 import './css/main.min.css!';
 

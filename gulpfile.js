@@ -7,7 +7,7 @@ var gulp = require('gulp-help')(require('gulp'), {
     hideDepsMessage: true
 });
 
-var settings = require('./settings');
+var settings = require('./server/settings');
 var sequence = require('run-sequence');
 
 /***********************
@@ -36,6 +36,11 @@ var paths = {
         modules: app + 'modules/',
         bundles: app + 'bundles/',
         components: app + 'components/'
+    },
+
+    dist: {
+        public: dist + 'public/',
+        server: dist + 'server/'
     }
 };
 
@@ -89,6 +94,7 @@ gulp.task('default', ['help']);
 gulp.task('clean', 'Remove all static build files', function (done) {
     sequence(
         'clean-css',
+        'clean-dist',
         'clean-bundles',
         'unbundle',
         done
@@ -106,9 +112,9 @@ gulp.task('build', 'Build the application from source', function (done) {
 
 gulp.task('dist', 'Prepare app for distribution', function(done) {
     sequence(
-        'clean',
         'build',
         'bundle',
+        'dist-copy-public',
         done
     );
 });
@@ -133,6 +139,11 @@ gulp.task('clean-css', function () {
         core + '**/*.min.css',
         core + '**/*.min.css.map'
     ]);
+});
+
+gulp.task('clean-dist', function () {
+    var del = require('del');
+    return del(dist);
 });
 
 gulp.task('clean-bundles', function () {
@@ -238,6 +249,21 @@ gulp.task('unbundle', 'Removes static bundles, takes optional -g argument', func
     });
 });
 
+
+/***********************
+ * DIST COMPILATION
+ ***********************/
+
+gulp.task('dist-copy-public', function() {
+    return gulp.src([
+        'public/vendor/**/*',
+        'public/bundles/**/*',
+        'public/*.*'
+    ], {
+        base: dist
+    }).pipe(gulp.dest(paths.dist.public))
+});
+
 /***********************
  * BROWSER SYNC
  ***********************/
@@ -280,7 +306,7 @@ gulp.task('build:server', function (done) {
         ]
     });
 
-    opn('http://' + settings.server.ip + ':' + port);
+    opn('http://' + settings.ip + ':' + port);
     done();
 });
 

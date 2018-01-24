@@ -1,5 +1,4 @@
 var os = require('os');
-var ip = require('ip');
 
 var isWin = os.platform() === 'win32';
 var isMac = os.platform() === 'darwin';
@@ -24,9 +23,6 @@ module.exports = {
         }
     },
 
-    server: {
-        ip: ip.address(),
-        port: 8660
-    }
+    server: require('../server/settings')
 
 };

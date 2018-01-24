@@ -1,4 +1,5 @@
 .idea
+/dist/
 /database/
 node_modules
 public/jspm_packages

@@ -1,5 +1,5 @@
 var electron = require('electron');
-var settings = require('../settings');
+var settings = require('./settings');
 var server = require('../server/index');
 
 var app = electron.app;

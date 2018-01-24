@@ -31,7 +31,6 @@ module.exports = {
         style: {
             combine: true,
             items: [
-                'fontawesome/css/font-awesome.css!',
                 'style/css/vendor.min.css!'
             ]
         },

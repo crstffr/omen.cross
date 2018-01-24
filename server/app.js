@@ -1,3 +1,4 @@
+var path = require('path');
 var cors = require('cors');
 var feathers = require('feathers');
 var nedb = require('feathers-nedb');
@@ -8,7 +9,8 @@ var compress = require('compression');
 var bodyParser = require('body-parser');
 var socketio = require('feathers-socketio');
 var error = require('feathers-errors/handler');
-var settings = require('../settings');
+
+var publicPath = path.resolve(__dirname, '../public') + '/';
 
 module.exports = feathers()
     .use(compress())
@@ -16,8 +18,8 @@ module.exports = feathers()
     .use(cors())
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({extended: true}))
-    .use(favicon(settings.app.icon.win.tray))
-    .use('/', feathers.static('./public/'))
+    .use(favicon(path.join(publicPath, 'favicon.ico')))
+    .use('/', feathers.static(publicPath))
     .use(error())
     .configure(socketio())
     .configure(hooks())
