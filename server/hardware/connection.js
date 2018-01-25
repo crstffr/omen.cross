@@ -1,8 +1,14 @@
-const tessel = require('tessel');
+let tessel;
+
+try {
+    tessel = require('tessel');
+} catch(e) {
+    tessel = require('./tessel');
+}
 
 const PIN_CE = 1;
-const PIN_UPDATE = 0;
 const PIN_RESET = 5;
+const PIN_UPDATE = 0;
 const PIN_SERPAR = 6;
 
 export class SpiConnection {
@@ -11,7 +17,7 @@ export class SpiConnection {
     reset = false;
     connection = null;
 
-    pin = {
+    pins = {
         ce: null,
         reset: null,
         update: null,
@@ -33,31 +39,28 @@ export class SpiConnection {
             clockSpeed: 500000
         }, options || {});
 
-        console.log("Connection options", options);
+        let port = tessel.port[options.port];
 
-        this.port = tessel.port[options.port];
-        this.pin.ce = this.port.pin[PIN_CE];
-        this.pin.update = this.port.pin[PIN_UPDATE];
-        this.pin.reset = this.port.pin[PIN_RESET];
-        this.pin.serpar = this.port.pin[PIN_SERPAR];
+        this.pins.ce = port.pin[PIN_CE];
+        this.pins.reset = port.pin[PIN_RESET];
+        this.pins.update = port.pin[PIN_UPDATE];
+        this.pins.serpar = port.pin[PIN_SERPAR];
+
+        console.log("Connection options", options);
 
         this.setPinDefaults();
 
-        this.connection = new this.port.SPI({
+        this.connection = new port.SPI({
             clockSpeed: options.clockSpeed,
             cpol: options.cpol
         });
     }
 
     setPinDefaults() {
-        this.pin.ce.high();		// CE (enabled low)
-        this.pin.reset.high();	// RESET (enabled low)
-        this.pin.update.high();	// UPDATE (enabled low)
-        this.pin.serpar.low();	// SER/PAR (low for SERIAL, high for PARALLEL)
-    }
-
-    loadDefaultConfig() {
-        this.sendData(DEFAULT_SWITCH_CONFIG);
+        this.pins.ce.high();		// CE (enabled low)
+        this.pins.reset.high();	    // RESET (enabled low)
+        this.pins.update.high();	// UPDATE (enabled low)
+        this.pins.serpar.low();	    // SER/PAR (low for SERIAL, high for PARALLEL)
     }
 
     /**
@@ -65,15 +68,16 @@ export class SpiConnection {
      * @param {Buffer} buffer
      */
     sendData(buffer) {
-        this.pin.ce.low();
-        this.connection.transfer(this.convertData(buffer), (error, rx) => {
-            this.pin.update.low();
-            this.pin.update.high();
-            this.pin.ce.high();
+        this.pins.ce.low();
+        this.connection.transfer(buffer, (error, rx) => {
+            if (error) {
+                console.log('ERROR in SpiConnection.sendData()', error);
+            }
+            this.pins.update.low();
+            this.pins.update.high();
+            this.pins.ce.high();
         });
     }
-
-
 
     /**
      * Disables outputs 'true'/1 ... Enables outputs 'false'/0
@@ -82,9 +86,8 @@ export class SpiConnection {
      * @param {Boolean} hold
      */
     outputStandby(hold) {
-        this.pin.reset.output(!hold);
+        this.pins.reset.output(!hold);
         this.reset = hold;
     }
-
 
 }

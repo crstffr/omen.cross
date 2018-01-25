@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var socketio = require('feathers-socketio');
 var error = require('feathers-errors/handler');
 
-var publicPath = path.resolve(__dirname, '../public') + '/';
+var publicPath = path.resolve(__dirname, '../../public') + '/';
 
 module.exports = feathers()
     .use(compress())

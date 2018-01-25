@@ -13,7 +13,7 @@ class ConnectionService {
             text: {
                 title: 'Lost Connection',
                 body: `Unable to communicate with your Omen Cross. Ensure the device is powered 
-                       on and your wireless network is configured correctly.`
+                       on and your network is configured correctly.`
             }
         });
 

@@ -47,8 +47,6 @@ export default class Modal {
                 closeable: this.closeable
             });
 
-            console.log(this.ctrl);
-
             this.ctrl.text = defaults(this.ctrl.text, opts.text, {
                 title: 'Message',
                 confirm: 'Okay',

@@ -1,18 +1,25 @@
-var ip = require('ip');
-var app = require('./app');
-var services = require('./services');
-var settings = require('./settings');
+import ip from 'ip';
+import app from './app/app';
+import settings from './settings';
+import debounce from './util/debounce';
+import patchService from './app/patchService';
+import dataServices from './app/dataServices';
 
 app.listen(settings.port);
 
 console.log('Webserver at http://' + settings.ip + ':' + settings.port);
 
-app.use('groups', services['groups']);
-app.use('devices', services['devices']);
-app.use('patches', services['patches']);
-app.use('current', services['current']);
+app.use('groups', dataServices['groups']);
+app.use('devices', dataServices['devices']);
+app.use('library', dataServices['library']);
 
-var groups = app.service('groups');
-var devices = app.service('devices');
-var patches = app.service('patches');
-var current = app.service('current');
+app.emit('ready');
+
+let deviceService = app.service('devices');
+let onDeviceChange = debounce(() => {
+    patchService.update();
+});
+deviceService.on('patched', onDeviceChange);
+deviceService.on('updated', onDeviceChange);
+deviceService.on('removed', onDeviceChange);
+

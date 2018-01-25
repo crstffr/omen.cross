@@ -22,6 +22,7 @@
     "body-parser": "1.18.2",
     "compression": "1.7.1",
     "cors": "2.8.4",
+    "deep-equal": "1.0.1",
     "feathers": "2.0.3",
     "feathers-client": "1.9.0",
     "feathers-errors": "2.9.2",
